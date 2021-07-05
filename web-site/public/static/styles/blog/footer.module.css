@@ -1,0 +1,49 @@
+/*尾部样式*/
+
+.footer{
+	margin-top:20px;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	height: 130px;
+	background-color: #1C2327;
+	color: white;
+	bottom: 0px;
+}
+
+.footer ul{
+	padding-top:20px
+}
+.footer ul li{
+	list-style: none;
+	text-decoration: none; 
+	text-align: center;
+	font-size: 13px;
+	line-height: 15px;
+	display: inline;
+	margin-left: 50px;
+}
+.footer a{
+	color: black;
+}
+.footer p{
+	text-align: center;
+	font-size: 13px;
+	margin-top: 10px;
+	padding-bottom: 20px;
+}
+.wx_pub{
+	margin: 10px 10px;
+	float: left;
+	width: 100px;
+	height: 100px;
+}
+.record{
+	float: left;
+	padding-top:50px;
+	width: 500px;
+	margin-left: 50px;
+}
+.record a{
+	color: white;
+}

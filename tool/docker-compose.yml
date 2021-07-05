@@ -1,0 +1,73 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:5.7'
+    restart: always
+    container_name: mysql
+    privileged: true
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_conf:/etc/mysql/conf.d
+    networks:
+      - net
+  rabbitmq:
+    image: 'rabbitmq'
+    restart: always
+    privileged: true
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=demo
+      - RABBITMQ_DEFAULT_PASS=demo
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - net
+  redis:
+    image: 'redis'
+    restart: always
+    container_name: redis
+    privileged: true
+    ports:
+      - 6379:6379
+    command: 
+      redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+      # - redis_conf:/etc/redis
+    networks:
+      - net
+  zookeeper:
+    image: 'zookeeper:3.6.2'
+    restart: always
+    privileged: true
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - net
+
+volumes:
+  redis_data:
+    driver: local
+  redis_conf:
+    driver: local
+  rabbitmq_data:
+    driver: local
+  mysql_data:
+    driver: local
+  mysql_conf:
+    driver: local
+  zk_data:
+    driver: local
+
+networks:
+  net:
+    external: false

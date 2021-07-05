@@ -1,0 +1,11 @@
+.left{
+    width: 70%;
+    float: left;
+}
+
+.right{
+    width: 25%;
+    float: left;
+    margin-left: 20px;
+    min-height: 500px;
+}

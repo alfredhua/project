@@ -1,0 +1,24 @@
+plugins {
+    id "java"
+    id 'org.springframework.boot' version '2.4.1'
+}
+
+group(project.name)
+version("$projectVersion")
+
+dependencies {
+
+    api project(':auth:auth-server')
+    api project(':blog:blog-server')
+    api project(':website:website-server')
+    api project(':message:message-server')
+
+    implementation("javax.validation:validation-api:$validationVersion")
+    implementation ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'com.web.WebSiteApplication')
+    }
+}

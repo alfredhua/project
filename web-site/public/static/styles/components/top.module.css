@@ -1,0 +1,66 @@
+
+.header{
+  height: 110px;
+  width: 100%;
+  position:fixed;
+  z-index: 1000000;
+}
+.container{
+  width: 1170px;
+  margin-right:auto;
+  margin-left:auto;
+  height: 110px;
+}
+
+.logo_container{
+  width: 20%;
+  height: 110px;
+  float: left;
+  padding-left: 15px;
+}
+
+.logo_container a{
+  display: block;
+  font-size: 30px;
+  text-align: center;
+  line-height: 100px;
+  color: white;
+}
+
+.menu{
+  height: 80px;
+  padding-top:30px;
+  width:75%;
+  float:right;
+}
+
+.logo{
+  float:left;
+  height: 46px;
+  margin-top: 32px;
+}
+
+ .container ul{
+  list-style: none;
+  float: right;
+  margin-top: 22px;
+}
+
+.container li{
+  display: inline;
+  line-height: 40px;
+  margin-left: 50px;
+  font-size:16px;
+ 
+} 
+.container li a{
+  color: white;
+  padding-bottom:8px; 
+}
+
+.active{
+  font-weight:600;
+  border-bottom:3px solid #000;
+}
+
+

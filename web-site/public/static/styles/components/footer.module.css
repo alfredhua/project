@@ -1,0 +1,30 @@
+/*尾部样式*/
+.footer{
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	bottom: 0px;
+	background-color: #F6F6F6;
+	position: relative;
+}
+.footer ul{
+	padding-top:20px
+}
+.footer ul li{
+	list-style: none;
+	text-decoration: none; 
+	text-align: center;
+	font-size: 13px;
+	line-height: 15px;
+	display: inline;
+	margin-left: 50px;
+}
+.footer a{
+	color: black;
+}
+.footer p{
+	text-align: center;
+	font-size: 13px;
+	margin-top: 10px;
+	padding-bottom: 20px;
+}

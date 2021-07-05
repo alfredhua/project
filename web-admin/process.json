@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "admin",
+      "script": "./lib/index.js",
+      "exec_mode": "fork",
+      "exec_interpreter": "./node_modules/.bin/babel-node",
+      "env" : {
+        "NODE_ENV": "prod"
+     }
+    }
+  ]
+}

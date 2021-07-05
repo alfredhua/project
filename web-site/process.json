@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "web",
+      "script": "server.js",
+      "exec_mode": "fork",
+      "exec_interpreter": "./node_modules/.bin/babel-node",
+      "env" : {
+        "NODE_ENV": "prod"
+     }
+    }
+  ]
+}

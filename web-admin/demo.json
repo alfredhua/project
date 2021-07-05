@@ -1,0 +1,9 @@
+{
+    "server":"http://127.0.0.1:4001",
+    "admin-server":"http://adminserver.alfredhua.com",
+    "app_key":"123456",
+    "region":"",
+    "accessKeyId":"",
+    "accessKeySecret":"",
+    "bucketName":""
+}

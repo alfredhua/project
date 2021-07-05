@@ -1,0 +1,96 @@
+.contains{
+  padding-top:110px;
+} 
+
+.container{
+    margin: auto;
+    width: 1170px;
+    text-align: left;
+  }
+
+  .container_detail{
+    margin: auto;
+    width: 800px;
+    text-align: left;
+  }
+
+  .container_detail .title{
+    line-height:50px;
+    padding-top:20px;
+    text-align: center;
+    
+  }
+  .container_detail .title h1{
+    font-size:36px;
+  }
+  .container .info{
+    line-height:30px;
+    padding-top:20px;
+    width: 40%;
+    float: left;
+  }
+  .container .info h1{
+    font-size:36px;
+  }
+
+  .container  .info a{
+    color: #1DA193;
+    font-size: 20px;
+  }
+  .container .publicize{
+    float: left;
+    width: 50%;
+    margin-left: 5%
+  }
+  
+
+  .container .card-container > .ant-tabs-card > .ant-tabs-content {
+    height: 120px;
+    margin-top: -16px;
+  }
+  
+  .container .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+    background: #fff;
+    padding: 16px;
+  }
+  
+  .container .card-container > .ant-tabs-card > .ant-tabs-bar {
+    border-color: #fff;
+  }
+  
+  .container .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+    border-color: transparent;
+    background: transparent;
+  }
+  
+  .container .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+    border-color: #fff;
+    background: #fff;
+  }
+
+  .container img{
+    width: 100%;
+  }
+  .container .title{
+    line-height:50px;
+    padding-top:20px;
+    text-align: center;
+    
+  }
+  .container .title h1{
+    font-size:36px;
+  }
+  
+  .container .produce{
+    float: left;
+    width: 240
+  }
+  .more{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .container .more a{
+    color: #1DA193;
+    font-size: 20px;
+  }
+ 

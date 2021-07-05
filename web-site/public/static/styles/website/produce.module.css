@@ -1,0 +1,51 @@
+
+.container{
+  margin: auto;
+  width: 1170px;
+  text-align: center;
+}
+
+.list{
+  min-height: 500px;
+}
+
+.container img{
+  width: 100%;
+}
+.container .title{
+  line-height:50px;
+  padding-top:20px;
+  text-align: center;
+  
+}
+.container .title h1{
+  font-size:36px;
+}
+
+.container .produce{
+  float: left;
+  width: 240
+}
+.more{
+  text-align: center;
+  margin-bottom: 30px;
+}
+.container .more a{
+  color: #1DA193;
+  font-size: 20px;
+}
+
+/* .container .ant-carousel {
+  width: 160px;
+}
+.container .ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.container .ant-carousel .slick-slide h3 {
+  color: #fff;
+} */

@@ -1,0 +1,18 @@
+{
+  "presets": ["@babel/env", "@babel/react"],
+  "plugins": [
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-transform-runtime",
+    [
+      "babel-plugin-module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "@server": "./lib"
+        }
+      }
+      
+    ]
+  ]
+}
+

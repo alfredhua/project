@@ -1,0 +1,32 @@
+.contains{
+  padding-top:110px;
+} 
+
+.container{
+  margin: auto;
+  width: 1170px;
+  text-align: center;
+}
+.container .title{
+  line-height:50px;
+  padding-top:20px;
+}
+.container .title h1{
+  font-size:36px;
+}
+
+.container .produce{
+  float: left;
+  width: 240
+}
+.container  .more{
+  margin-top: 30px;
+}
+.container  .more a{
+  color: #1DA193;
+  font-size: 20px;
+}
+
+.news{
+  text-align: left;
+}

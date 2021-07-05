@@ -1,0 +1,11 @@
+.banner{
+  height: 100%;
+}
+
+.banner img{
+  width:100%;
+}
+.banner  img{
+  display: inline!important;
+}
+
