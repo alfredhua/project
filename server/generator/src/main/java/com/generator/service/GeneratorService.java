@@ -27,9 +27,7 @@ public abstract class GeneratorService {
 
     public static String serverPath=outPath+MODULE+"/" +MODULE+"-server/src/main/java/"+PACKAGE_NAME.replace(".", "/");
 
-//    public void init(){
-//        Velocity.init(properties);
-//    }
+    public static String adminPath=outPath+"web/web-admin/src/main/java/com/admin/controller/";
 
     public abstract String getEntityVm();
 
@@ -78,7 +76,7 @@ public abstract class GeneratorService {
                     //不存在就创建
                     file.createNewFile();
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                            new FileOutputStream(file)));
+                            new FileOutputStream(file),"UTF-8"));
                     template.merge(context, writer);
                     writer.close();
                 }else{

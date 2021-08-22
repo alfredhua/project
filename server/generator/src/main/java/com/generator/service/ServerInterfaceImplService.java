@@ -13,12 +13,12 @@ public class ServerInterfaceImplService extends GeneratorService {
 
     @Override
     public String getEntityVm() {
-        return "/template/server/service/impl/service_impl.vm";
+        return "/template/server/service/service_impl.vm";
     }
 
     @Override
     public String getEntityName(String entity) {
-        return serverPath+"/service/impl/"+entity+"Service.java";
+        return serverPath+"/service/"+entity+"Service.java";
     }
 
     @Override

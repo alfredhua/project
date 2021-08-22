@@ -1,6 +1,6 @@
-package ${packageName}.dao.mapper;
-import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
-import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+package ${packageName}.dao;
+import ${packageName}.dto.entity.${entityName};
+import ${packageName}.dto.${entityName}ListReqDTO;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -9,12 +9,12 @@ import org.apache.ibatis.jdbc.SQL;
  */
 public class ${entityName}Provider {
 
-    public String create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO) {
+    public String create${entityName}(${entityName} ${firstLowerEntityName}) {
         return new SQL() {
             {
                 INSERT_INTO("${database}.${tableName}");
             #foreach($columnEntity in $columnEntityList)
-    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpTableColumnName}() != null) {
+    if (${firstLowerEntityName}.get${columnEntity.humpTableColumnName}() != null) {
                     VALUES("$columnEntity.tableColumnName", "$columnEntity.tableColumnName");
                 }
             #end
@@ -22,12 +22,12 @@ public class ${entityName}Provider {
         }.toString();
     }
 
-    public String update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO) {
+    public String update${entityName}(${entityName} ${firstLowerEntityName}) {
         return new SQL() {
             {
                 UPDATE("${database}.${tableName}");
             #foreach($columnEntity in $columnEntityList)
-    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpTableColumnName}() != null) {
+    if (${firstLowerEntityName}.get${columnEntity.humpTableColumnName}() != null) {
                     SET("$columnEntity.tableColumnName = #{$columnEntity.tableColumnName}");
                 }
                 #end

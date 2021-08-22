@@ -9,15 +9,15 @@ import java.util.Map;
 
 import static com.generator.util.PropertiesUtil.*;
 
-public class ServerControllerService extends GeneratorService{
+public class ServerControllerUrlService extends GeneratorService{
     @Override
     public String getEntityVm() {
-        return "/template/admin/controller/controller.vm";
+        return "/template/admin/controller/url.vm";
     }
 
     @Override
     public String getEntityName(String entity) {
-        return adminPath+"/"+PACKAGE+"/"+entity+"Controller.java";
+        return adminPath+"/"+PACKAGE+"/"+MODULE+"Url.java";
     }
 
     @Override
@@ -30,6 +30,7 @@ public class ServerControllerService extends GeneratorService{
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("upperEntityName", tableName.replace(TABLE_PREFIX,"").toUpperCase());
+        context.put("", tableName.replace(TABLE_PREFIX,"").toUpperCase());
         context.put("module", StringUtil.toUpperCaseFirstOne(MODULE));
         context.put("lowerModule",MODULE);
         context.put("columnEntityList", listColumnEntity);

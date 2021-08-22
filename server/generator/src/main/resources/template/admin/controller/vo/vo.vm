@@ -1,10 +1,10 @@
-package com.admin.controller.${package};
+package com.admin.controller.${package}.vo;
 
 import lombok.Getter;
 import lombok.Setter;
 #if(!$isListReq)
 #else
-import com.common.request.PageRequest;
+import com.common.domain.request.PageRequest;
 #end
 /**
  * @auth guozhenhua

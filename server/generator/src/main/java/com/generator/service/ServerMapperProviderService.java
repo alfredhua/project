@@ -19,7 +19,7 @@ public class ServerMapperProviderService extends GeneratorService{
 
     @Override
     public String getEntityName(String entity) {
-        return serverPath+"/dao/"+entity+"MapperProvider.java";
+        return serverPath+"/dao/"+entity+"Provider.java";
     }
 
     @Override

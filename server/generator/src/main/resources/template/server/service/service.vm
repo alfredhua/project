@@ -1,37 +1,36 @@
-package ${packageName}.api;
+package ${packageName}.service;
 
-import com.common.response.JSONPageResult;
-import com.common.response.JSONResult;
-import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
-import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
-import ${packageName}.dto.${lowerEntityName}.${entityName}RespDTO;
+import ${packageName}.dto.${entityName}ListReqDTO;
+import ${packageName}.dto.${entityName}ReqDTO;
+import ${packageName}.dto.entity.${entityName};
+import com.common.domain.response.PageBean;
 
 /**
  * @auth guozhenhua
  * @date ${time}
  */
-public interface ${entityName}Service {
+public interface ${entityName}Interface {
 
     /**
      * 创建
      * @param ${firstLowerEntityName}ReqDTO
      * @return
      */
-    JSONResult create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+    void create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
 
     /**
     * 获取
     * @param id
     * @return
     */
-    JSONResult getById(long id);
+    ${entityName} getById(long id);
 
     /**
      * 更新
      * @param ${firstLowerEntityName}ReqDTO
      * @return
      */
-    JSONResult update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+    boolean update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
 
 
     /**
@@ -39,7 +38,7 @@ public interface ${entityName}Service {
      * @param id
      * @return
      */
-    JSONResult del${entityName}(long id);
+     boolean del${entityName}(long id);
 
 
     /**
@@ -47,5 +46,5 @@ public interface ${entityName}Service {
      * @param ${firstLowerEntityName}ListReqDTO
      * @return
      */
-    JSONPageResult<${entityName}RespDTO> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
+    PageBean<${entityName}> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
 }

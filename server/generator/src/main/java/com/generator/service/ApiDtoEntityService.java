@@ -23,7 +23,7 @@ public class ApiDtoEntityService extends GeneratorService{
     @Override
     public VelocityContext getVelocityContext(Map<String, Object> map, List list) {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", PACKAGE_NAME);
+        context.put("packageName", PACKAGE_NAME+".dto.entity");
         context.put("entityName", map.get("entity_name").toString());
         context.put("entity", "entity");
         context.put("columnEntityList", list);

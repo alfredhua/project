@@ -10,7 +10,6 @@ import java.io.File;
 public class VelocityUtil {
 
 
-
 //    public static void apiBuild(String buildApi_vm)throws Exception{
 //        VelocityContext context1 = new VelocityContext();
 //        context1.put("module", MODULE);

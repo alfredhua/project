@@ -1,4 +1,4 @@
-package ${packageName}.${entity};
+package ${packageName};
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,8 +54,7 @@ private String $columnEntity.tableColumnName;
     #end
 private Integer $columnEntity.tableColumnName;
   #elseif("bigint"==$columnEntity.type)
-       #if("" != $columnEntity.comment)
-    /**
+       #if("" != $columnEntity.comment) /**
      * $columnEntity.comment
      */
     #end

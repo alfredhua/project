@@ -28,19 +28,20 @@ public class Generator {
 		List<Map<String, Object>> tablesList = QueryUtil.getTables(jdbcEntity, DATABASE, TABLE_PREFIX);
 
 		//生成项目结构
-//		MybatisGeneratorUtil.generator(jdbcEntity);
-
 		new ApiDtoEntityService().generator(jdbcEntity,tablesList);
+		new ApiDtoService().generator(jdbcEntity,tablesList);
+		new ApiDtoReqListService().generator(jdbcEntity,tablesList);
 
 		new ServerMapperService().generator(jdbcEntity,tablesList);
 		new ServerMapperProviderService().generator(jdbcEntity,tablesList);
 
-		new ServerInterfaceService().generator(jdbcEntity,tablesList);
+//		new ServerInterfaceService().generator(jdbcEntity,tablesList);
 		new ServerInterfaceImplService().generator(jdbcEntity,tablesList);
 
 		new ServerControllerService().generator(jdbcEntity,tablesList);
 		new ServerControllerVoService().generator(jdbcEntity,tablesList);
 		new ServerControllerRespVoService().generator(jdbcEntity,tablesList);
+		new ServerControllerListReqVoService().generator(jdbcEntity,tablesList);
 	}
 
 }

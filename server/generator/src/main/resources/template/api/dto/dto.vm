@@ -1,11 +1,11 @@
-package ${packageName}.${type}.${loseEntityName};
+package ${packageName};
 
 import lombok.Getter;
 import lombok.Setter;
 #if(!$isListReq)
 import ${packageName}.entity.${entityName};
 #else
-import com.common.request.PageRequest;
+import com.common.domain.request.PageRequest;
 #end
 /**
  * @auth guozhenhua
