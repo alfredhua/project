@@ -1,20 +1,21 @@
 version: '3'
 services:
-  mysql:
-    image: 'mysql:5.7'
-    restart: always
-    container_name: mysql
-    privileged: true
-    environment:
-      TZ: Asia/Shanghai
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - '3306:3306'
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_conf:/etc/mysql/conf.d
-    networks:
-      - net
+  # mysql:
+  #   image: 'mysql:5.7'
+  #   restart: always
+  #   container_name: mysql
+  #   privileged: true
+  #   environment:
+  #     TZ: Asia/Shanghai
+  #     MYSQL_ROOT_PASSWORD: root
+  #   ports:
+  #     - '3306:3306'
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #     - mysql_conf:/etc/mysql/conf.d
+  #   networks:
+  #     net:
+          # ipv4_address: 172.18.0.09
   rabbitmq:
     image: 'rabbitmq'
     restart: always
@@ -29,7 +30,8 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - net
+       net:
+        ipv4_address: 172.18.0.10
   redis:
     image: 'redis'
     restart: always
@@ -43,7 +45,8 @@ services:
       - redis_data:/data
       # - redis_conf:/etc/redis
     networks:
-      - net
+      net:
+        ipv4_address: 172.18.0.11
   zookeeper:
     image: 'zookeeper:3.6.2'
     restart: always
@@ -52,7 +55,30 @@ services:
     ports:
       - 2181:2181
     networks:
-      - net
+      net:
+        ipv4_address: 172.18.0.12
+  grafana:
+    image: grafana/grafana 
+    restart: always
+    privileged: true
+    container_name: grafana
+    ports: 
+      - 3000:3000
+    networks:
+      net: 
+        ipv4_address: 172.18.0.13
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    privileged: true
+    container_name: prometheus
+    ports: 
+      - 9090:9090
+    volumes: 
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      net: 
+        ipv4_address: 172.18.0.14  
 
 volumes:
   redis_data:
@@ -70,4 +96,8 @@ volumes:
 
 networks:
   net:
-    external: false
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
