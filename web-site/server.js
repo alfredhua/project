@@ -1,5 +1,6 @@
 import Koa from 'koa';
 const next = require('next');
+
 const dev = process.env.NODE_ENV !== "prod";
 
 const app = next({ dev });

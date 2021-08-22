@@ -1,8 +1,8 @@
 var data={};
-console.log(process.env.NODE_ENV,"------------")
+
 function load_config(){
   console.log(process.env.NODE_ENV,"------------")
-  if( process.env.NODE_ENV==='dev'){
+  if( process.env.NODE_ENV==='development'){
     data=require(`./config.dev.json`);
   }else{
     data=require(`./config.prod.json`);
