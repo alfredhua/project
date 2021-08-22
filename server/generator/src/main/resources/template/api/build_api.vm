@@ -1,0 +1,15 @@
+group '${module}'
+version "$projectVersion"
+
+jar {
+    baseName = '${module}-api'
+    version = "$projectVersion"
+    enabled=true
+}
+
+dependencies {
+
+    compile project(":common:utils")
+
+}
+

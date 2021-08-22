@@ -3,6 +3,10 @@ rootProject.name = 'server'
 include ':common:common-spring-boot-starter'
 project(':common:common-spring-boot-starter').projectDir = file('common/common-spring-boot-starter')
 
+
+include ':generator'
+project(':generator').projectDir = file('generator')
+
 include ':auth:auth-api'
 project(':auth:auth-api').projectDir = file('auth/auth-api')
 include ':auth:auth-server'

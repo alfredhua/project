@@ -1,0 +1,93 @@
+package com.web.controller.${lowerModule};
+
+import com.common.aoplog.Logging;
+import com.web.controller.common.BaseController;
+import com.common.response.JSONPageResult;
+import com.common.response.JSONResult;
+import com.common.util.BeanCopyUtil;
+import com.web.controller.${lowerModule}.vo.${lowerEntityName}.${entityName}CreateReqVO;
+import com.web.controller.${lowerModule}.vo.${lowerEntityName}.${entityName}ListReqVO;
+import com.web.controller.${lowerModule}.vo.${lowerEntityName}.${entityName}RespVO;
+import com.web.controller.${lowerModule}.vo.${lowerEntityName}.${entityName}UpdateReqVO;
+import ${packageName}.api.${entityName}Service;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
+import org.apache.dubbo.config.annotation.Reference;
+
+/**
+ * @auth guozhenhua
+ * @date ${ctime}
+ */
+@RestController
+@RequestMapping(value = ${module}Url.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+public class ${entityName}Controller  extends BaseController {
+
+
+    @Reference
+    ${entityName}Service ${firstLowerEntityName}Service;
+
+    /**
+     * 创建
+     */
+    @RequestMapping(value = ${module}Url.CREATE_${upperEntityName})
+    @Logging
+    public JSONResult create${entityName}(@RequestBody @Valid ${entityName}CreateReqVO ${firstLowerEntityName}CreateRequest, BindingResult result){
+        if (result.hasErrors()){
+            return validateParams(result);
+        }
+        ${entityName}ReqDTO ${firstLowerEntityName}ReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}CreateRequest, ${entityName}ReqDTO.class);
+        JSONResult jsonResult = ${firstLowerEntityName}Service.create${entityName}(${firstLowerEntityName}ReqDTO);
+        return resultReturn(jsonResult);
+    }
+
+    /**
+     * 更新
+     */
+    @RequestMapping(value = ${module}Url.UPDATE_${upperEntityName})
+    @Logging
+    public JSONResult update${entityName}(@RequestBody @Valid ${entityName}UpdateReqVO ${firstLowerEntityName}UpdateRequest, BindingResult result){
+        if (result.hasErrors()){
+            return validateParams(result);
+        }
+        ${entityName}ReqDTO ${firstLowerEntityName}ReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}UpdateRequest, ${entityName}ReqDTO.class);
+        JSONResult jsonResult = ${firstLowerEntityName}Service.update${entityName}(${firstLowerEntityName}ReqDTO);
+        return resultReturn(jsonResult);
+    }
+
+    /**
+     * 获取
+     */
+    @RequestMapping(value = ${module}Url.GET_${upperEntityName})
+    @Logging
+    public JSONResult<${entityName}RespVO> getById(@PathVariable("id") long id){
+        return resultReturn(${firstLowerEntityName}Service.getById(id),${entityName}RespVO.class);
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping(value = ${module}Url.DEL_${upperEntityName})
+    @Logging
+    public JSONResult del${entityName}(@PathVariable("id") long id){
+        return ${firstLowerEntityName}Service.del${entityName}(id);
+    }
+
+    /**
+     * 列表
+     */
+    @RequestMapping(value = ${module}Url.LIST_${upperEntityName})
+    @Logging
+    public JSONPageResult<${entityName}RespVO> list${entityName}ByPage(@RequestBody @Valid ${entityName}ListReqVO ${firstLowerEntityName}ListReq, BindingResult result){
+        if (result.hasErrors()){
+            return validatePageParams(result);
+        }
+        ${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}ListReq, ${entityName}ListReqDTO.class);
+        JSONPageResult jsonResult = ${firstLowerEntityName}Service.list${entityName}ByPage(${firstLowerEntityName}ListReqDTO);
+        return pageResultReturn(jsonResult,${entityName}RespVO.class);
+    }
+
+}

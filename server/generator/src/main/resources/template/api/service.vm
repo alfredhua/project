@@ -1,0 +1,51 @@
+package ${packageName}.api;
+
+import com.common.response.JSONPageResult;
+import com.common.response.JSONResult;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}RespDTO;
+
+/**
+ * @auth guozhenhua
+ * @date ${time}
+ */
+public interface ${entityName}Service {
+
+    /**
+     * 创建
+     * @param ${firstLowerEntityName}ReqDTO
+     * @return
+     */
+    JSONResult create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+
+    /**
+    * 获取
+    * @param id
+    * @return
+    */
+    JSONResult getById(long id);
+
+    /**
+     * 更新
+     * @param ${firstLowerEntityName}ReqDTO
+     * @return
+     */
+    JSONResult update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    JSONResult del${entityName}(long id);
+
+
+    /**
+     * 列表
+     * @param ${firstLowerEntityName}ListReqDTO
+     * @return
+     */
+    JSONPageResult<${entityName}RespDTO> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
+}

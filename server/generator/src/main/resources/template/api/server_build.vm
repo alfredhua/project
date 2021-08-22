@@ -1,0 +1,23 @@
+group '${module}-server'
+version "$projectVersion"
+
+
+jar {
+    baseName='${module}-server'
+    version = "$projectVersion"
+    enabled=true
+}
+
+
+dependencies {
+    compile project(":${module}:${module}-api")
+    compile project(":dictionary:dictionary-api")
+
+    compile("org.mybatis:mybatis:$mybatisVersion")
+    compile("org.mybatis:mybatis-spring:$mybatisSpringVersion")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
+    compile("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
+    compile("mysql:mysql-connector-java:$mysqlConnectorVersion")
+
+}
+

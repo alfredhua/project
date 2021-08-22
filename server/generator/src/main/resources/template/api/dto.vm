@@ -1,0 +1,22 @@
+package ${packageName}.${type}.${loseEntityName};
+
+import lombok.Getter;
+import lombok.Setter;
+#if(!$isListReq)
+import ${packageName}.entity.${entityName};
+#else
+import com.common.request.PageRequest;
+#end
+/**
+ * @auth guozhenhua
+ * @date ${time}
+ */
+@Getter
+@Setter
+#if(!$isListReq)
+public class ${entityNameDTO} extends ${entityName} {
+}
+#else
+public class ${entityNameDTO} extends PageRequest {
+}
+#end

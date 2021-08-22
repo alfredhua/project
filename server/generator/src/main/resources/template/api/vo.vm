@@ -1,0 +1,21 @@
+package com.web.controller.${module}.vo.${loseEntityName};
+
+import lombok.Getter;
+import lombok.Setter;
+#if(!$isListReq)
+#else
+import com.common.request.PageRequest;
+#end
+/**
+ * @auth guozhenhua
+ * @date ${time}
+ */
+@Getter
+@Setter
+#if(!$isListReq)
+public class ${entityNameVO} {
+}
+#else
+public class ${entityNameVO} extends PageRequest {
+}
+#end

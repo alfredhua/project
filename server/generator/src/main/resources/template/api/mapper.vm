@@ -1,0 +1,35 @@
+package ${packageName}.dao.mapper;
+
+import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}RespDTO;
+import org.apache.ibatis.annotations.*;
+import java.util.List;
+
+/**
+ * @auth guozhenhua
+ * @date ${ctime}
+ */
+public interface ${entityName}Mapper {
+
+    String sql=" #foreach($columnEntity in $columnEntityList)`${columnEntity.tableColumnName}`#if($foreach.count<$columnEntityList.size()),#end#end ";
+
+    @Select("select "+sql+" from ${database}.${tableName} where id=#{id} and `del`=0 ")
+    ${entityName}RespDTO getById(@Param("id") long id);
+
+    @Update("update ${database}.${tableName} set `del`=1 where id=#{id} and `del`=0 ")
+    boolean del${entityName}(@Param("id") long id);
+
+    @UpdateProvider(type = ${entityName}Provider.class, method = "create${entityName}")
+    void create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+
+    @UpdateProvider(type = ${entityName}Provider.class, method = "update${entityName}")
+    boolean update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
+
+    @SelectProvider(type = ${entityName}Provider.class, method = "list${entityName}ByPage")
+    List<${entityName}RespDTO> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
+
+    @SelectProvider(type = ${entityName}Provider.class, method = "list${entityName}Count")
+    Integer list${entityName}Count(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
+
+}

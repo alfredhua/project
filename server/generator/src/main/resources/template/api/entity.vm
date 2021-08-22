@@ -1,0 +1,75 @@
+package ${packageName}.${entity};
+
+import lombok.Getter;
+import lombok.Setter;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * @auth guozhenhua
+ * @date ${time}
+ */
+@Getter
+@Setter
+public class ${entityName}  implements Serializable {
+
+  #foreach($columnEntity in $columnEntityList)
+   #if("varchar"==$columnEntity.type)
+    #if("" != $columnEntity.comment)
+
+  /**
+   * $columnEntity.comment
+   */
+   #end
+private String $columnEntity.tableColumnName;
+  #elseif("datetime"==$columnEntity.type)
+     #if("" != $columnEntity.comment)
+
+    /**
+    * $columnEntity.comment
+    */
+   #end
+private LocalDateTime $columnEntity.tableColumnName;
+  #elseif("date"==$columnEntity.type)
+     #if("" != $columnEntity.comment)
+
+  /**
+   * $columnEntity.comment
+   */
+   #end
+private LocalDate $columnEntity.tableColumnName;
+    #elseif("text"==$columnEntity.type)
+       #if("" != $columnEntity.comment)
+
+   /**
+    * $columnEntity.comment
+    */
+    #end
+private String $columnEntity.tableColumnName;
+    #elseif("int"==$columnEntity.type)
+       #if("" != $columnEntity.comment)
+    /**
+     * $columnEntity.comment
+     */
+    #end
+private Integer $columnEntity.tableColumnName;
+  #elseif("bigint"==$columnEntity.type)
+       #if("" != $columnEntity.comment)
+    /**
+     * $columnEntity.comment
+     */
+    #end
+private Long $columnEntity.tableColumnName;
+    #elseif("tinyint"==$columnEntity.type)
+       #if("" != $columnEntity.comment)
+
+    /**
+     * $columnEntity.comment
+     */
+     #end
+
+    private Short $columnEntity.tableColumnName;
+     #end
+  #end
+
+}
