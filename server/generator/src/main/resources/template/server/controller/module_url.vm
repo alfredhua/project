@@ -10,7 +10,7 @@ public class ${module}Url {
   static final String BASE_URL = "/v1/${lowerModule}";
 
   #foreach($entity in $entityList)
-static final String CREATE_$entity.up_entity_name = "/create-$entity.lower_entity_name";
+  static final String CREATE_$entity.up_entity_name = "/create-$entity.lower_entity_name";
   static final String UPDATE_$entity.up_entity_name = "/update-$entity.lower_entity_name";
   static final String GET_$entity.up_entity_name = "/get-$entity.lower_entity_name/{id}";
   static final String DEL_$entity.up_entity_name = "/del-$entity.lower_entity_name/{id}";

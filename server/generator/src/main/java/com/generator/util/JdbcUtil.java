@@ -27,7 +27,6 @@ public class JdbcUtil {
 			Class.forName(jdbcEntity.getJdbcDriver());
 			conn = DriverManager.getConnection(
 					jdbcEntity.getJdbcUrl(), jdbcEntity.getJdbcUseName(), jdbcEntity.getJdbcPassword());
-			System.out.println("数据库连接成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,10 +29,6 @@ public class PropertiesFileUtil {
         this.resourceBundle = ResourceBundle.getBundle(name);
     }
 
-    public static synchronized PropertiesFileUtil getInstance() {
-        return getInstance(NAME);
-    }
-
     public static synchronized PropertiesFileUtil getInstance(String name) {
         PropertiesFileUtil conf = configMap.get(name);
         if (null == conf) {
