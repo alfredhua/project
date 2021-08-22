@@ -86,12 +86,10 @@ export default class ArticleList extends React.Component{
       }, {
         title: '类型',
         dataIndex: 'type',
-        width: 150,
         align: 'center'
       }, {
         title: '状态',
         dataIndex: 'status',
-        width: 150,
         align: 'center',
         render:(status)=>{
             if(status===0){
@@ -106,7 +104,6 @@ export default class ArticleList extends React.Component{
       },{
         title: '是否转载',
         dataIndex: 'reprint',
-        width: 150,
         align: 'center',
         render:(reprint)=>{
             return reprint?"是":"否";
@@ -115,19 +112,16 @@ export default class ArticleList extends React.Component{
         title: '点击数',
         dataIndex: 'click_count',
         key: 'click_count',
-        width: 150,
         align: 'center'
       },{
         title: '赞赏数',
         dataIndex: 'like_count',
         key: 'like_count',
-        width: 150,
         align: 'center'
       }, {
         title: '创建时间',
         dataIndex: 'create_time',
         key: 'create_time',
-        width: 150,
         align: 'center',
         render:(create_time)=>{
           return time_formate(create_time)

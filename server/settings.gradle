@@ -28,10 +28,10 @@ project(':website:website-api').projectDir = file('website/website-api')
 include ':website:website-server'
 project(':website:website-server').projectDir = file('website/website-server')
 
-include ':blog:blog-api'
-project(':blog:blog-api').projectDir = file('blog/blog-api')
-include ':blog:blog-server'
-project(':blog:blog-server').projectDir = file('blog/blog-server')
+//include ':blog:blog-api'
+//project(':blog:blog-api').projectDir = file('blog/blog-api')
+//include ':blog:blog-server'
+//project(':blog:blog-server').projectDir = file('blog/blog-server')
 
 include ':web:web-admin'
 project(':web:web-admin').projectDir = file('web/web-admin')
