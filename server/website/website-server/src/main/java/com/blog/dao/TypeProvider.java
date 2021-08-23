@@ -13,7 +13,7 @@ public class TypeProvider {
     public String createType(Type type) {
         return new SQL() {
             {
-                INSERT_INTO("m_blog.blog_type");
+                INSERT_INTO("m_website.blog_type");
                 if (type.getId() != null) {
                     VALUES("id", "#{id}");
                 }
@@ -45,7 +45,7 @@ public class TypeProvider {
     public String updateType(Type type) {
         return new SQL() {
             {
-                UPDATE("m_blog.blog_type");
+                UPDATE("m_website.blog_type");
                 if (type.getId() != null) {
                     SET("id = #{id}");
                 }
@@ -79,7 +79,7 @@ public class TypeProvider {
         return new SQL() {
             {
                 SELECT("id,type,name,status,introduce,create_time,update_time,del");
-                FROM("m_blog.blog_type");
+                FROM("m_website.blog_type");
                 WHERE("del = 0");
                 WHERE("status = 1");
                 if (typeListReqDTO.getType() != null) {
@@ -94,7 +94,7 @@ public class TypeProvider {
         return new SQL() {
             {
                 SELECT("ifnull(count(id),0)");
-                FROM("m_blog.blog_type");
+                FROM("m_website.blog_type");
                 WHERE("del = 0");
                 WHERE("status = 1");
                 if (typeListReqDTO.getType() != null) {

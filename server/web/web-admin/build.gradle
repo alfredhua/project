@@ -12,13 +12,11 @@ dependencies {
     api project(':develop:develop-server')
     api project(':message:message-server')
     api project(':website:website-server')
-    api project(':blog:blog-server')
 
     implementation("javax.validation:validation-api:$validationVersion")
     implementation("org.hibernate:hibernate-validator:5.4.1.Final")
 
     implementation ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-    implementation ("io.hicrometer:micrometer-registry-prometheus:1.7.2")
     implementation ("io.springfox:springfox-swagger2:2.9.2")
     implementation ("io.springfox:springfox-swagger-ui:2.9.2")
 

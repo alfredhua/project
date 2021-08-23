@@ -14,10 +14,10 @@ public interface TypeMapper {
 
     String sql=" `id`,`type`,`name`,`status`,`introduce`,`create_time`,`update_time`,`del` ";
 
-    @Select("select "+sql+" from m_blog.blog_type where id=#{id} and `del`=0 ")
+    @Select("select "+sql+" from m_website.blog_type where id=#{id} and `del`=0 ")
     Type getById(@Param("id") long id);
 
-    @Update("update m_blog.blog_type set `del`=1 where id=#{id} and `del`=0 ")
+    @Update("update m_website.blog_type set `del`=1 where id=#{id} and `del`=0 ")
     boolean delType(@Param("id") long id);
 
     @UpdateProvider(type = TypeProvider.class, method = "createType")
@@ -32,16 +32,16 @@ public interface TypeMapper {
     @SelectProvider(type = TypeProvider.class, method = "listTypeCount")
     Integer listTypeCount(TypeListReqDTO typeListReqDTO);
 
-    @Select("select "+sql+" from m_blog.blog_type where `del`=0")
+    @Select("select "+sql+" from m_website.blog_type where `del`=0")
     List<Type> listAll();
 
-    @Select("select "+sql+" from m_blog.blog_type where `del`=0 and status=1 ")
+    @Select("select "+sql+" from m_website.blog_type where `del`=0 and status=1 ")
     List<Type> listAllActive();
 
-    @Update("update  m_blog.blog_type set status=#{status} where `del`=0 and id=#{id}")
+    @Update("update  m_website.blog_type set status=#{status} where `del`=0 and id=#{id}")
     boolean updateTypeStatus(@Param("id") long id, @Param("status") int status);
 
-    @Select("select "+sql+" from m_blog.blog_type where type=#{type} and `del`=0 ")
+    @Select("select "+sql+" from m_website.blog_type where type=#{type} and `del`=0 ")
     Type getByType(@Param("type") String type);
 
 }

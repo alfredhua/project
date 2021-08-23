@@ -13,7 +13,7 @@ public class ArticleProvider {
     public String createArticle(Article articleReqDTO) {
         return new SQL() {
             {
-                INSERT_INTO("m_blog.blog_article");
+                INSERT_INTO("m_website.blog_article");
                 if (articleReqDTO.getId() != null) {
                     VALUES("id", "#{id}");
                 }
@@ -56,7 +56,7 @@ public class ArticleProvider {
     public String updateArticle(Article articleReqDTO) {
         return new SQL() {
             {
-                UPDATE("m_blog.blog_article");
+                UPDATE("m_website.blog_article");
                 if (articleReqDTO.getTitle() != null) {
                     SET("title = #{title}");
                 }
@@ -90,7 +90,7 @@ public class ArticleProvider {
         return new SQL() {
             {
                 SELECT("id,title,type,click_count,pic_url,introduce,like_count,reprint,content_type,context,status,create_time,update_time,del");
-                FROM("m_blog.blog_article");
+                FROM("m_website.blog_article");
                 WHERE( "del=0");
                 if (articleListReqDTO.getStatus()!=null){
                     WHERE( "status=#{status}");
@@ -108,7 +108,7 @@ public class ArticleProvider {
         return new SQL() {
             {
                 SELECT("ifnull(count(id),0)");
-                FROM("m_blog.blog_article");
+                FROM("m_website.blog_article");
                 WHERE( "del=0");
                 WHERE( "status=1");
                 if (articleListReqDTO.getType()!=null&&!"all".equals(articleListReqDTO.getType())){
