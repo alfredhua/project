@@ -16,7 +16,7 @@ public class ServerControllerListReqVoService extends GeneratorService{
 
     @Override
     public String getEntityName(String entity) {
-        return adminPath+"/"+PACKAGE+"/vo/"+entity+"ListReqVO.java";
+        return adminPath+"/"+PACKAGE+"/vo/"+entity+"/"+entity+"ListReqVO.java";
     }
 
     @Override

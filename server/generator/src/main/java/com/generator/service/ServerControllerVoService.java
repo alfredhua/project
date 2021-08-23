@@ -1,7 +1,6 @@
 package com.generator.service;
 
 import com.generator.util.DateTimeUtil;
-import com.generator.util.StringUtil;
 import org.apache.velocity.VelocityContext;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class ServerControllerVoService extends GeneratorService{
 
     @Override
     public String getEntityName(String entity) {
-        return adminPath+"/"+PACKAGE+"/vo/"+entity+"ReqVO.java";
+        return adminPath+"/"+PACKAGE+"/vo/"+entity+"/"+entity+"ReqVO.java";
     }
 
     @Override
@@ -32,6 +31,7 @@ public class ServerControllerVoService extends GeneratorService{
         context.put("entityNameVO", name);
         context.put("module",MODULE);
         context.put("time",DateTimeUtil.getDate());
+        context.put("columnEntityList", listColumnEntity);
         context.put("lowerModule",MODULE.toLowerCase());
         return context;
     }

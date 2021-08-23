@@ -8,7 +8,6 @@ import com.generator.util.VelocityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
 import java.io.BufferedWriter;
@@ -69,14 +68,13 @@ public abstract class GeneratorService {
             properties.setProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH, getPath(inputVmFilePath));
             VelocityEngine velocityEngine = new VelocityEngine(properties);
             String file1 = getFile(inputVmFilePath);
-            Template template = velocityEngine.getTemplate(file1);
+            Template template = velocityEngine.getTemplate(file1,"utf-8");
             File file = new File(outputFilePath);
-            if(!file.isDirectory()) {
                 if (!file.exists()){
                     //不存在就创建
                     file.createNewFile();
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                            new FileOutputStream(file),"UTF-8"));
+                            new FileOutputStream(file),"utf-8"));
                     template.merge(context, writer);
                     writer.close();
                 }else{
@@ -89,7 +87,6 @@ public abstract class GeneratorService {
                         template.merge(context, writer);
                         writer.close();
                     }
-                }
             }
         } catch (Exception ex) {
             throw ex;

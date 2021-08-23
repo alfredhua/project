@@ -25,7 +25,7 @@ public class Generator {
 		JDBCEntity jdbcEntity= JDBCEntity.getInstance().setJdbcDriver(JDBC_DRIVER).
 				setJdbcPassword(JDBC_PASSWORD). setJdbcUseName(JDBC_USERNAME).
 				setJdbcUrl(JDBC_URL);
-		List<Map<String, Object>> tablesList = QueryUtil.getTables(jdbcEntity, DATABASE, TABLE_PREFIX);
+		List<Map<String, Object>> tablesList = QueryUtil.getTables(jdbcEntity, DATABASE, TABLE_NAME);
 
 		//生成项目结构
 		new ApiDtoEntityService().generator(jdbcEntity,tablesList);

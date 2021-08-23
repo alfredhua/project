@@ -16,7 +16,7 @@ public class ServerControllerRespVoService extends GeneratorService{
 
     @Override
     public String getEntityName(String entity) {
-        return adminPath+"/"+PACKAGE+"/vo/"+entity+"RespVO.java";
+        return adminPath+"/"+PACKAGE+"/vo/"+entity+"/"+entity+"RespVO.java";
     }
 
     @Override
@@ -30,6 +30,7 @@ public class ServerControllerRespVoService extends GeneratorService{
         context.put("loseEntityName", entityName.toLowerCase());
         context.put("entityNameVO", name);
         context.put("module",MODULE);
+        context.put("columnEntityList", listColumnEntity);
         context.put("time",DateTimeUtil.getDate());
         context.put("lowerModule",MODULE.toLowerCase());
         return context;
