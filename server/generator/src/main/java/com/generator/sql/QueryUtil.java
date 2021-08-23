@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.generator.util.PropertiesUtil.TABLE_PREFIX;
 import static com.generator.util.StringUtil.lineToHump;
 
 /**
@@ -34,12 +35,11 @@ public class QueryUtil {
         JdbcUtil jdbcUtil = new JdbcUtil(jdbcEntity);
         List<Map> result = jdbcUtil.selectByParams(SQLUtil.selectTableNameSql(database,tablePrefix ), null);
         for (Map map : result) {
-            System.out.println(map.get("TABLE_NAME"));
+            String tableName=ObjectUtils.toString(map.get("TABLE_NAME"));
             table = new HashMap<>(2);
-            table.put("table_name", map.get("TABLE_NAME"));
-            String preEntityName=ObjectUtils.toString(map.get("TABLE_NAME"));
-            String entityName = preEntityName.substring(tablePrefix.length());
-            table.put("entity_name", lineToHump(entityName));
+            table.put("table_name",tableName);
+            String preEntityName = tableName.replace(TABLE_PREFIX, "");
+            table.put("entity_name", lineToHump(preEntityName));
             tables.add(table);
         }
         jdbcUtil.release();

@@ -14,7 +14,7 @@ public class SQLUtil {
      * @return
      */
     public static String selectTableNameSql(String database, String tablePrefix){
-        return "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + database + "' AND table_name LIKE '" + tablePrefix + "_%';";
+        return "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + database + "' AND table_name LIKE '" + tablePrefix + "%';";
     }
 
     public static  String selectColumnSql(String database,String tableName){
