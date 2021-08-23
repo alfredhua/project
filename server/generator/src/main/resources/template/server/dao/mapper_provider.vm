@@ -15,7 +15,7 @@ public class ${entityName}Provider {
                 INSERT_INTO("${database}.${tableName}");
             #foreach($columnEntity in $columnEntityList)
     if (${firstLowerEntityName}.get${columnEntity.humpTableColumnName}() != null) {
-                    VALUES("$columnEntity.tableColumnName", "$columnEntity.tableColumnName");
+                    VALUES("$columnEntity.tableColumnName", "#{$columnEntity.tableColumnName}");
                 }
             #end
             }

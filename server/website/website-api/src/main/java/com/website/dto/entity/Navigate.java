@@ -19,9 +19,14 @@ public class Navigate  implements Serializable {
     private Long id;
              
   /**
-   * 分类
+   * 一级分类
    */
-   private String type;
+   private String one_type;
+           
+  /**
+   * 二级分类
+   */
+   private String two_type;
            
   /**
    * 标题
@@ -32,6 +37,11 @@ public class Navigate  implements Serializable {
    * 封面url
    */
    private String icon;
+           
+  /**
+   * 链接
+   */
+   private String href;
            
   /**
    * 简介

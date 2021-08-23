@@ -1,21 +1,20 @@
 package com.admin.controller.website;
 
 import com.admin.controller.common.AdminBaseController;
-import com.admin.controller.website.vo.Navigate.NavigateListReqVO;
-import com.admin.controller.website.vo.Navigate.NavigateReqVO;
-import com.admin.controller.website.vo.Navigate.NavigateRespVO;
-import com.common.domain.response.PageBean;
-import com.common.util.BeanCopyUtil;
-import com.website.dto.NavigateListReqDTO;
-import com.website.dto.NavigateReqDTO;
 import com.website.dto.entity.Navigate;
 import com.website.service.NavigateService;
+import com.common.util.BeanCopyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.admin.controller.website.vo.Navigate.NavigateReqVO;
+import com.admin.controller.website.vo.Navigate.NavigateListReqVO;
+import com.admin.controller.website.vo.Navigate.NavigateRespVO;
+import com.website.dto.NavigateListReqDTO;
+import com.website.dto.NavigateReqDTO;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import com.common.domain.response.PageBean;
 
 /**
  * @auth guozhenhua
@@ -43,7 +42,7 @@ public class NavigateController extends AdminBaseController{
     @RequestMapping(value = "/update")
     public void updateNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO, BindingResult result){
         Navigate navigate = BeanCopyUtil.copy(navigateReqVO, NavigateReqDTO.class);
-        navigateService.updateNavigate(navigate);
+         navigateService.updateNavigate(navigate);
     }
 
     /**

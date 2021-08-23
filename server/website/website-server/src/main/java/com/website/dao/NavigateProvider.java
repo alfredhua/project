@@ -14,30 +14,36 @@ public class NavigateProvider {
             {
                 INSERT_INTO("m_website.site_navigate");
                 if (navigate.getId() != null) {
-                    VALUES("id", "id");
+                    VALUES("id", "#{id}");
                 }
-                if (navigate.getType() != null) {
-                    VALUES("type", "type");
+                if (navigate.getOne_type() != null) {
+                    VALUES("one_type", "#{one_type}");
+                }
+                if (navigate.getTwo_type() != null) {
+                    VALUES("two_type", "#{two_type}");
                 }
                 if (navigate.getTitle() != null) {
-                    VALUES("title", "title");
+                    VALUES("title", "#{title}");
                 }
                 if (navigate.getIcon() != null) {
-                    VALUES("icon", "icon");
+                    VALUES("icon", "#{icon}");
+                }
+                if (navigate.getHref() != null) {
+                    VALUES("href", "#{href}");
                 }
                 if (navigate.getIntroduce() != null) {
-                    VALUES("introduce", "introduce");
+                    VALUES("introduce", "#{introduce}");
                 }
                 if (navigate.getCreate_time() != null) {
-                    VALUES("create_time", "create_time");
+                    VALUES("create_time", "#{create_time}");
                 }
                 if (navigate.getUpdate_time() != null) {
-                    VALUES("update_time", "update_time");
+                    VALUES("update_time", "#{update_time}");
                 }
                 if (navigate.getDel() != null) {
-                    VALUES("del", "del");
+                    VALUES("del", "#{del}");
                 }
-            }
+                        }
         }.toString();
     }
 
@@ -48,28 +54,34 @@ public class NavigateProvider {
                 if (navigate.getId() != null) {
                     SET("id = #{id}");
                 }
-                if (navigate.getType() != null) {
-                    SET("type = #{type}");
+                    if (navigate.getOne_type() != null) {
+                    SET("one_type = #{one_type}");
                 }
-                if (navigate.getTitle() != null) {
+                    if (navigate.getTwo_type() != null) {
+                    SET("two_type = #{two_type}");
+                }
+                    if (navigate.getTitle() != null) {
                     SET("title = #{title}");
                 }
-                if (navigate.getIcon() != null) {
+                    if (navigate.getIcon() != null) {
                     SET("icon = #{icon}");
                 }
-                if (navigate.getIntroduce() != null) {
+                    if (navigate.getHref() != null) {
+                    SET("href = #{href}");
+                }
+                    if (navigate.getIntroduce() != null) {
                     SET("introduce = #{introduce}");
                 }
-                if (navigate.getCreate_time() != null) {
+                    if (navigate.getCreate_time() != null) {
                     SET("create_time = #{create_time}");
                 }
-                if (navigate.getUpdate_time() != null) {
+                    if (navigate.getUpdate_time() != null) {
                     SET("update_time = #{update_time}");
                 }
-                if (navigate.getDel() != null) {
+                    if (navigate.getDel() != null) {
                     SET("del = #{del}");
                 }
-                WHERE("id= #{id}");
+                                WHERE("id= #{id}");
             }
         }.toString();
     }
@@ -77,7 +89,7 @@ public class NavigateProvider {
     public String listNavigateByPage(NavigateListReqDTO navigateListReqDTO) {
         return new SQL() {
             {
-                SELECT("id,type,title,icon,introduce,create_time,update_time,del");
+                SELECT("id,one_type,two_type,title,icon,href,introduce,create_time,update_time,del");
                 FROM("m_website.site_navigate");
                 WHERE("del=0");
                 ORDER_BY("create_time desc limit "+navigateListReqDTO.getOffset()+" ,"+navigateListReqDTO.getPage_size());

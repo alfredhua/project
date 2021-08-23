@@ -1,10 +1,9 @@
 package com.website.dao;
 
-import com.website.dto.NavigateListReqDTO;
 import com.website.dto.entity.Navigate;
 import org.apache.ibatis.annotations.*;
-
 import java.util.List;
+import com.website.dto.NavigateListReqDTO;
 
 /**
  * @auth guozhenhua
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public interface NavigateMapper {
 
-    String sql=" `id`,`type`,`title`,`icon`,`introduce`,`create_time`,`update_time`,`del` ";
+    String sql=" `id`,`one_type`,`two_type`,`title`,`icon`,`href`,`introduce`,`create_time`,`update_time`,`del` ";
 
     @Select("select "+sql+" from m_website.site_navigate where id=#{id} and `del`=0 ")
     Navigate getById(@Param("id") long id);

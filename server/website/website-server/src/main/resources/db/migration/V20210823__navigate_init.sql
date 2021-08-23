@@ -1,8 +1,10 @@
 CREATE TABLE m_website.site_navigate (
   `id` bigint(20) NOT NULL COMMENT 'id号',
-  `type` varchar(20) NOT NULL COMMENT '分类',
+  `one_type` varchar(20) NOT NULL COMMENT '一级分类',
+  `two_type` varchar(20) NOT NULL COMMENT '二级分类',
   `title` varchar(150) NOT NULL COMMENT '标题',
   `icon` varchar(200) NOT NULL COMMENT '封面url',
+  `href` varchar(200) NOT NULL COMMENT '链接',
   `introduce` varchar(200) NOT NULL COMMENT '简介',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
