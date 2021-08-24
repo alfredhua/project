@@ -51,6 +51,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "sass": "^1.38.1",
     "style-loader": "^1.0.0",
     "svg-captcha": "^1.4.0",
     "uuid": "^3.3.2",
