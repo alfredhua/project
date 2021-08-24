@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head'
 import Top from '@components/navigate/Top'
+import { Card } from 'antd';
 
 class Index extends React.Component{
   render(){
@@ -18,8 +19,12 @@ class Index extends React.Component{
           "精通多种技术：redis,docker,dubbo,swagger,swagger2,grpc,zk,zookeeper,产品,自动化测试,工具,设计模式,并发等"} />
         </Head>
         <Top></Top>
-
-    
+        <Card style={{paddingTop:80}}>
+          <p>Card content</p>
+          <p>Card content</p>
+          <p>Card content</p>
+        </Card>
+      
       </div>
     )
   }
