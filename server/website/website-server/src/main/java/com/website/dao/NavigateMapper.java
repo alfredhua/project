@@ -1,9 +1,10 @@
 package com.website.dao;
 
+import com.website.dto.NavigateListReqDTO;
 import com.website.dto.entity.Navigate;
 import org.apache.ibatis.annotations.*;
+
 import java.util.List;
-import com.website.dto.NavigateListReqDTO;
 
 /**
  * @auth guozhenhua
@@ -30,5 +31,8 @@ public interface NavigateMapper {
 
     @SelectProvider(type = NavigateProvider.class, method = "listNavigateCount")
     Integer listNavigateCount(NavigateListReqDTO navigateListReqDTO);
+
+    @Select("select "+sql+" from m_website.site_navigate where one_type=#{one_type} and two_type=#{two_type} and `del`=0 ")
+    List<Navigate> listNavigateByType(NavigateListReqDTO navigateListReqDTO);
 
 }

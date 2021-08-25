@@ -9,6 +9,7 @@ import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @auth guozhenhua
@@ -45,5 +46,9 @@ public class NavigateService {
         pageBean.setList(navigateMapper.listNavigateByPage(navigateListReqDTO));
         pageBean.setTotal(navigateMapper.listNavigateCount(navigateListReqDTO));
         return pageBean;
+    }
+
+    public List<Navigate> listNavigateByType(NavigateListReqDTO navigateListReqDTO) {
+        return navigateMapper.listNavigateByType(navigateListReqDTO);
     }
 }
