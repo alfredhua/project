@@ -1,25 +1,31 @@
 .contains{
     padding: 80px 20px 0px 20px;
-    width: 80%;
+    width: 90%;
     position: relative;
     margin: 0px auto;
 
     .left{
         float: left;
-        width: 50%;
+        width: 8%;
+        // min-width: 125px;
         position: absolute;
         height: 100%;
-        background-color: red;
+        height: 1000px;
+        // background-color: red;
     }
 
     .right{
-        // float: left;
-        width: 50%;
-        // height: 100%;
+        float: right;
+        width: 91%;
         height: 100px;
-        padding-left: 50px;
-        position: absolute;
         background-color: black;
 
+        .card{
+            &:first-child{
+                margin-top: 0px;
+            }
+            margin-top: 20px;
+        }
     }
+
 }

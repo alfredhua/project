@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Top from '@components/navigate/Top'
 import { Card } from 'antd';
 import styles from '@css/navigate/index.module.scss';
-import { Affix, Button } from 'antd';
+import { Affix, Anchor } from 'antd';
+const { Link } = Anchor;
 
 class Index extends React.Component{
   render(){
@@ -18,21 +19,33 @@ class Index extends React.Component{
         <div className={styles.contains}>
 
           <div className={styles.left}>
-            <Affix>
-              <Button type="primary">
-                Affix top
-              </Button>
+            <Affix offsetTop={80} >
+               <Anchor >
+                  <Link href="#components-anchor-demo-basic" title="Basic demo" />
+                  <Link href="#components-anchor-demo-basic" title="Basic demo" />
+                  <Link href="#components-anchor-demo-basic" title="Basic demo" />
+                  <Link href="#components-anchor-demo-basic" title="Basic demo" />
+               </Anchor>
             </Affix>
           </div>
 
           <div className={styles.right}>
-            {/* <div className={styles.card} >
+            <div className={styles.card} >
                 <Card tabList={[{key:'1',tab: '常用工具'}]}>
                   <p>Card content</p>
                   <p>Card content</p>
                   <p>Card content</p>
                 </Card>
-            </div> */}
+            </div> 
+
+            <div className={styles.card} >
+                <Card tabList={[{key:'1',tab: '常用工具'}]}>
+                  <p>Card content</p>
+                  <p>Card content</p>
+                  <p>Card content</p>
+                </Card>
+            </div> 
+
           </div>
         </div>
       </div>
