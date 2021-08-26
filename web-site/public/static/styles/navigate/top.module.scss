@@ -24,7 +24,7 @@
     .nav{
       float: left;
       color: white!important;
-      width: 25%;
+      width: 40%;
       font-size: 16px;
       .icon_more{
         display: inline-block;
@@ -108,7 +108,7 @@
 
     .search{
       float: left;
-      width: 50%;
+      width: 30%;
       font-size: 16px;
       line-height: 50px;
       margin-left: 10px;
@@ -134,10 +134,11 @@
         }
 
         .dropdown_content{
-          // display: none;
+          display: none;
           position: absolute;
           background-color: #1C2327;
           margin-top: 50px;
+        
           // width: 201px;
           // height: 100px;   
           .click_icons{
@@ -154,7 +155,6 @@
               position:fixed;
               display: inline-flex;
             }
-            // background-color: red;
             img{
               width: 50px;
               height: 50px;
@@ -162,8 +162,9 @@
               line-height: 50px;
             }
           }   
-
-        
+        }
+       .display{
+            display: block;
         }
 
         input{
@@ -171,9 +172,10 @@
           border-radius: 50px;
           width: 80%;
           border: none;
-          background-color: #999999;
-          color: black;
+          background-color: #333333;
+          color: white;
           outline: none;
+          padding-left: 20px;
 
         }
 

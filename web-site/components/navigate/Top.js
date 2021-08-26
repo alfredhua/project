@@ -16,7 +16,7 @@ export default class Top extends React.Component{
 
   state={
     icon_down:false,
-    default_icon:'baidu'
+    default_icon:'baidu',
   }
 
   componentDidMount(){
@@ -26,20 +26,56 @@ export default class Top extends React.Component{
         default_icon:search
       })
     }
-  }
-  get_search_icon = ()=>{
-    // console.log(this.state)
-    return <img src={icons[this.state.default_icon]}></img>
+    document.addEventListener('click', this.hide_search);
   }
 
-  change_search=()=>{
+  hide_search = () => {
+    this.setState({
+      icon_down: false
+    })
+}
+
+  pre_changed=(e)=>{
     const {icon_down} =this.state;
     this.setState({icon_down:!icon_down})
+    e.nativeEvent.stopImmediatePropagation();
+  }
+
+  change=(item)=>{
+    localStorage.setItem('search',item);
+    this.setState({default_icon:item})
+  }
+  
+  search=(e)=>{
+    const {default_icon} =this.state;
+    var value=e.target.value;
+    if(e.nativeEvent.keyCode === 13){
+      if(default_icon==='baidu'){
+        window.open('https://baidu.com/s?wd='+value,'_blank');
+        return;
+      }
+      if( default_icon === 'google' ){
+         window.open('https://www.google.com.hk/search?q='+value,'_blank');
+        return;
+      }
+      if( default_icon === 'stack' ){
+        window.open('https://stackoverflow.com/search?q='+value,'_blank');
+        return;
+      }
+      if( default_icon === 'github' ){
+        window.open('https://github.com/search?q='+value,'_blank');
+        return;
+      }
+      if( default_icon === 'bing' ){
+        window.open('https://www.bing.com/search?q='+value,'_blank');
+        return;
+      }
+    }
   }
 
   render(){
 
-    const { icon_down,default_icon } =this.state;
+    const { icon_down,default_icon,display } =this.state;
 
     return (
             <div className={styles.container}>
@@ -76,25 +112,22 @@ export default class Top extends React.Component{
                 <div className={styles.search}>
                   <div className={styles.input}>
 
-                    <div className={styles.images} onClick={()=>{this.change_search()}}>
-                      {this.get_search_icon()}
+                    <div className={styles.images} onClick={(e)=>{this.pre_changed(e)}}>
+                      <img src={icons[this.state.default_icon]}></img>
                       <div className={styles.icons}>{icon_down?<CaretUpOutlined/>:<CaretDownOutlined />}</div>
                     </div>
 
-                   <div className={styles.dropdown_content}>
+                   <div className={icon_down?classNames(styles.dropdown_content,styles.display):classNames(styles.dropdown_content)}>
                      {search_infos.map(item=>{
-                       return <div className={styles.click_icons} key={item}> 
+                       return <div className={styles.click_icons} key={item} onClick={()=>{this.change(item)}}> 
                          <img src={icons[item]}></img>
                          <div className={styles.check}>
                            {item==default_icon? <CheckCircleTwoTone twoToneColor="#1890ff" />: null}
-                           
                          </div>
                        </div>
                      })}
                     </div> 
-
-                    <input type='text'></input>
-
+                      <input type='text' onKeyPress={e=>{this.search(e)}} ></input>
                   </div>
                 </div>
              </div>

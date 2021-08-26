@@ -21,7 +21,7 @@ class Index extends React.Component{
           <div className={styles.left}>
             <Affix offsetTop={80} >
                <Anchor >
-                  <Link href="#components-anchor-demo-basic" title="Basic demo" />
+                  <Link href="#tool" title="常用工具" />
                   <Link href="#components-anchor-demo-basic" title="Basic demo" />
                   <Link href="#components-anchor-demo-basic" title="Basic demo" />
                   <Link href="#components-anchor-demo-basic" title="Basic demo" />
