@@ -100,12 +100,21 @@ export default class Top extends React.Component{
                         <span className={styles.menu_name}>精美博文</span>
                         <span className={styles.icon_more}></span>
                         <div className={styles.dropdown_content}>
-                          <p>git</p>
-                          <p>菜鸟教程</p>
+                          <p><a href="/blog/article/all" target="_blank">玩玩技术</a></p>
+                          <p><a href="/blog/other/produce" target="_blank">说说产品</a></p>
+                          <p><a href="/blog/other/tool" target="_blank">搞搞工具</a></p>
+                          <p><a href="/blog/other/ms" target="_blank">说说面试</a></p>
                         </div>
                     </div> 
                     <div className={classNames(styles.dropdown,styles.settings)}>
                       <span className={styles.menu_name}><a href="/blog/other/ms">网站建设</a></span>
+                      <span className={styles.icon_more}></span>
+                        <div className={styles.dropdown_content}>
+                          <p><a href="/website/home" target="_blank">首页</a></p>
+                          <p><a href="/website/produce/list" target="_blank">产品服务</a></p>
+                          <p><a href="/website/news" target="_blank">新闻动态</a></p>
+                          <p><a href="/website/notice/list" target="_blank">网站公告</a></p>
+                        </div>
                     </div> 
                 </div>
                 {/* 搜索 */}
