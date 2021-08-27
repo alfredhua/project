@@ -15,8 +15,8 @@ export default class Footer extends React.Component{
                 <span>关注公众号</span>
              </div> */}
              <div className={styles.record}>
-                <div>码农阿华的博客 © alfredhua@aliyun.com</div>
-                <span>CopyRight©2019 版权所有 码农阿华 <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">京ICP备19044364号</a></span>
+                <div>ALFRED的博客 © alfredhua@aliyun.com</div>
+                <span>CopyRight©2019 版权所有 ALFRED <a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">京ICP备19044364号</a></span>
              </div>
         </div>
     </footer>

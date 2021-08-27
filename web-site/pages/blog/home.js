@@ -36,19 +36,19 @@ class home extends React.Component{
                  <div className={styles.card}>   {/* 1920x1080 ----> 16:9 */}
                       <a href="/blog/article/all"><div className={styles.imgbox}>
                           <span>技术专区</span>
-                          <img alt="码农阿华博客" src={'/static/images/blog/card-2.png'}/>
+                          <img alt="ALFRED博客" src={'/static/images/blog/card-2.png'}/>
                       </div></a>
                   </div>
                   <div className={classNames(styles.card,styles.card_info)}>
                       <a href="/blog/other/tool"><div className={styles.imgbox}>
                           <span>工具专区</span>
-                          <img alt="码农阿华博客" src={'/static/images/blog/card-1.png'}/>
+                          <img alt="ALFRED博客" src={'/static/images/blog/card-1.png'}/>
                       </div></a>
                   </div>
                   <div className={classNames(styles.card,styles.card_info)}>
                        <a href="/blog/other/ms"><div className={styles.imgbox}>
                           <span>面试专区</span>
-                         <img alt="码农阿华博客"src={'/static/images/blog/card-3.png'}/>
+                         <img alt="ALFRED博客"src={'/static/images/blog/card-3.png'}/>
                       </div></a>
                   </div>
                   <div style={{clear:'both'}}></div>
@@ -75,7 +75,7 @@ class home extends React.Component{
               <div className={styles.right}>
                 <Card className={styles.introduce}>
                     <p className={styles.aboutme}><span>关于我</span></p>
-                    <p><span></span>码农阿华</p>
+                    <p><span></span>ALFRED</p>
                     <p><span>邮箱：</span>alfredhua@aliyun.com</p>
                     <p><span>职业：</span>全栈工程师</p>
                     <p><span>现居：</span>北京</p>

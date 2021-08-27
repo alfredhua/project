@@ -97,13 +97,13 @@ export default class Top extends React.Component{
                       <span className={styles.menu_name}><a href="/navigate/book">书籍</a></span>
                     </div>
                     <div className={classNames(styles.dropdown,styles.settings)}>
-                        <span className={styles.menu_name}>精美博文</span>
+                        <span className={styles.menu_name}>博文推荐</span>
                         <span className={styles.icon_more}></span>
                         <div className={styles.dropdown_content}>
                           <p><a href="/blog/article/all" target="_blank">玩玩技术</a></p>
                           <p><a href="/blog/other/produce" target="_blank">说说产品</a></p>
                           <p><a href="/blog/other/tool" target="_blank">搞搞工具</a></p>
-                          <p><a href="/blog/other/ms" target="_blank">说说面试</a></p>
+                          <p><a href="/blog/other/ms" target="_blank">谈谈面试</a></p>
                         </div>
                     </div> 
                     <div className={classNames(styles.dropdown,styles.settings)}>

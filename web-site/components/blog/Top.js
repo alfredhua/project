@@ -7,7 +7,7 @@ export default class Top extends React.Component{
         <div className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.logo}>
-                  <a href="/blog/home">码农阿华  |  <span>玩玩技术，说说产品</span></a>
+                  <a href="/blog/home">ALFRED  |  <span>玩玩技术，说说产品</span></a>
                 </div>
                 <div className={styles.nav}>
                     <div className={styles.dropdown}>

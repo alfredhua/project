@@ -13,7 +13,7 @@ export default class Footer extends React.Component{
             <li><a href="/">公司地址</a></li>
             <li><a href="/">关注我们</a></li>
         </ul>
-        <p>CopyRight©2019 版权所有 码农阿华 京ICP备19044364号</p>
+        <p>CopyRight©2019 版权所有 ALFRED 京ICP备19044364号</p>
     </footer>
     )
   }

@@ -32,7 +32,7 @@ class AboutUs extends React.Component{
                             <Layout>
                               <Content>
                                   <Card style={{  minHeight: 360 }}>
-                                      <p><span></span>码农阿华</p>
+                                      <p><span></span>华</p>
                                       <p><span>QQ：</span>1070242697</p>
                                       <p><span>爱好：</span>象棋，电脑，乒乓球</p>
                                       <p>学到就要教人，赚到就要给人。</p>

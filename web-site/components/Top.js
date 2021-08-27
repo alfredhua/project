@@ -55,7 +55,7 @@ export default class Top extends React.Component{
         <header style={{backgroundColor:color}} className={styles.header}>
              <div className={styles.container}>
                 <div className={styles.logo_container}>
-                   <a href="/blog/home"> 码农阿华</a> 
+                   <a href="/blog/home"> ALFRED</a> 
                 </div>
                 <div  className="menu">
                     <ul>
