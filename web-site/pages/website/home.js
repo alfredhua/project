@@ -14,6 +14,7 @@ class home extends React.Component{
 
   render(){
     const {setting,banners,produces,news,about_us,partners}=this.props;
+    console.log(setting)
     return(
       <div >
          <Top active={'HOME'} setting={setting} />

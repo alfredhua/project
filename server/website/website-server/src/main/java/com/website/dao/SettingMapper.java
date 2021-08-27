@@ -31,7 +31,7 @@ public interface SettingMapper {
     @DataAuth
     List<SettingRespDTO> listChildren(@Param("partner_id") long partner_id);
 
-    @Select("select "+sql+" from m_website.site_setting where `del`=0 and partner_id=#{partner_id}  order by ordering,create_time ")
+    @Select("select "+sql+" from m_website.site_setting where status=0 and `del`=0 and partner_id=#{partner_id}  order by ordering,create_time ")
     @DataAuth
     List<SettingRespDTO> listSettingByPartnerId(@Param("partner_id") long partner_id);
 

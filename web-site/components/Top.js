@@ -7,6 +7,7 @@ const type={
   "NEWS":"新闻动态",
   "ABOUT_US":"关于我们",
   "NOTICE":"网站公告",
+  "PARTNER":"合作伙伴"
 }
 
 
@@ -57,11 +58,13 @@ export default class Top extends React.Component{
                 <div className={styles.logo_container}>
                    <a href="/blog/home"> ALFRED</a> 
                 </div>
-                <div  className="menu">
+                <div>
                     <ul>
                       <li><a className={active==='HOME'?styles.active:null} href="/website/home">首页</a></li>
                       {setting&&setting.map((item)=>{
-                         return  <li key={item.type}><a href={url[item.type]} >{type[item.type]}</a></li>
+                          if(type[item.type]){
+                            return  <li key={item.type}><a href={url[item.type]} >{type[item.type]}</a></li>
+                          }
                       })}
                     </ul> 
                 </div>
