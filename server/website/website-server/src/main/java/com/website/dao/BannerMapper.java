@@ -36,7 +36,7 @@ public interface BannerMapper{
     @DataAuth
     Banner getBannerById(@Param("id") long id);
 
-    @Select("select "+sql+" from m_website.site_banner where type=#{type} and enable=false and del=false order by `order` desc, create_time desc")
+    @Select("select "+sql+" from m_website.site_banner where type=#{type} and enable=1 and del=0 order by `order` desc, create_time desc")
     @DataAuth
     List<Banner> listBannersByType(String type);
 
