@@ -7,7 +7,6 @@ import { Affix, Anchor } from 'antd';
 import { list_ngvigate } from '@api/navigate'
 const { Link } = Anchor;
 import LabelCard from '@components/navigate/LabelCard';
-// import Footer from '@components/navigate/Footer';
 
 class Index extends React.Component{
   render(){
@@ -68,7 +67,7 @@ class Index extends React.Component{
         <div style={{clear:'both'}}></div>
         <div className={styles.foot}>
             <Card></Card>
-          </div>
+        </div>
       </div>
     )
   }
