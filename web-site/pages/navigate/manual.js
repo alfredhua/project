@@ -1,12 +1,11 @@
 import React from 'react';
 import Head from 'next/head'
 import Top from '@components/navigate/Top'
-import { Card } from 'antd';
 import styles from '@css/navigate/index.module.scss';
 import { Affix, Anchor } from 'antd';
 import { list_ngvigate } from '@api/navigate'
-const { Link } = Anchor;
 import LabelCard from '@components/navigate/LabelCard';
+const { Link } = Anchor;
 
 class Index extends React.Component{
   render(){
@@ -23,7 +22,7 @@ class Index extends React.Component{
           <div className={styles.left}>
             <Affix offsetTop={80} >
                <Anchor >
-                  <Link title={"推荐手册"} href="#hot"></Link>
+                  <Link title={"推荐手册"} href="#hots"></Link>
                   <Link title={"前端技术"} href="#fronts"></Link>
                   <Link title={"JAVA手册"} href="#java"></Link>
                   <Link title={"Python手册"} href="#python"></Link>
@@ -32,30 +31,15 @@ class Index extends React.Component{
                </Anchor>
             </Affix>
           </div>
-        <div style={{clear:'both'}}></div>
-
-          <div className={styles.right}>
-            <div className={styles.card} >
-                <Card id="tool" tabList={[{key:'1',tab: '常用工具'}]}>
-                  <ul>
-                  {tools && tools.map(item=>{
-                    return <li key={item.id}>
-                        <img src={item.icon}/>
-                        <a href={item.href} target='_blank'>{item.title}</a>
-                    </li>
-                  })}
-                  </ul>
-                </Card>
-            </div> 
-
-            <LabelCard id="hot" title={"推荐手册"} list={hots}></LabelCard>
-            <LabelCard id="fronts" title={"前端技术"} list={fronts}></LabelCard>
-            <LabelCard id="java" title={"JAVA手册"} list={javas}></LabelCard>
-            <LabelCard id="python" title={"Python手册"} list={pythons}></LabelCard>
-            <LabelCard id="admin" title={"后端技术"} list={admins}></LabelCard>
-            <LabelCard id="mid" title={"中间件"} list={mids}></LabelCard>
+        <div className={styles.right}>
+            <LabelCard type='manual' id="hots" title={"推荐手册"} list={hots}></LabelCard>
+            <LabelCard type='manual' id="fronts" title={"前端技术"} list={fronts}></LabelCard>
+            <LabelCard type='manual'id="java" title={"JAVA手册"} list={javas}></LabelCard>
+            <LabelCard type='manual'id="python" title={"Python手册"} list={pythons}></LabelCard>
+            <LabelCard type='manual'id="admin" title={"后端技术"} list={admins}></LabelCard>
+            <LabelCard type='manual'id="mid" title={"中间件"} list={mids}></LabelCard>
           </div>
-        </div>
+          </div>
       </div>
     )
   }

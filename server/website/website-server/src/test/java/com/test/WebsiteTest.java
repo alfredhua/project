@@ -48,17 +48,13 @@ public class WebsiteTest {
     @Test
     public void readFile(){
         try {
-            String path = Thread.currentThread().getContextClassLoader().getResource("book.txt").getPath();
+            String path = Thread.currentThread().getContextClassLoader().getResource("manual.txt").getPath();
             FileReader fr = new FileReader(path);
             BufferedReader br=new BufferedReader(fr);
             String line;
             while ((line=br.readLine())!=null){
                 String[] split =line.split("\\|");
                 Navigate navigate=new Navigate();
-                navigate.setOne_type(NavigateOneTypeEnum.BOOK.getType());
-                navigate.setTwo_type(split[1]);
-                navigate.setIcon(split[2]);
-                navigate.setHref(split[3]);
                 navigate.setTitle(split[4]);
                 String introduce=null;
                 try{
@@ -67,7 +63,20 @@ public class WebsiteTest {
                     introduce=null;
                 }
                 navigate.setIntroduce(introduce);
-                navigateService.createNavigate(navigate);
+                navigateService.updateNavigate(navigate);
+//                navigate.setOne_type(NavigateOneTypeEnum.BOOK.getType());
+//                navigate.setTwo_type(split[1]);
+//                navigate.setIcon(split[2]);
+//                navigate.setHref(split[3]);
+//                navigate.setTitle(split[4]);
+//                String introduce=null;
+//                try{
+//                    introduce=split[5];
+//                }catch (Exception e){
+//                    introduce=null;
+//                }
+//                navigate.setIntroduce(introduce);
+//                navigateService.createNavigate(navigate);
             }
             br.close();
             fr.close();

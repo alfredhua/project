@@ -43,7 +43,7 @@ public class NavigateProvider {
                 if (navigate.getDel() != null) {
                     VALUES("del", "#{del}");
                 }
-                        }
+            }
         }.toString();
     }
 
@@ -54,34 +54,34 @@ public class NavigateProvider {
                 if (navigate.getId() != null) {
                     SET("id = #{id}");
                 }
-                    if (navigate.getOne_type() != null) {
+                if (navigate.getOne_type() != null) {
                     SET("one_type = #{one_type}");
                 }
-                    if (navigate.getTwo_type() != null) {
+                if (navigate.getTwo_type() != null) {
                     SET("two_type = #{two_type}");
                 }
-                    if (navigate.getTitle() != null) {
+                if (navigate.getTitle() != null) {
                     SET("title = #{title}");
                 }
-                    if (navigate.getIcon() != null) {
+                if (navigate.getIcon() != null) {
                     SET("icon = #{icon}");
                 }
-                    if (navigate.getHref() != null) {
+                if (navigate.getHref() != null) {
                     SET("href = #{href}");
                 }
-                    if (navigate.getIntroduce() != null) {
+                if (navigate.getIntroduce() != null) {
                     SET("introduce = #{introduce}");
                 }
-                    if (navigate.getCreate_time() != null) {
+                if (navigate.getCreate_time() != null) {
                     SET("create_time = #{create_time}");
                 }
-                    if (navigate.getUpdate_time() != null) {
+                if (navigate.getUpdate_time() != null) {
                     SET("update_time = #{update_time}");
                 }
-                    if (navigate.getDel() != null) {
+                if (navigate.getDel() != null) {
                     SET("del = #{del}");
                 }
-                                WHERE("id= #{id}");
+                WHERE("id= #{id}");
             }
         }.toString();
     }

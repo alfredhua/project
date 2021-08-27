@@ -52,22 +52,22 @@ class Index extends React.Component{
                 </Card>
             </div> 
 
-            <LabelCard id="techs" title={"技术社区"} list={techs}></LabelCard>
-            <LabelCard id="relaxs" title={"摸鱼专区"} list={relaxs}></LabelCard>
-            <LabelCard id="studys" title={"学习平台"} list={studys}></LabelCard>
-            <LabelCard id="dev_tools" title={"开发工具"} list={dev_tools}></LabelCard>
-            <LabelCard id="medias" title={"头部社区"} list={medias}></LabelCard>
-            <LabelCard id="resources" title={"资源推荐"} list={resources}></LabelCard>
-            <LabelCard id="pics" title={"图片专区"} list={pics}></LabelCard>
-            <LabelCard id="videos" title={"视频专区"} list={videos}></LabelCard>
-            <LabelCard id="web_tools" title={"站长工具"} list={web_tools}></LabelCard>
+            <LabelCard  id="techs" title={"技术社区"} list={techs}></LabelCard>
+            <LabelCard  id="relaxs" title={"摸鱼专区"} list={relaxs}></LabelCard>
+            <LabelCard  id="studys" title={"学习平台"} list={studys}></LabelCard>
+            <LabelCard  id="dev_tools" title={"开发工具"} list={dev_tools}></LabelCard>
+            <LabelCard  id="medias" title={"头部社区"} list={medias}></LabelCard>
+            <LabelCard  id="resources" title={"资源推荐"} list={resources}></LabelCard>
+            <LabelCard  id="pics" title={"图片专区"} list={pics}></LabelCard>
+            <LabelCard  id="videos" title={"视频专区"} list={videos}></LabelCard>
+            <LabelCard  id="web_tools" title={"站长工具"} list={web_tools}></LabelCard>
             
           </div>
         </div>
-        <div style={{clear:'both'}}></div>
+        {/* <div style={{clear:'both'}}></div>
         <div className={styles.foot}>
             <Card></Card>
-        </div>
+        </div> */}
       </div>
     )
   }

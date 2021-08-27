@@ -81,7 +81,7 @@ export default class Top extends React.Component{
             <div className={styles.container}>
                 {/* logo */}
                 <div className={styles.logo}>
-                  <a href="/"> 导航网</a>
+                  <a href="/"> ALFRED</a>
                 </div>
                 {/* 导航 */}
                 <div className={styles.nav}>
@@ -90,11 +90,11 @@ export default class Top extends React.Component{
                     </div>
 
                     <div className={styles.dropdown}>
-                      <span className={styles.menu_name}><a href="/navigate/mu">手册</a></span>
+                      <span className={styles.menu_name}><a href="/navigate/manual">手册</a></span>
                     </div>
 
                     <div className={styles.dropdown}>
-                      <span className={styles.menu_name}><a href="/">书籍</a></span>
+                      <span className={styles.menu_name}><a href="/navigate/book">书籍</a></span>
                     </div>
                     <div className={classNames(styles.dropdown,styles.settings)}>
                         <span className={styles.menu_name}>精美博文</span>
