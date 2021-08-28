@@ -5,6 +5,7 @@ import styles from '@css/navigate/index.module.scss';
 import { Affix, Anchor } from 'antd';
 import { list_ngvigate } from '@api/navigate'
 import LabelCard from '@components/navigate/LabelCard';
+import Footer  from '@components/navigate/Foot';
 const { Link } = Anchor;
 
 class Index extends React.Component{
@@ -43,7 +44,8 @@ class Index extends React.Component{
             <LabelCard type='book' id="other" title={"其它书籍"} list={others}></LabelCard>
           </div>
         </div>
-    
+        <Footer></Footer>
+
       </div>
     )
   }

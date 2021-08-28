@@ -5,8 +5,9 @@ import { Card } from 'antd';
 import styles from '@css/navigate/index.module.scss';
 import { Affix, Anchor } from 'antd';
 import { list_ngvigate } from '@api/navigate'
-const { Link } = Anchor;
 import LabelCard from '@components/navigate/LabelCard';
+import Footer  from '@components/navigate/Foot';
+const { Link } = Anchor;
 
 class Index extends React.Component{
   render(){
@@ -36,11 +37,9 @@ class Index extends React.Component{
                </Anchor>
             </Affix>
           </div>
-        <div style={{clear:'both'}}></div>
-
           <div className={styles.right}>
-            <div className={styles.card} >
-                <Card id="tool" tabList={[{key:'1',tab: '常用工具'}]}>
+            <div  id="tool" className={styles.card} >
+                <Card tabList={[{key:'1',tab: '常用工具'}]}>
                   <ul>
                   {tools && tools.map(item=>{
                     return <li key={item.id}>
@@ -64,10 +63,9 @@ class Index extends React.Component{
             
           </div>
         </div>
-        {/* <div style={{clear:'both'}}></div>
-        <div className={styles.foot}>
-            <Card></Card>
-        </div> */}
+       <div style={{clear:'both'}}></div>
+       <Footer></Footer>
+
       </div>
     )
   }

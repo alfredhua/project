@@ -17,6 +17,7 @@ export default class Top extends React.Component{
   state={
     icon_down:false,
     default_icon:'baidu',
+    value:''
   }
 
   componentDidMount(){
@@ -50,6 +51,7 @@ export default class Top extends React.Component{
     const {default_icon} =this.state;
     var value=e.target.value;
     if(e.nativeEvent.keyCode === 13){
+      this.setState({value:''})
       if(default_icon==='baidu'){
         window.open('https://baidu.com/s?wd='+value,'_blank');
         return;
@@ -136,7 +138,7 @@ export default class Top extends React.Component{
                        </div>
                      })}
                     </div> 
-                      <input type='text' onKeyPress={e=>{this.search(e)}} ></input>
+                      <input type='text' value={this.state.value} onKeyPress={e=>{this.search(e)}} onChange={(e)=>{this.setState({value:e.target.value})}} ></input>
                   </div>
                 </div>
              </div>

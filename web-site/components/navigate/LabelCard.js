@@ -17,7 +17,7 @@ export default class LabelCard extends React.Component{
     }
 
     render(){
-        const {list,title,id,type}=this.props;
+        const {list,title,id }=this.props;
 
         return (<div id={id} className={styles.card} >
                 <Card tabList={[{key:'1',tab: title}]}>
