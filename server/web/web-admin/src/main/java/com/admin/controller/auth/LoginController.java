@@ -33,13 +33,10 @@ public class LoginController extends AdminBaseController {
     @Autowired
     LoginService loginService;
 
-    @Autowired
-    RedisUtils redisUtils;
-
     @ApiOperation(value="登录")
     @RequestMapping(value = AuthUrl.LOGIN,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public LoginRespVo login(@RequestBody @Valid LoginReqVo loginRequestVo, BindingResult result)throws Exception{
-        String s = redisUtils.objectGet(AuthConstant.ADMIN_CAPTCHA.getKey() + loginRequestVo.getVerify().toLowerCase());
+        String s = RedisUtils.objectGet(AuthConstant.ADMIN_CAPTCHA.getKey() + loginRequestVo.getVerify().toLowerCase());
         if (!loginRequestVo.getVerify().equalsIgnoreCase(s)){
             throw ResultException.error(SysErrorCodeEnum.VERIFY_ERROR);
         }
@@ -51,16 +48,16 @@ public class LoginController extends AdminBaseController {
     @ApiOperation(value="检查是否登录")
     @RequestMapping(value = AuthUrl.CHECK_LOGIN,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public void checkLogin(@RequestBody  @Valid LoginCheckReqVo loginCheckReqVo, BindingResult result){
-        LoginAdminRespDTO admin = redisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + loginCheckReqVo.getToken());
+        LoginAdminRespDTO admin = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + loginCheckReqVo.getToken());
         if (!ObjectUtils.isEmpty(admin)){
-            redisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginCheckReqVo.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), admin);
+            RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginCheckReqVo.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), admin);
         }
     }
 
     @ApiOperation(value="登出")
     @RequestMapping(value = AuthUrl.LOGOUT,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public void logout(){
-        redisUtils.del(AuthConstant.ADMIN_INFO.getKey()+getToken());
+        RedisUtils.del(AuthConstant.ADMIN_INFO.getKey()+getToken());
     }
 
 }

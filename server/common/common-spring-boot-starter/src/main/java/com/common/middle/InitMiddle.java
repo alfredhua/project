@@ -6,6 +6,7 @@ import com.common.middle.mq.MqSendClientUtil;
 import com.common.middle.redis.RedisLockUtils;
 import com.common.middle.redis.RedisUtils;
 import com.common.middle.zk.ZkUtils;
+import com.common.util.EnvUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.redisson.Redisson;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
@@ -27,17 +29,17 @@ import static com.common.middle.redis.RedisConfig.createRedisTemplate;
 @Slf4j
 @Configuration
 public class InitMiddle {
-
+    @Autowired CuratorFramework curatorFramework;
     @PostConstruct
     @ConfigurationProperties(prefix = "spring.zk")
-    public void initZk(@Autowired CuratorFramework curatorFramework) {
+    public void initZk() {
         ZkUtils.initCuratorFramework(curatorFramework);
     }
-
+    @Autowired RedisConnectionFactory redisConnectionFactory;
     @PostConstruct
     @ConditionalOnProperty(prefix = "spring.redis", value = "enable", matchIfMissing = true)
-    public void initRedis(@Autowired RedisConnectionFactory connectionFactory) {
-        RedisUtils.initRedisTemplate(createRedisTemplate(connectionFactory));
+    public void initRedis() {
+        RedisUtils.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
     }
 
     @PostConstruct
@@ -50,17 +52,22 @@ public class InitMiddle {
             log.error("redisLock init error", e);
         }
     }
-
+    @Autowired ConnectionFactory connectionFactory;
     @PostConstruct
     @ConditionalOnProperty(prefix = "spring.rabbitmq", value = "enable", matchIfMissing = true)
-    public void initMqSendClientUtil(@Autowired ConnectionFactory connectionFactory) {
+    public void initMqSendClientUtil() {
         MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
     }
-
+    @Autowired MailConfigProperties mailConfigProperties;
     @PostConstruct
     @ConfigurationProperties(prefix = "mail")
-    public void initMailUtils(@Autowired MailConfigProperties mailConfigProperties) {
+    public void initMailUtils() {
         MailUtils.initMailConfigProperties(mailConfigProperties);
+    }
+    @Autowired Environment environment;
+    @PostConstruct
+    public void initEnvUtils() {
+        EnvUtils.initEnv(environment);
     }
 
 }

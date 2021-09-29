@@ -1,7 +1,6 @@
 package com;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -9,16 +8,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @author hua
  */
+@Slf4j
 @SpringBootApplication
 @EnableScheduling
 public class WebAdminApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(WebAdminApplication.class);
-    
-
     public static void main(String[] args){
         SpringApplication.run(WebAdminApplication.class, args);
-        logger.info("admin server start......");
+        log.info("admin server start......");
     }
 
 }

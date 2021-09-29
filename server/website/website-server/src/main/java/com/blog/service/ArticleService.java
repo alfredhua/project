@@ -28,8 +28,6 @@ public class ArticleService {
     @Autowired
     ArticleMapper articleMapper;
 
-    @Autowired
-    RedisUtils redisUtils;
 
     public void createArticle(Article article) {
         article.setId(IDGenerate.generateId());
@@ -83,7 +81,7 @@ public class ArticleService {
 
 
     public void updateArticleStatus(Long id, short status) throws Exception {
-        redisUtils.del(BlogRedisStaticKey.blog_home_list);
+        RedisUtils.del(BlogRedisStaticKey.blog_home_list);
         if (articleMapper.updateArticleStatus(id,status)){
             return;
         }

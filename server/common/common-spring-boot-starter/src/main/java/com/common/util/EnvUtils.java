@@ -10,6 +10,7 @@ public class EnvUtils {
 
 
     private static Environment env;
+
     public static void initEnv(Environment envParam){
         env=envParam;
     }
