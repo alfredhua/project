@@ -35,7 +35,7 @@ import java.util.Properties;
 @Intercepts(@Signature(type = Executor.class, method = "query",args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
 public class AuthDataInterceptor implements Interceptor {
 
-    private static String SYSTEM="SYSTEM";
+    private static final String SYSTEM="SYSTEM";
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -57,8 +57,6 @@ public class AuthDataInterceptor implements Interceptor {
             }
         }
         return invocation.proceed();
-//        }
-
     }
 
     private void execute(MappedStatement mappedStatement,String newSql, BoundSql boundSql,Object[] args){

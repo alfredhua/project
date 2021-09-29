@@ -1,23 +1,21 @@
 package com.admin.controller.auth;
 
+import com.admin.controller.auth.vo.login.LoginReqVo;
+import com.admin.controller.auth.vo.login.LoginRespVo;
+import com.admin.controller.common.AdminBaseController;
 import com.auth.constants.AuthConstant;
-import com.auth.dto.LoginAdminRespDTO;
 import com.auth.dto.LoginReqDTO;
 import com.auth.service.LoginService;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
-import com.admin.controller.auth.vo.login.LoginCheckReqVo;
-import com.admin.controller.auth.vo.login.LoginReqVo;
-import com.admin.controller.auth.vo.login.LoginRespVo;
-import com.admin.controller.common.AdminBaseController;
 import com.common.util.IPUtils;
+import com.common.util.LoginUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,19 +43,10 @@ public class LoginController extends AdminBaseController {
         return resultReturn(loginService.login(loginReqDTO), LoginRespVo.class);
     }
 
-    @ApiOperation(value="检查是否登录")
-    @RequestMapping(value = AuthUrl.CHECK_LOGIN,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-    public void checkLogin(@RequestBody  @Valid LoginCheckReqVo loginCheckReqVo, BindingResult result){
-        LoginAdminRespDTO admin = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + loginCheckReqVo.getToken());
-        if (!ObjectUtils.isEmpty(admin)){
-            RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginCheckReqVo.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), admin);
-        }
-    }
-
     @ApiOperation(value="登出")
     @RequestMapping(value = AuthUrl.LOGOUT,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public void logout(){
-        RedisUtils.del(AuthConstant.ADMIN_INFO.getKey()+getToken());
+        RedisUtils.del(AuthConstant.ADMIN_INFO.getKey()+ LoginUtils.getLoginUser().getToken());
     }
 
 }

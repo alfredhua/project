@@ -14,4 +14,9 @@ public class LoginUtils {
     public static void remove(){
         local.remove();
     }
+
+    public static void initLoginUser(UserInfo userInfo) {
+        local.set(userInfo);
+    }
+
 }

@@ -29,12 +29,14 @@ import static com.common.middle.redis.RedisConfig.createRedisTemplate;
 @Slf4j
 @Configuration
 public class InitMiddle {
+
     @Autowired CuratorFramework curatorFramework;
     @PostConstruct
     @ConfigurationProperties(prefix = "spring.zk")
     public void initZk() {
         ZkUtils.initCuratorFramework(curatorFramework);
     }
+
     @Autowired RedisConnectionFactory redisConnectionFactory;
     @PostConstruct
     @ConditionalOnProperty(prefix = "spring.redis", value = "enable", matchIfMissing = true)
@@ -52,18 +54,21 @@ public class InitMiddle {
             log.error("redisLock init error", e);
         }
     }
+
     @Autowired ConnectionFactory connectionFactory;
     @PostConstruct
     @ConditionalOnProperty(prefix = "spring.rabbitmq", value = "enable", matchIfMissing = true)
     public void initMqSendClientUtil() {
         MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
     }
+
     @Autowired MailConfigProperties mailConfigProperties;
     @PostConstruct
     @ConfigurationProperties(prefix = "mail")
     public void initMailUtils() {
         MailUtils.initMailConfigProperties(mailConfigProperties);
     }
+
     @Autowired Environment environment;
     @PostConstruct
     public void initEnvUtils() {

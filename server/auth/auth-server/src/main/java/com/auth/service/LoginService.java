@@ -12,7 +12,6 @@ import com.auth.dto.entity.Admin;
 import com.auth.dto.entity.LoginLog;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.domain.response.JSONResult;
 import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
 import com.common.util.GsonUtils;
@@ -23,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,14 +47,14 @@ public class LoginService  {
     AuthDataAdminService authDataAdminService;
 
 
-    public JSONResult<LoginAdminRespDTO>  getLoginAdminInfo(){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + request.getHeader("token"));
-        if (ObjectUtils.isEmpty(loginAdminRespDTO)){
-            return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());
-        }
-        return JSONResult.success(loginAdminRespDTO);
-    }
+//    public JSONResult<LoginAdminRespDTO>  getLoginAdminInfo(){
+//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + request.getHeader("token"));
+//        if (ObjectUtils.isEmpty(loginAdminRespDTO)){
+//            return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());
+//        }
+//        return JSONResult.success(loginAdminRespDTO);
+//    }
 
 
     public LoginRespDTO login(LoginReqDTO loginReqDTO)throws Exception{
@@ -82,19 +78,9 @@ public class LoginService  {
             LoginAdminRespDTO loginAdminRespDTO = loginUser(admin);
             RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey() + token, AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminRespDTO);
             return new LoginRespDTO(token, loginAdminRespDTO.getAuth_list());
-
     }
 
     
-    public JSONResult<LoginAdminRespDTO> setAdminInfoByToken(String token) {
-        LoginAdminRespDTO loginAdminRespDTO= RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + token);
-        if (!ObjectUtils.isEmpty(loginAdminRespDTO)){
-            RedisUtils.expire(AuthConstant.ADMIN_INFO.getKey()+token, AuthConstant.ADMIN_INFO.getTimeOut());
-            return JSONResult.success(loginAdminRespDTO);
-        }
-        return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());
-    }
-
     private LoginAdminRespDTO  loginUser(Admin admin){
         //获取所有的roleIds
         List<Object> roleIds=GsonUtils.gson.fromJson(admin.getRole_id_list(),new TypeToken<List<Object>>(){}.getType());
@@ -112,7 +98,6 @@ public class LoginService  {
         LoginAdminRespDTO loginAdminRespDTO = BeanCopyUtil.copy(admin, LoginAdminRespDTO.class);
         loginAdminRespDTO.setAuth_list(authSet);
         loginAdminRespDTO.setPassword(null);
-
         loginAdminRespDTO.setAuth_code_list(authDataAdminService.listByAdminId(admin.getId()));
         return loginAdminRespDTO;
     }

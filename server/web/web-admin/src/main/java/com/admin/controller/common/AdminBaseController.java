@@ -1,32 +1,13 @@
 package com.admin.controller.common;
 
-import com.admin.constants.CommonConstant;
-import com.auth.dto.LoginAdminRespDTO;
 import com.common.domain.response.PageBean;
-import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminBaseController {
-
-    protected String getToken(){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        return  request.getHeader("token");
-    }
-
-    protected LoginAdminRespDTO getLoginAdminInfo(){
-        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + getToken());
-        if (ObjectUtils.isEmpty(loginAdminRespDTO)){
-            throw new RuntimeException("用户登录失效:"+ getToken());
-        }
-        return loginAdminRespDTO;
-    }
 
     protected static<T,E> PageBean<T> pageResultReturn(PageBean<E> pageBean, Class<T> t){
         if (pageBean.getList()==null||pageBean.getList().isEmpty()){
