@@ -14,7 +14,7 @@ public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsConsume.class);
 
-    private static String SMS_TOPIC="SMS";
+    private static final String SMS_TOPIC="SMS";
 
     @Autowired
     SmsService smsService;

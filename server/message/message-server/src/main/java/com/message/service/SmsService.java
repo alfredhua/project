@@ -2,8 +2,6 @@ package com.message.service;
 
 import com.message.constants.SmsTemplateEnum;
 import com.message.service.channel.AliChannel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +14,6 @@ import java.util.Map;
  */
 @Component
 public class SmsService {
-    private static final Logger logger = LoggerFactory.getLogger(SmsService.class);
 
     @Autowired
     AliChannel aliChannel;
