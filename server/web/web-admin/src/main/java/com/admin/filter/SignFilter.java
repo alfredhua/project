@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -55,9 +54,6 @@ public class SignFilter implements Filter {
      */
     private String domain;
 
-    @Autowired
-    EnvUtils envUtils;
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -65,7 +61,7 @@ public class SignFilter implements Filter {
         ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(req);
         String body = getBodyString(requestWrapper);
         //开发环境，直接放过
-        if (envUtils.isDevActive()){
+        if (EnvUtils.isDevActive()){
             continueFilter(resp,chain,requestWrapper);
             return;
         }

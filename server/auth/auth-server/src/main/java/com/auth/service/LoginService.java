@@ -13,7 +13,7 @@ import com.auth.dto.entity.LoginLog;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
 import com.common.util.GsonUtils;
 import com.common.util.IDGenerate;
@@ -50,12 +50,10 @@ public class LoginService  {
     @Autowired
     AuthDataAdminService authDataAdminService;
 
-    @Autowired
-    RedisUtils redisUtils;
 
     public JSONResult<LoginAdminRespDTO>  getLoginAdminInfo(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        LoginAdminRespDTO loginAdminRespDTO = redisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + request.getHeader("token"));
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + request.getHeader("token"));
         if (ObjectUtils.isEmpty(loginAdminRespDTO)){
             return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());
         }
@@ -82,16 +80,16 @@ public class LoginService  {
             }
             String token = insertLoginLog(loginReqDTO.getIpAddress(), admin);
             LoginAdminRespDTO loginAdminRespDTO = loginUser(admin);
-            redisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey() + token, AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminRespDTO);
+            RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey() + token, AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminRespDTO);
             return new LoginRespDTO(token, loginAdminRespDTO.getAuth_list());
 
     }
 
     
     public JSONResult<LoginAdminRespDTO> setAdminInfoByToken(String token) {
-        LoginAdminRespDTO loginAdminRespDTO= redisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + token);
+        LoginAdminRespDTO loginAdminRespDTO= RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + token);
         if (!ObjectUtils.isEmpty(loginAdminRespDTO)){
-            redisUtils.expire(AuthConstant.ADMIN_INFO.getKey()+token, AuthConstant.ADMIN_INFO.getTimeOut());
+            RedisUtils.expire(AuthConstant.ADMIN_INFO.getKey()+token, AuthConstant.ADMIN_INFO.getTimeOut());
             return JSONResult.success(loginAdminRespDTO);
         }
         return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());

@@ -1,8 +1,7 @@
 package com.admin.controller.common;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.redis.RedisUtils;
-import com.common.domain.response.JSONResult;
+import com.common.middle.redis.RedisUtils;
 import com.admin.constants.CommonConstant;
 import com.admin.controller.common.vo.UserCaptchaReqVo;
 import org.springframework.beans.factory.annotation.Autowired;

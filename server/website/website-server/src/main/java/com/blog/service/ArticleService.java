@@ -7,7 +7,7 @@ import com.blog.dto.entity.Article;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.util.IDGenerate;
 import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;

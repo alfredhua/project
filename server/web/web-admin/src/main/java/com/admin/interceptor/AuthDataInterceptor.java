@@ -4,7 +4,7 @@ import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.util.JdbcConstants;
 import com.auth.dto.LoginAdminRespDTO;
 import com.common.aspect.annotation.DataAuth;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.admin.constants.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -35,13 +35,7 @@ import java.util.Properties;
 @Intercepts(@Signature(type = Executor.class, method = "query",args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
 public class AuthDataInterceptor implements Interceptor {
 
-    RedisUtils redisUtils;
-
     private static String SYSTEM="SYSTEM";
-
-    public AuthDataInterceptor(RedisUtils redisUtils) {
-        this.redisUtils = redisUtils;
-    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -54,8 +48,6 @@ public class AuthDataInterceptor implements Interceptor {
         MappedStatement mappedStatement = (MappedStatement) args[0];
         Class<?> classType = Class.forName(mappedStatement.getId().substring(0,mappedStatement.getId().lastIndexOf(".")));
         String mName  = mappedStatement.getId().substring(mappedStatement.getId().lastIndexOf(".") + 1);
-//        SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
-//        if (sqlCommandType ==SqlCommandType.SELECT){
         for(Method method : classType.getDeclaredMethods()){
             if(method.isAnnotationPresent(DataAuth.class) && mName.equals(method.getName()) ) {
                 BoundSql boundSql = mappedStatement.getBoundSql(args[1]);
@@ -134,7 +126,7 @@ public class AuthDataInterceptor implements Interceptor {
         if (ObjectUtils.isEmpty(token)){
             return new ArrayList<>();
         }
-        LoginAdminRespDTO loginAdminRespDTO = redisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + token);
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + token);
         if (ObjectUtils.isEmpty(loginAdminRespDTO)){
             return new ArrayList<>();
         }

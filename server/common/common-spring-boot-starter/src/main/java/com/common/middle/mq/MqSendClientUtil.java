@@ -1,7 +1,7 @@
-package com.common.mq;
+package com.common.middle.mq;
 
+import lombok.NoArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -12,12 +12,16 @@ import java.io.Serializable;
  */
 
 @Component
+@NoArgsConstructor
 public class MqSendClientUtil{
 
-    @Autowired
     static RabbitTemplate rabbitTemplate;
 
-    public  <T extends Serializable> void send(String topic, T message) {
+    public static  void initRabbitTemplate(RabbitTemplate rabbitTemplateParam){
+        rabbitTemplate=rabbitTemplateParam;
+    }
+
+    public static  <T extends Serializable> void send(String topic, T message) {
         rabbitTemplate.convertAndSend(topic,message);
     }
 

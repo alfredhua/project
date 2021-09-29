@@ -1,5 +1,6 @@
-package com.common.zk;
+package com.common.middle.zk;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
@@ -10,16 +11,16 @@ import org.apache.zookeeper.data.Stat;
  * @date 2021/01/17
  */
 @Slf4j
+@NoArgsConstructor
 public class ZkUtils {
 
-    CuratorFramework curatorFramework;
+    private static CuratorFramework curatorFramework;
 
-    public ZkUtils(CuratorFramework curatorFramework) {
-        this.curatorFramework = curatorFramework;
+    public static void initCuratorFramework(CuratorFramework curatorFrameworkParam) {
+        curatorFramework = curatorFrameworkParam;
     }
 
-
-    public boolean exist(String path){
+    public static boolean exist(String path){
         try {
             Stat stat = curatorFramework.checkExists().forPath(path);
             if (stat==null){
@@ -33,7 +34,7 @@ public class ZkUtils {
         return true;
     }
 
-    public void create(String path,String value){
+    public static void create(String path,String value){
         try {
             curatorFramework.create().creatingParentContainersIfNeeded()
                     .withMode(CreateMode.PERSISTENT).forPath(path, value.getBytes());
@@ -43,7 +44,7 @@ public class ZkUtils {
         }
     }
 
-    public boolean updateNode(String path,String value){
+    public static boolean updateNode(String path,String value){
         try {
             curatorFramework.setData().forPath(path, value.getBytes());
         }catch (Exception e){
@@ -52,7 +53,7 @@ public class ZkUtils {
         return true;
     }
 
-    public void deleteNode(String path) {
+    public static void deleteNode(String path) {
         try {
             Stat stat=new Stat();
             curatorFramework.delete().withVersion(stat.getVersion()).forPath(path);
@@ -60,6 +61,4 @@ public class ZkUtils {
             throw new RuntimeException("delete node error",e);
         }
     }
-
-
 }

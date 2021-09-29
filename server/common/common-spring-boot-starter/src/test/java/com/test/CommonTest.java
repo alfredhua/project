@@ -1,7 +1,7 @@
 package com.test;
 
 import com.common.CommonCore;
-import com.common.mail.MailUtils;
+import com.common.middle.mail.MailUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

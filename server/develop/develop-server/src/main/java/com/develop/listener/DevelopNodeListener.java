@@ -1,7 +1,7 @@
 package com.develop.listener;
 
 import com.common.util.CaffeineCacheUtils;
-import com.common.zk.ZkUtils;
+import com.common.middle.zk.ZkUtils;
 import com.develop.constants.NodePathEnum;
 import com.develop.dto.entity.Deploy;
 import com.develop.dao.DeployMapper;
@@ -31,9 +31,6 @@ public class DevelopNodeListener{
     @Autowired
     CuratorFramework curatorFramework;
 
-    @Autowired
-    ZkUtils zkUtils;
-
     @Bean
     @DependsOn("flywayInitializer")
     public void initDevelopNode(){
@@ -51,11 +48,11 @@ public class DevelopNodeListener{
     }
 
     private void createNode(String path,String value){
-        if (!zkUtils.exist(path)) {
-            zkUtils.create(path,value);
+        if (!ZkUtils.exist(path)) {
+            ZkUtils.create(path,value);
             return;
         }
-        zkUtils.updateNode(path,value);
+        ZkUtils.updateNode(path,value);
     }
 
     public CuratorCacheListener listenerNode(){

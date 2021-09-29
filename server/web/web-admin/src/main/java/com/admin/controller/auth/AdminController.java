@@ -9,7 +9,7 @@ import com.auth.dto.LoginAdminRespDTO;
 import com.auth.service.AdminService;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +34,6 @@ public class AdminController extends AdminBaseController {
 
     @Autowired
     AdminService adminService;
-
-    @Autowired
-    RedisUtils redisUtils;
 
     @ApiOperation(value="管理员创建")
     @RequestMapping(value = AuthUrl.CREATE_ADMIN)
@@ -83,7 +80,7 @@ public class AdminController extends AdminBaseController {
         adminService.updateAdminInfo(loginAdminResp.getId(), adminInfoReqVo.getPhone(), adminInfoReqVo.getEmail());
         loginAdminResp.setEmail( adminInfoReqVo.getEmail());
         loginAdminResp.setPhone( adminInfoReqVo.getPhone());
-        redisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminResp);
+        RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminResp);
     }
 
     @ApiOperation(value="密码重置")

@@ -3,12 +3,12 @@ package com.develop.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
+import com.common.middle.zk.ZkUtils;
 import com.common.util.IDGenerate;
 import com.develop.constants.NodePathEnum;
-import com.common.zk.ZkUtils;
+import com.develop.dao.DeployMapper;
 import com.develop.dto.DeployListReqDTO;
 import com.develop.dto.entity.Deploy;
-import com.develop.dao.DeployMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +26,6 @@ public class DeployService {
 
     @Autowired
     DeployMapper deployMapper;
-
-    @Autowired
-    ZkUtils zkUtils;
 
     public PageBean<Deploy> listDeploy(DeployListReqDTO deployListReqVo) {
         PageBean<Deploy> pageBean=new PageBean<>();
@@ -74,11 +71,11 @@ public class DeployService {
             deploy.setUpdate_time(LocalDateTime.now());
             deploy.setOperator(deployReqDTO.getOperator());
             deployMapper.insert(deploy);
-            zkUtils.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
+            ZkUtils.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
             return;
         }
         if (deployMapper.updateByName(deployReqDTO)>0){
-            zkUtils.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
+            ZkUtils.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
             return;
         }
         throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
@@ -87,7 +84,7 @@ public class DeployService {
 
     public void delDevelop(String name,String operator) throws ResultException {
         if (deployMapper.delDevelop(name, operator) > 0) {
-            zkUtils.deleteNode("/" + name);
+            ZkUtils.deleteNode("/" + name);
             return;
         }
         throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);

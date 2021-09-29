@@ -34,9 +34,6 @@ public abstract class BaseChannel {
   @Autowired
   SmsRecordMapper smsRecordMapper;
 
-  @Autowired
-  EnvUtils envUtils;
-
   /**
    * 不同渠道，模板的ID不一样
    * @return
@@ -86,7 +83,7 @@ public abstract class BaseChannel {
   private boolean smsRecord(String phone,String params, SmsInfo smsInfo)throws Exception {
     long id = saveSmsRecord(phone, smsInfo.getCode(), smsInfo.getContent(),getChannelType());
     logger.info("短信开始发送："+smsInfo.getContent());
-    if(!envUtils.isDevActive()) {
+    if(!EnvUtils.isDevActive()) {
       JSONResult<Void> result = post(phone, params, smsInfo);
       if (JSONResult.SUCCESS.equals(result.getCode())){
         return smsRecordMapper.updateSmsRecordById(id, SmsRecordStatusEnum.SUCCESS.getStatus(), getChannelType().getMsg()+"成功",null );

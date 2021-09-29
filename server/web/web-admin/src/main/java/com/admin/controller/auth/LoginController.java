@@ -6,7 +6,7 @@ import com.auth.dto.LoginReqDTO;
 import com.auth.service.LoginService;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
 import com.admin.controller.auth.vo.login.LoginCheckReqVo;
 import com.admin.controller.auth.vo.login.LoginReqVo;

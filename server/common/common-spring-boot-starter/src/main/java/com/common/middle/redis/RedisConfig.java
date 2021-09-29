@@ -1,4 +1,4 @@
-package com.common.redis;
+package com.common.middle.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,8 +11,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,21 +24,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.io.IOException;
 
 @Configuration
-@ConditionalOnClass(RedisUtils.class)
 @ConditionalOnProperty(prefix = "spring.redis", value = "enable", matchIfMissing = true)
 public class RedisConfig {
 
-
-    @Bean
-    public RedisUtils redisUtils(@Autowired RedisConnectionFactory connectionFactory){
-        return new RedisUtils(createRedisTemplate(connectionFactory));
-    }
-
     public static<T> RedisTemplate<String, T> createRedisTemplate(RedisConnectionFactory connectionFactory){
         RedisTemplate<String, T> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setKeySerializer(keySerializer());
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setValueSerializer(valueSerializer());
-        redisTemplate.setHashKeySerializer(keySerializer());
         redisTemplate.setHashValueSerializer(valueSerializer());
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setConnectionFactory(connectionFactory);
@@ -63,16 +55,6 @@ public class RedisConfig {
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         return jackson2JsonRedisSerializer;
-    }
-
-    public static RedisSerializer keySerializer() {
-        return new StringRedisSerializer();
-    }
-
-
-    @Bean
-    public RedisLockUtils redisLockUtils(@Autowired RedissonClient redissonClient){
-        return new RedisLockUtils(redissonClient);
     }
 
     @Bean

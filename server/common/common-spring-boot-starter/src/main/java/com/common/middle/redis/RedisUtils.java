@@ -1,5 +1,6 @@
-package com.common.redis;
+package com.common.middle.redis;
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,24 +14,23 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@NoArgsConstructor
 public class RedisUtils {
 
   private static final long DEFAULT_TIME_OUT=30*24*60;
 
+  private static RedisTemplate<String,Object> template;
 
-  private RedisTemplate<String,Object> template;
-
-  public RedisUtils(RedisTemplate<String, Object> template) {
-    this.template = template;
+  public static void initRedisTemplate(RedisTemplate<String, Object> templateParams) {
+    template = templateParams;
   }
-
 
   /**
    * 设置过期时间，默认单位秒
    * @param key key
    * @param timeout 过期时间
    */
-  public void expire(String key,long timeout){
+  public static void expire(String key,long timeout){
     if (timeout==0) {
       template.expire(key, DEFAULT_TIME_OUT, TimeUnit.SECONDS);
     }else{
@@ -42,7 +42,7 @@ public class RedisUtils {
    * 从redis中随机返回一个key
    * @return
    */
-  public Object randomKey() {
+  public static Object randomKey() {
     return template.randomKey();
   }
 
@@ -51,7 +51,7 @@ public class RedisUtils {
    * @param key
    * @return
    */
-  public DataType getType(String key) {
+  public static DataType getType(String key) {
     return template.type(key);
   }
 
@@ -61,7 +61,7 @@ public class RedisUtils {
    * @param key 键 不能为null
    * @return 时间(秒) 返回0代表为永久有效
    */
-  public Long getExpire(String key) {
+  public static Long getExpire(String key) {
     return template.getExpire(key, TimeUnit.SECONDS);
   }
 
@@ -69,7 +69,7 @@ public class RedisUtils {
    * 验证key是否存在
    * @param key key
    */
-  public Boolean hasKey(String key) {
+  public static Boolean hasKey(String key) {
     return template.hasKey(key);
   }
 
@@ -77,7 +77,7 @@ public class RedisUtils {
    * 删除
    * @param key key
    */
-  public void del(String... key) {
+  public static void del(String... key) {
     if (key != null && key.length > 0) {
       if (key.length == 1) {
         template.delete(key[0]);
@@ -93,7 +93,7 @@ public class RedisUtils {
    * @param timeout 过期时间，0：表示使用默认30天,null：表示永不过期
    * @param value
    */
-  public <T> void objectSet(String key,Long timeout,T value){
+  public static <T> void objectSet(String key,Long timeout,T value){
     try {
       if (timeout==null){
         template.opsForValue().set(key, value);
@@ -111,9 +111,8 @@ public class RedisUtils {
    * @param key
    * @return
    */
-  public <T> T objectGet(String key){
+  public static <T>  T objectGet(String key){
     try {
-
       return (T) template.opsForValue().get(key);
     }catch ( Exception e){
       throw new RuntimeException("redis get error",e);
@@ -126,7 +125,7 @@ public class RedisUtils {
    * @param delta 递增因子，0或者null时候：默认是1,负数表示递减。
    * @return
    */
-  public Long increment(String key, Long delta) {
+  public static Long increment(String key, Long delta) {
     if(delta==null||delta==0){
       return template.opsForValue().increment(key, 1L);
     }
@@ -141,7 +140,7 @@ public class RedisUtils {
    * @param field 项 不能为null
    * @return 值
    */
-  public Object hashGet(String key, String field) {
+  public static Object hashGet(String key, String field) {
     return template.opsForHash().get(key, field);
   }
 
@@ -151,7 +150,7 @@ public class RedisUtils {
    * @param field  项
    * @param value 值
    */
-  public void hashSet(String key, String field, Object value) {
+  public static void hashSet(String key, String field, Object value) {
     template.opsForHash().put(key, field, value);
   }
 
@@ -160,7 +159,7 @@ public class RedisUtils {
    * @param key key
    * @param map 对象
    */
-  public void hashPutAll(String key, Map<Object, Object> map){
+  public static void hashPutAll(String key, Map<Object, Object> map){
     template.opsForHash().putAll(key,map);
   }
 
@@ -169,7 +168,7 @@ public class RedisUtils {
    * @param key
    * @return
    */
-  public Map<Object, Object> hashGetAll(String key){
+  public static Map<Object, Object> hashGetAll(String key){
     return template.opsForHash().entries(key);
   }
 
@@ -179,7 +178,7 @@ public class RedisUtils {
    * @param fields
    * @return
    */
-  public List<Object> multiHashGet(String key, String...fields) {
+  public static List<Object> multiHashGet(String key, String...fields) {
     return template.opsForHash().multiGet(key, (Collection<Object>)  CollectionUtils.arrayToList(fields));
   }
 

@@ -1,4 +1,4 @@
-package com.common.mail;
+package com.common.middle.mail;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -12,23 +12,22 @@ import java.util.Properties;
 
 public class MailUtils {
 
-  MailProperties mailProperties;
+  private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-  public MailUtils(MailProperties mailProperties) {
-    this.mailProperties = mailProperties;
+  private static MailConfigProperties mailProperties;
+
+  public static void initMailConfigProperties(MailConfigProperties mailConfigProperties){
+    mailProperties=mailConfigProperties;
   }
 
-
-  public void sendMail(String toMail,String title, String context)throws Exception {
+  public static void sendMail(String toMail,String title, String context)throws Exception {
     List<String> list=new ArrayList<>();
     list.add(toMail);
     sendMails(list, title,context);
   }
 
 
-  public void sendMails(List<String> toMailList, String title, String context)throws Exception {
-//    java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-    final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+  public static void sendMails(List<String> toMailList, String title, String context)throws Exception {
     Properties props = new Properties();
     props .setProperty("mail.smtp.host",mailProperties.getMail_host()); // 设置邮件服务器
     props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);

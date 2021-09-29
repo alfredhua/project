@@ -1,7 +1,7 @@
 package com.site.controller.common;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.domain.response.JSONResult;
 import com.site.controller.common.constant.CommonConstant;
 import com.site.controller.common.vo.UserCaptchaReqVo;

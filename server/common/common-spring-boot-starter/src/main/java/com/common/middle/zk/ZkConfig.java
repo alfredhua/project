@@ -1,4 +1,4 @@
-package com.common.zk;
+package com.common.middle.zk;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,14 +46,5 @@ public class ZkConfig {
         log.info("zk init");
         return curatorFramework;
     }
-
-    @Bean
-    @ConditionalOnProperty(prefix = "spring.zk", value = "enable")
-    public ZkUtils zkUtils(@Autowired CuratorFramework curatorFramework){
-        return new ZkUtils(curatorFramework);
-    }
-
-
-
 
 }

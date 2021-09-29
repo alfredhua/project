@@ -1,4 +1,4 @@
-package com.common.mail;
+package com.common.middle.mail;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "mail")
-public class MailProperties {
+public class MailConfigProperties {
 
   /**
    *端口

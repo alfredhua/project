@@ -21,7 +21,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 
-
+/**
+ * 验证是否登录
+ */
 @Component
 @ServletComponentScan
 @WebFilter(urlPatterns = "/*", filterName = "adminLoginFilter")

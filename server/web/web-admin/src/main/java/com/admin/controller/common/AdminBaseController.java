@@ -1,11 +1,10 @@
 package com.admin.controller.common;
 
+import com.admin.constants.CommonConstant;
 import com.auth.dto.LoginAdminRespDTO;
 import com.common.domain.response.PageBean;
-import com.common.redis.RedisUtils;
+import com.common.middle.redis.RedisUtils;
 import com.common.util.BeanCopyUtil;
-import com.admin.constants.CommonConstant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -15,9 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminBaseController {
-    @Autowired
-    RedisUtils redisUtils;
-
 
     protected String getToken(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -25,7 +21,7 @@ public class AdminBaseController {
     }
 
     protected LoginAdminRespDTO getLoginAdminInfo(){
-        LoginAdminRespDTO loginAdminRespDTO = redisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + getToken());
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + getToken());
         if (ObjectUtils.isEmpty(loginAdminRespDTO)){
             throw new RuntimeException("用户登录失效:"+ getToken());
         }

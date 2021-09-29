@@ -3,13 +3,15 @@ package com.common.advice;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
-import com.common.mail.MailProperties;
-import com.common.mail.MailUtils;
+import com.common.middle.mail.MailConfigProperties;
+import com.common.middle.mail.MailUtils;
 import com.common.util.EnvUtils;
 import com.common.util.GsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
@@ -29,13 +31,8 @@ import static java.lang.Thread.currentThread;
 public class ExceptionHandlerAdvice {
 
     @Autowired
-    MailUtils mailUtils;
+    MailConfigProperties mailProperties;
 
-    @Autowired
-    MailProperties mailProperties;
-
-    @Autowired
-    EnvUtils envUtils;
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
@@ -56,9 +53,9 @@ public class ExceptionHandlerAdvice {
         errorData.append("请求地址:<br>").append(requestURI).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
         List<String> toMailList=new ArrayList<>();
         toMailList.add(mailProperties.getTo_mail());
-        if(!envUtils.isDevActive()) {
+        if(!EnvUtils.isDevActive()) {
             try {
-                mailUtils.sendMails(toMailList, "错误故障", errorData.toString());
+                MailUtils.sendMails(toMailList, "错误故障", errorData.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }

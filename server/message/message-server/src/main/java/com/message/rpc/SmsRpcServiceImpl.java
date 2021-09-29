@@ -2,7 +2,7 @@ package com.message.rpc;
 
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.response.JSONResult;
-import com.common.mq.MqSendClientUtil;
+import com.common.middle.mq.MqSendClientUtil;
 import com.common.util.ValidateUtil;
 import com.message.api.SmsRpcService;
 import com.message.constants.SmsTemplateEnum;
@@ -10,7 +10,6 @@ import com.message.dto.SmsQueueInfo;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,9 +25,6 @@ public class SmsRpcServiceImpl implements SmsRpcService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsRpcServiceImpl.class);
 
-    @Autowired
-    MqSendClientUtil mqSendClientUtil;
-
     private static String SMS_TOPIC="SMS";
 
     @Override
@@ -38,7 +34,7 @@ public class SmsRpcServiceImpl implements SmsRpcService {
             smsQueueInfo.setParams(params);
             smsQueueInfo.setPhone(phone);
             smsQueueInfo.setTemplateType(templateType);
-            mqSendClientUtil.send(SMS_TOPIC, smsQueueInfo);
+            MqSendClientUtil.send(SMS_TOPIC, smsQueueInfo);
         }catch (Exception e){
             throw new RuntimeException("短信发送失败",e);
         }
@@ -56,7 +52,7 @@ public class SmsRpcServiceImpl implements SmsRpcService {
                 smsQueueInfo.setParams(params);
                 smsQueueInfo.setPhone(phone);
                 smsQueueInfo.setTemplateType(templateType);
-                mqSendClientUtil.send(SMS_TOPIC, smsQueueInfo);
+                MqSendClientUtil.send(SMS_TOPIC, smsQueueInfo);
             }
         });
         return JSONResult.success();
