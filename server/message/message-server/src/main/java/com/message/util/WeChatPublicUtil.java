@@ -28,27 +28,25 @@ import java.util.UUID;
  */
 public class WeChatPublicUtil {
 
-    private String public_app_id;
+    private static String public_app_id;
 
-    private String public_app_secret;
+    private static String public_app_secret;
 
-    public WeChatPublicUtil(String public_app_id, String public_app_secret) {
-        this.public_app_id = public_app_id;
-        this.public_app_secret = public_app_secret;
-    }
+    private static String accessTokenKey;
 
-    private String accessTokenKey(){
-        return "wechat:ac:"+ public_app_id;
-    }
+    private static String jsapiTicketKey;
 
-    private String jsapiTicketKey(){
-        return "wechat:jsapi:"+public_app_id;
+    public static void initAppInfo(String appId, String appSecret) {
+        public_app_id = appId;
+        public_app_secret = appSecret;
+        accessTokenKey="wechat:ac:"+ public_app_id;
+        jsapiTicketKey="wechat:jsapi:"+public_app_id;
     }
 
     /**
      * H5 微信授权链接
      */
-    public String generateOAuth2Url(String scope, String redirectUrl, String state) {
+    public static String generateOAuth2Url(String scope, String redirectUrl, String state) {
         if (ObjectUtils.isEmpty(scope)){
             scope="snsapi_userinfo";
         }
@@ -64,8 +62,8 @@ public class WeChatPublicUtil {
     /**
      * 获取微信分享的accessToken
      */
-    public WeChatAccessToken getAccessToken() throws Exception {
-        WeChatAccessToken weChatAccessToken = RedisUtils.objectGet(accessTokenKey());
+    public static WeChatAccessToken getAccessToken() throws Exception {
+        WeChatAccessToken weChatAccessToken = RedisUtils.objectGet(accessTokenKey);
         if (!ObjectUtils.isEmpty(weChatAccessToken)){
             return weChatAccessToken;
         }
@@ -75,14 +73,14 @@ public class WeChatPublicUtil {
         map.put("secret", public_app_secret);
         String s = HttpClient.get(WeChatUrl.ACCESS_TOKEN, map);
         WeChatAccessToken newWeChatAccessToken =GsonUtils.gson.fromJson(s,new TypeToken<WeChatAccessToken>(){}.getType());
-        RedisUtils.objectSet(accessTokenKey(), WeChatConstantEnum.ACCESS_TOKEN.getTimeOut(), newWeChatAccessToken);
+        RedisUtils.objectSet(accessTokenKey,WeChatConstantEnum.ACCESS_TOKEN.getTimeOut(), newWeChatAccessToken);
         return newWeChatAccessToken;
     }
 
     /**
      * 获取微信分享信息
      */
-    public WeChatShareInfo getWXShareInfo(String url) throws Exception {
+    public static WeChatShareInfo getWXShareInfo(String url) throws Exception {
         WeChatJsapiTicket ticket=getJsapiTicket();
         if (ObjectUtils.isEmpty(ticket)){
 
@@ -95,7 +93,7 @@ public class WeChatPublicUtil {
     /**
      * 获取Ip地址接口
      */
-    public List<String> getWeiXinIp(String accessToken)throws Exception {
+    public static List<String> getWeiXinIp(String accessToken)throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("access_token", accessToken);
         String s = HttpClient.get(WeChatUrl.WEI_IP, map);
@@ -105,7 +103,7 @@ public class WeChatPublicUtil {
     /**
      * 微信网络检测接口
      */
-    public String checkNetWork(String accessToken)throws Exception{
+    public  static String checkNetWork(String accessToken)throws Exception{
         Map<String, String> map = new HashMap<>();
         map.put("action", "all");
         map.put("check_operator", "DEFAULT");
@@ -116,7 +114,7 @@ public class WeChatPublicUtil {
     /**
      * 微信授权获取用户信息
      */
-    public WeChatUserInfo getUserInfoByOauth2Code(String code){
+    public static WeChatUserInfo getUserInfoByOauth2Code(String code){
         try {
             WeChatOauth2AccessToken accessToken = getOauth2AccessToken(code);
             Map<String,String> map=new HashMap();
@@ -133,8 +131,8 @@ public class WeChatPublicUtil {
         }
     }
 
-    private WeChatJsapiTicket getJsapiTicket()throws Exception {
-        WeChatJsapiTicket jsapiTicket = RedisUtils.objectGet(jsapiTicketKey());
+    private static WeChatJsapiTicket getJsapiTicket()throws Exception {
+        WeChatJsapiTicket jsapiTicket = RedisUtils.objectGet(jsapiTicketKey);
         if (!ObjectUtils.isEmpty(jsapiTicket)){
             return jsapiTicket;
         }
@@ -147,7 +145,7 @@ public class WeChatPublicUtil {
             if(!StringUtils.isEmpty(result)){
                 jsapiTicket = GsonUtils.gson.fromJson(result, WeChatJsapiTicket.class);
                 jsapiTicket.setExpires_at(LocalDateTime.now().plusSeconds(jsapiTicket.getExpires_in()-60-60)); //再减60s 使得更新程序在redis失效前进行操作
-                RedisUtils.objectSet(jsapiTicketKey(), (long)jsapiTicket.getExpires_in()-60,jsapiTicket);
+                RedisUtils.objectSet(jsapiTicketKey, (long)jsapiTicket.getExpires_in()-60,jsapiTicket);
             }
             return jsapiTicket;
         } catch (Exception e) {
@@ -171,7 +169,7 @@ public class WeChatPublicUtil {
         return wxShareInfo;
     }
 
-    private WeChatOauth2AccessToken getOauth2AccessToken(String code){
+    private static WeChatOauth2AccessToken getOauth2AccessToken(String code){
         Map<String,String> map=new HashMap();
         map.put("grant_type","authorization_code");
         map.put("appid", public_app_id);
@@ -187,9 +185,5 @@ public class WeChatPublicUtil {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
 
 }

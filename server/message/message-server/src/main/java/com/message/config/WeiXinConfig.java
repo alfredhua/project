@@ -4,8 +4,9 @@ import com.message.util.WeChatPublicUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author guozhenhua
@@ -43,9 +44,9 @@ public class WeiXinConfig {
     private String xcx_app_secret;
 
 
-    @Bean
-    public WeChatPublicUtil weChatPublicUtil(){
-        return new WeChatPublicUtil(public_app_id,public_app_secret);
+    @PostConstruct
+    public void initWeChatPublicUtil(){
+        WeChatPublicUtil.initAppInfo(public_app_id,public_app_secret);
     }
 
 
