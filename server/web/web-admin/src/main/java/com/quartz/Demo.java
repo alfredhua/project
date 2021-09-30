@@ -1,7 +1,6 @@
 package com.quartz;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.common.util.LogUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,12 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Demo {
 
-    private static Logger logger = LoggerFactory.getLogger(Demo.class);
 
     private final static String TIME =  "0/1 * * * * ?";
 
 //    @Scheduled(cron=TIME)
     public void cronJob(){
-        logger.info(" >>cron执行....");
+        LogUtils.info(" >>cron执行....");
     }
 }

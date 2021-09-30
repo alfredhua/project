@@ -1,12 +1,11 @@
 package com.admin.interceptor;
 
+import com.admin.constants.CommonConstant;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.util.JdbcConstants;
 import com.auth.dto.LoginAdminRespDTO;
 import com.common.aspect.annotation.DataAuth;
 import com.common.middle.redis.RedisUtils;
-import com.admin.constants.CommonConstant;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -31,7 +30,6 @@ import java.util.Properties;
  * @date 2021/05/25
  * SQL拦截器，主要处理数据权限拼接 where 的SQL 数据权限插件
  */
-@Slf4j
 @Intercepts(@Signature(type = Executor.class, method = "query",args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
 public class AuthDataInterceptor implements Interceptor {
 

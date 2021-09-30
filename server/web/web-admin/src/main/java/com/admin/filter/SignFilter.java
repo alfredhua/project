@@ -4,19 +4,17 @@ import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.response.ErrorResponse;
 import com.common.util.EnvUtils;
 import com.common.util.GsonUtils;
+import com.common.util.LogUtils;
 import com.common.util.SignUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,6 @@ import java.util.TreeMap;
  * @auth guozhenhua
  * @date 2019/11/07
  */
-
 @Getter
 @Setter
 @Configuration
@@ -42,8 +39,6 @@ import java.util.TreeMap;
 @ServletComponentScan
 @WebFilter(urlPatterns = "/*",filterName = "SignFilter")
 public class SignFilter implements Filter {
-
-    protected static final Logger logger = LoggerFactory.getLogger(SignFilter.class);
 
     /**
      *签名
@@ -81,7 +76,7 @@ public class SignFilter implements Filter {
         //对现在数据加签
         String sign = getSign(req.getRequestURI(),req.getMethod(),treeMap);
         //sign签名错误
-        logger.info("sign:"+sign);
+        LogUtils.info("sign:"+sign);
         if (!sign.equals(treeMap.get("sign"))){
             errorResponse(new ErrorResponse(SysErrorCodeEnum.SIGN_ERROR.getCode(),SysErrorCodeEnum.SIGN_ERROR.getMsg()),resp);
             return;
@@ -128,7 +123,7 @@ public class SignFilter implements Filter {
             }
         }
         String substring = Stringbuilder.substring(0, Stringbuilder.length() - 1);
-        logger.info("签名数据:"+substring);
+        LogUtils.info("签名数据:"+substring);
         return SignUtil.sign(substring);
     }
 

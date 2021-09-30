@@ -2,14 +2,13 @@ package com.mq;
 
 import com.common.middle.mq.MqTopic;
 import com.common.util.GsonUtils;
+import com.common.util.LogUtils;
 import com.message.dto.SmsQueueInfo;
 import com.message.service.SmsService;
 import com.mq.comsume.AbstractMqConsume;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
 public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
 
@@ -31,7 +30,7 @@ public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
         try {
             smsService.send(smsQueueInfo.getPhone(), smsQueueInfo.getParams(), smsQueueInfo.getTemplateType());
         }catch (Exception e){
-            log.error("短信发送失败:{}",e.getMessage());
+            LogUtils.error("短信发送失败:{}",e.getMessage());
         }
     }
 

@@ -1,8 +1,10 @@
 package com.mq.config;
 
+import com.common.util.LogUtils;
 import com.mq.comsume.AbstractMqConsume;
 import com.rabbitmq.client.*;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.juli.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -22,7 +24,6 @@ import java.util.List;
 @Configuration
 public class MqConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(MqConfig.class);
 
     @Autowired
     List<AbstractMqConsume> abstractMqConsumes;
@@ -51,7 +52,7 @@ public class MqConfig {
             channel.exchangeDeclare(exchangeName, "fanout", true, false, null);
             String queueName = channel.queueDeclare(channelName, true, false, false, null).getQueue();
             channel.queueBind( queueName, exchangeName,"");
-            logger.info(queueName+" Waiting for messages... ");
+            LogUtils.info(queueName+" Waiting for messages... ");
 
             Consumer consumer = new LocalConsumer(channel, abstractMqConsume);
             channel.basicConsume(queueName, true, consumer);
@@ -63,7 +64,6 @@ public class MqConfig {
 
 
     static class LocalConsumer extends DefaultConsumer {
-        private static Logger logger = LoggerFactory.getLogger(LocalConsumer.class);
 
         AbstractMqConsume abstractMqConsume;
 
@@ -78,7 +78,7 @@ public class MqConfig {
                 String deserialize = SerializationUtils.deserialize(body);
                 abstractMqConsume.consume(abstractMqConsume.transform(deserialize));
             } catch (Throwable t){
-                logger.error("消息调用出错", t);
+                LogUtils.error("消息调用出错", t);
             }
         }
     }

@@ -7,14 +7,13 @@ import com.common.middle.redis.RedisLockUtils;
 import com.common.middle.redis.RedisUtils;
 import com.common.middle.zk.ZkUtils;
 import com.common.util.EnvUtils;
+import com.common.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -32,47 +31,48 @@ public class InitMiddle {
 
     @Autowired CuratorFramework curatorFramework;
     @PostConstruct
-    @ConfigurationProperties(prefix = "spring.zk")
     public void initZk() {
         ZkUtils.initCuratorFramework(curatorFramework);
+        LogUtils.info("zk init success");
     }
 
     @Autowired RedisConnectionFactory redisConnectionFactory;
     @PostConstruct
-    @ConditionalOnProperty(prefix = "spring.redis", value = "enable", matchIfMissing = true)
     public void initRedis() {
         RedisUtils.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
+        LogUtils.info("redis init success");
     }
 
     @PostConstruct
-    @ConditionalOnProperty(value = "spring.redis.redisson.config")
     public void initRedisLock() {
         try {
             Config config = Config.fromYAML(new ClassPathResource("redisson.yaml").getInputStream());
             RedisLockUtils.initRedissonClient(Redisson.create(config));
+            LogUtils.info("redis lock init success");
         } catch (IOException e) {
-            log.error("redisLock init error", e);
+            LogUtils.error("redisLock init error", e);
         }
     }
 
     @Autowired ConnectionFactory connectionFactory;
     @PostConstruct
-    @ConditionalOnProperty(prefix = "spring.rabbitmq", value = "enable", matchIfMissing = true)
     public void initMqSendClientUtil() {
         MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
+        LogUtils.info("MQ init success");
     }
 
     @Autowired MailConfigProperties mailConfigProperties;
     @PostConstruct
-    @ConfigurationProperties(prefix = "mail")
     public void initMailUtils() {
         MailUtils.initMailConfigProperties(mailConfigProperties);
+        LogUtils.info("mail init success");
     }
 
     @Autowired Environment environment;
     @PostConstruct
     public void initEnvUtils() {
         EnvUtils.initEnv(environment);
+        LogUtils.info("environment init success");
     }
 
 }

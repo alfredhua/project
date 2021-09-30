@@ -1,17 +1,16 @@
 package com.admin.controller.website;
 
-import com.common.domain.response.PageBean;
-import com.common.util.BeanCopyUtil;
 import com.admin.controller.common.AdminBaseController;
 import com.admin.controller.website.vo.setting.SettingListReqVO;
 import com.admin.controller.website.vo.setting.SettingRespVO;
 import com.admin.controller.website.vo.setting.UpdateStatusRequestVO;
+import com.common.domain.response.PageBean;
+import com.common.util.BeanCopyUtil;
 import com.website.dto.SettingListReqDTO;
 import com.website.dto.SettingRespDTO;
 import com.website.service.SettingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.ObjectUtils;
@@ -28,7 +27,6 @@ import java.util.List;
  */
 @Api(tags = "网站设置")
 @RestController
-@Slf4j
 @RequestMapping(value = WebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SettingController  extends AdminBaseController {
 

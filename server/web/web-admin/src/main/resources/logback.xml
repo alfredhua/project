@@ -17,15 +17,14 @@
     </appender>
 
     <!--关闭spring框架启动的日志信息-->
-    <logger name="org.springframework" level="INFO"/>
-    <logger name="jdbc.sqltiming" level="INFO"/>
-    <logger name="jdbc.audit" level="INFO"/>
-    <logger name="jdbc.sqlonly" level="INFO"/>
-    <logger name="jdbc.connection" level="INFO"/>
-    <logger name="jdbc.resultset" level="INFO"/>
+    <logger name="org.springframework" level="WARN"/>
+<!--    <logger name="jdbc.sqltiming" level="INFO"/>-->
+<!--    <logger name="jdbc.audit" level="INFO"/>-->
+<!--    <logger name="jdbc.sqlonly" level="INFO"/>-->
+<!--    <logger name="jdbc.connection" level="INFO"/>-->
+<!--    <logger name="jdbc.resultset" level="INFO"/>-->
     <logger name="org.mybatis" level="INFO"/>
-    <!-- 打开项目所有的日志,包含了mybatis的 mapping -->
-    <logger name="com" level="DEBUG"/>
+    <logger name="com" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="console"  />

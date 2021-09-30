@@ -9,9 +9,8 @@ import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.entity.UserInfo;
 import com.common.domain.response.JSONResult;
 import com.common.middle.redis.RedisUtils;
+import com.common.util.LogUtils;
 import com.common.util.LoginUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
@@ -22,7 +21,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 
 /**
@@ -32,9 +30,6 @@ import java.util.Enumeration;
 @ServletComponentScan
 @WebFilter(urlPatterns = "/*", filterName = "adminLoginFilter")
 public class AdminLoginFilter implements Filter {
-
-    private static final Logger logger = LoggerFactory.getLogger(AdminLoginFilter.class);
-    private static final DateTimeFormatter df=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     LoginService loginService;
@@ -79,7 +74,7 @@ public class AdminLoginFilter implements Filter {
             response.setStatus(200);
             response.getWriter().append(jsonResult.toString());
         }catch (Exception e){
-            logger.error("AdminLoginFilter error",e);
+            LogUtils.error("AdminLoginFilter error",e);
         }
     }
 
