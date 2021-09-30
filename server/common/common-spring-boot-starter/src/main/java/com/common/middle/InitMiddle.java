@@ -54,15 +54,24 @@ public class InitMiddle {
         initEnvUtils();
     }
 
-    public void initZk() {
+    /**
+     * 初始化zk
+     */
+    private void initZk() {
         ZkUtils.initCuratorFramework(curatorFramework);
     }
 
-    public void initRedis() {
+    /**
+     * 初始化redis
+     */
+    private void initRedis() {
         RedisUtils.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
     }
 
-    public void initRedisLock() {
+    /**
+     * 初始化redisLock
+     */
+    private void initRedisLock() {
         try {
             Config config = Config.fromYAML(new ClassPathResource("redisson.yaml").getInputStream());
             RedisLockUtils.initRedissonClient(Redisson.create(config));
@@ -71,15 +80,24 @@ public class InitMiddle {
         }
     }
 
-    public void initMqSendClientUtil() {
+    /**
+     * 初始化MQ
+     */
+    private void initMqSendClientUtil() {
         MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
     }
 
-    public void initMailUtils() {
+    /**
+     * 初始化邮件发送
+     */
+    private void initMailUtils() {
         MailUtils.initMailConfigProperties(mailConfigProperties);
     }
 
-    public void initEnvUtils() {
+    /**
+     * 初始化环境
+     */
+    private void initEnvUtils() {
         EnvUtils.initEnv(environment);
     }
 
