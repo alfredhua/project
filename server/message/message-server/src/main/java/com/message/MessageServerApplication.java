@@ -1,7 +1,6 @@
 package com.message;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.common.util.LogUtils;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -10,13 +9,9 @@ import org.springframework.boot.SpringApplication;
  */
 public class MessageServerApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(MessageServerApplication.class);
 
     public static void main(String[] args){
-
         SpringApplication.run(MessageCore.class,args);
-
-        logger.info("message server  start......");
-
+        LogUtils.info("message server  start......");
     }
 }

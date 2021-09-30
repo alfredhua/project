@@ -1,7 +1,6 @@
 package com;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.common.util.LogUtils;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -9,14 +8,9 @@ import org.springframework.boot.SpringApplication;
  * @date 2020/04/16
  */
 public class WebSiteServerApplication {
-    private static Logger logger = LoggerFactory.getLogger(WebsiteCore.class);
-
 
     public static void main(String[] args){
-
         SpringApplication.run(WebsiteCore.class,args);
-
-        logger.info("website server  start......");
-
+        LogUtils.info("website server  start......");
     }
 }

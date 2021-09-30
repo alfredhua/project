@@ -2,10 +2,7 @@ package com.message.service.channel;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.common.domain.response.JSONResult;
-import com.common.util.EnvUtils;
-import com.common.util.GsonUtils;
-import com.common.util.IDGenerate;
-import com.common.util.ValidateUtil;
+import com.common.util.*;
 import com.message.constants.SmsChannelEnum;
 import com.message.constants.SmsRecordStatusEnum;
 import com.message.constants.SmsTemplateEnum;
@@ -13,8 +10,6 @@ import com.message.dao.SmsRecordMapper;
 import com.message.dto.SmsInfo;
 import com.message.dto.entity.SmsRecord;
 import com.message.service.template.Template;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -27,9 +22,6 @@ import java.util.Map;
 
 @Component
 public abstract class BaseChannel {
-
-  protected static final Logger logger = LoggerFactory.getLogger(BaseChannel.class);
-
 
   @Autowired
   SmsRecordMapper smsRecordMapper;
@@ -82,7 +74,7 @@ public abstract class BaseChannel {
 
   private boolean smsRecord(String phone,String params, SmsInfo smsInfo)throws Exception {
     long id = saveSmsRecord(phone, smsInfo.getCode(), smsInfo.getContent(),getChannelType());
-    logger.info("短信开始发送："+smsInfo.getContent());
+    LogUtils.info("短信开始发送："+smsInfo.getContent());
     if(!EnvUtils.isDevActive()) {
       JSONResult<Void> result = post(phone, params, smsInfo);
       if (JSONResult.SUCCESS.equals(result.getCode())){

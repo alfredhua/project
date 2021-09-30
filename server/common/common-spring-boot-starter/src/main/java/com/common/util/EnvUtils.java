@@ -1,13 +1,8 @@
 package com.common.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 public class EnvUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(EnvUtils.class);
-
 
     private static Environment env;
 
