@@ -8,5 +8,4 @@ public abstract class AbstractMqConsume<T> {
 
     public abstract T transform(String body);
 
-
 }

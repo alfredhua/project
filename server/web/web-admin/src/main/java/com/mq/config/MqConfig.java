@@ -1,7 +1,7 @@
 package com.mq.config;
 
-import com.rabbitmq.client.*;
 import com.mq.comsume.AbstractMqConsume;
+import com.rabbitmq.client.*;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.List;
 
 /**
