@@ -1,5 +1,7 @@
 package com.common.middle.mail;
 
+import com.common.util.LogUtils;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -18,6 +20,7 @@ public class MailUtils {
 
   public static void initMailConfigProperties(MailConfigProperties mailConfigProperties){
     mailProperties=mailConfigProperties;
+    LogUtils.info("mail init success");
   }
 
   public static void sendMail(String toMail,String title, String context)throws Exception {

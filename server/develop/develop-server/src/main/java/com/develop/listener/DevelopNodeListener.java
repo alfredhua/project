@@ -2,6 +2,7 @@ package com.develop.listener;
 
 import com.common.util.CaffeineCacheUtils;
 import com.common.middle.zk.ZkUtils;
+import com.common.util.LogUtils;
 import com.develop.constants.NodePathEnum;
 import com.develop.dto.entity.Deploy;
 import com.develop.dao.DeployMapper;
@@ -32,7 +33,7 @@ public class DevelopNodeListener{
     CuratorFramework curatorFramework;
 
     @Bean
-    @DependsOn("flywayInitializer")
+    @DependsOn(value={"flywayInitializer","initAllMiddle"})
     public void initDevelopNode(){
         NodePathEnum[] values = NodePathEnum.values();
         List<NodePathEnum> nodePathEnums = Arrays.asList(values);
@@ -45,6 +46,7 @@ public class DevelopNodeListener{
             createNode( nodePathEnum.getNodePath(), value);
             this.addListenerWithNode(nodePathEnum.getName());
         });
+        LogUtils.info("develop init zk node success");
     }
 
     private void createNode(String path,String value){

@@ -14,12 +14,12 @@ import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 import static com.common.middle.mq.MqServerConfig.createRabbitTemplate;
@@ -29,50 +29,58 @@ import static com.common.middle.redis.RedisConfig.createRedisTemplate;
 @Configuration
 public class InitMiddle {
 
-    @Autowired CuratorFramework curatorFramework;
-    @PostConstruct
+    @Autowired
+    CuratorFramework curatorFramework;
+
+    @Autowired
+    RedisConnectionFactory redisConnectionFactory;
+
+    @Autowired
+    ConnectionFactory connectionFactory;
+
+    @Autowired
+    MailConfigProperties mailConfigProperties;
+
+    @Autowired
+    Environment environment;
+
+    @Bean
+    public void initAllMiddle(){
+        initZk();
+        initRedis();
+//        initRedisLock();
+        initMqSendClientUtil();
+        initMailUtils();
+        initEnvUtils();
+    }
+
     public void initZk() {
         ZkUtils.initCuratorFramework(curatorFramework);
-        LogUtils.info("zk init success");
     }
 
-    @Autowired RedisConnectionFactory redisConnectionFactory;
-    @PostConstruct
     public void initRedis() {
         RedisUtils.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
-        LogUtils.info("redis init success");
     }
 
-    @PostConstruct
     public void initRedisLock() {
         try {
             Config config = Config.fromYAML(new ClassPathResource("redisson.yaml").getInputStream());
             RedisLockUtils.initRedissonClient(Redisson.create(config));
-            LogUtils.info("redis lock init success");
         } catch (IOException e) {
             LogUtils.error("redisLock init error", e);
         }
     }
 
-    @Autowired ConnectionFactory connectionFactory;
-    @PostConstruct
     public void initMqSendClientUtil() {
         MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
-        LogUtils.info("MQ init success");
     }
 
-    @Autowired MailConfigProperties mailConfigProperties;
-    @PostConstruct
     public void initMailUtils() {
         MailUtils.initMailConfigProperties(mailConfigProperties);
-        LogUtils.info("mail init success");
     }
 
-    @Autowired Environment environment;
-    @PostConstruct
     public void initEnvUtils() {
         EnvUtils.initEnv(environment);
-        LogUtils.info("environment init success");
     }
 
 }

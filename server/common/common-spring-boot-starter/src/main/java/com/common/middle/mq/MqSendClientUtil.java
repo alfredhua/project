@@ -1,5 +1,6 @@
 package com.common.middle.mq;
 
+import com.common.util.LogUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class MqSendClientUtil{
 
     public static  void initRabbitTemplate(RabbitTemplate rabbitTemplateParam){
         rabbitTemplate=rabbitTemplateParam;
+        LogUtils.info("rabbit mq init success");
     }
 
     public static  <T extends Serializable> void send(String topic, T message) {

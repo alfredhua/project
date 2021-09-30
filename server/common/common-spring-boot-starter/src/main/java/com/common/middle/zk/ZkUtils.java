@@ -1,7 +1,7 @@
 package com.common.middle.zk;
 
+import com.common.util.LogUtils;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
@@ -10,7 +10,6 @@ import org.apache.zookeeper.data.Stat;
  * @author guozhenhua
  * @date 2021/01/17
  */
-@Slf4j
 @NoArgsConstructor
 public class ZkUtils {
 
@@ -18,6 +17,7 @@ public class ZkUtils {
 
     public static void initCuratorFramework(CuratorFramework curatorFrameworkParam) {
         curatorFramework = curatorFrameworkParam;
+        LogUtils.info("zk init success");
     }
 
     public static boolean exist(String path){
@@ -27,7 +27,7 @@ public class ZkUtils {
                 return false;
             }
         } catch (Exception e) {
-            log.error("exist zk node error", e);
+            LogUtils.error("exist zk node error", e);
             throw new RuntimeException(e);
         }
 
@@ -39,7 +39,7 @@ public class ZkUtils {
             curatorFramework.create().creatingParentContainersIfNeeded()
                     .withMode(CreateMode.PERSISTENT).forPath(path, value.getBytes());
         }catch (Exception e){
-            log.error("create zk node error", e);
+            LogUtils.error("create zk node error", e);
             throw new RuntimeException(e);
         }
     }
