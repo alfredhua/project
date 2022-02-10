@@ -1,0 +1,20 @@
+plugins {
+    id "java-library"
+}
+
+dependencies {
+}
+
+group(project.name)
+version("$projectVersion")
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.pro'
+            artifactId = project.name
+            version = "$projectVersion"
+            from components.java
+        }
+    }
+}

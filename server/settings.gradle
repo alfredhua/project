@@ -3,38 +3,31 @@ rootProject.name = 'server'
 include ':common:common-spring-boot-starter'
 project(':common:common-spring-boot-starter').projectDir = file('common/common-spring-boot-starter')
 
+include ':pro-api'
+project(':pro-api').projectDir = file('pro-api')
+
+include ':pro-common:common-spring-boot-starter'
+project(':pro-common:common-spring-boot-starter').projectDir = file('pro-common/common-spring-boot-starter')
+
+include ':pro-web:web-admin'
+project(':pro-web:web-admin').projectDir = file('pro-web/web-admin')
+include ':pro-web:web-site'
+project(':pro-web:web-site').projectDir = file('pro-web/web-site')
 
 include ':generator'
 project(':generator').projectDir = file('generator')
 
-include ':auth:auth-api'
-project(':auth:auth-api').projectDir = file('auth/auth-api')
-include ':auth:auth-server'
-project(':auth:auth-server').projectDir = file('auth/auth-server')
+include ':pro-server:server-auth'
+project(':pro-server:server-auth').projectDir = file('pro-server/server-auth')
 
-include ':develop:develop-api'
-project(':develop:develop-api').projectDir = file('develop/develop-api')
-include ':develop:develop-server'
-project(':develop:develop-server').projectDir = file('develop/develop-server')
+include ':pro-server:server-develop'
+project(':pro-server:server-develop').projectDir = file('pro-server/server-develop')
 
-include ':message:message-api'
-project(':message:message-api').projectDir = file('message/message-api')
-include ':message:message-server'
-project(':message:message-server').projectDir = file('message/message-server')
+include ':pro-server:server-message'
+project(':pro-server:server-message').projectDir = file('pro-server/server-message')
+
+include ':pro-server:server-website'
+project(':pro-server:server-website').projectDir = file('pro-server/server-website')
 
 
-include ':website:website-api'
-project(':website:website-api').projectDir = file('website/website-api')
-include ':website:website-server'
-project(':website:website-server').projectDir = file('website/website-server')
-
-//include ':blog:blog-api'
-//project(':blog:blog-api').projectDir = file('blog/blog-api')
-//include ':blog:blog-server'
-//project(':blog:blog-server').projectDir = file('blog/blog-server')
-
-include ':web:web-admin'
-project(':web:web-admin').projectDir = file('web/web-admin')
-include ':web:web-site'
-project(':web:web-site').projectDir = file('web/web-site')
 
