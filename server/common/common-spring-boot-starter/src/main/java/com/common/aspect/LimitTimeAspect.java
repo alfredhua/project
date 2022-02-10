@@ -3,13 +3,14 @@ package com.common.aspect;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.domain.constants.LimitTimeTypeEnum;
-import com.common.util.LogUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -25,6 +26,8 @@ import java.util.concurrent.*;
 @Component
 public class LimitTimeAspect extends BaseAspect{
 
+
+    private Logger logger = LoggerFactory.getLogger(LimitTimeAspect.class);
 
     private Map<Method, Semaphore> semaphoreCache = new ConcurrentHashMap<>();
 
@@ -44,7 +47,7 @@ public class LimitTimeAspect extends BaseAspect{
         //处理限制策略
         if (method.getAnnotation(LimitTime.class).type()==LimitTimeTypeEnum.NULL){
             Object proceed = joinPoint.proceed(joinPoint.getArgs());
-            LogUtils.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
+            logger.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
             return proceed;
         }
 
@@ -54,7 +57,7 @@ public class LimitTimeAspect extends BaseAspect{
         }else {
             returnObject=timeout(joinPoint);
         }
-        LogUtils.info(stringBuffer.append("请求耗时:" + (System.currentTimeMillis() - startTime) + "耗秒.").toString());
+        logger.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
         return returnObject;
     }
 

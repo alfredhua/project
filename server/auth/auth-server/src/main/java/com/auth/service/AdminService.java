@@ -1,13 +1,13 @@
 package com.auth.service;
 
 import com.auth.constants.admin.AdminStatusEnum;
-import com.auth.dto.entity.Admin;
 import com.auth.dao.AdminMapper;
 import com.auth.dto.AdminListReqDTO;
+import com.auth.dto.entity.Admin;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.MessageDigestUtil;
 import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class AdminService {
     public void createAdmin(Admin admin)throws Exception{
         validate(admin);
         admin.setPassword(MessageDigestUtil.resetPassword());
-        admin.setId(IDGenerate.generateId());
+        admin.setId(IDGenerateUtil.generateId());
         adminMapper.insert(admin);
         authDataAdminService.save(admin.getAuth_code_list(),admin.getId());
     }

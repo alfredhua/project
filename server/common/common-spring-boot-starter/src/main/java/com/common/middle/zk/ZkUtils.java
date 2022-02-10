@@ -1,23 +1,43 @@
 package com.common.middle.zk;
 
-import com.common.util.LogUtils;
-import lombok.NoArgsConstructor;
+import com.common.util.LoadPropertiesUtil;
+import com.common.util.LogUtil;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
+
+import java.util.Properties;
 
 /**
  * @author guozhenhua
  * @date 2021/01/17
  */
-@NoArgsConstructor
 public class ZkUtils {
 
     private static CuratorFramework curatorFramework;
 
-    public static void initCuratorFramework(CuratorFramework curatorFrameworkParam) {
-        curatorFramework = curatorFrameworkParam;
-        LogUtils.info("zk init success");
+    private static final String CONFIG_FILE="zk.config.file";
+
+    private static final Properties properties;
+
+    static {
+        properties= LoadPropertiesUtil.loadConfig(CONFIG_FILE);
+        if (!ObjectUtils.isEmpty(properties)){
+            String url = properties.getProperty("zk.url", "localhost");
+            CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
+            CuratorFramework curator = builder.connectString(url)
+                    .sessionTimeoutMs(5000)
+                    .retryPolicy(new ExponentialBackoffRetry(100, 3)).build();
+            curator.start();
+            curatorFramework=curator;
+        }
+    }
+
+    public static String getZkProperty(String property){
+        return properties.getProperty(property);
     }
 
     public static boolean exist(String path){
@@ -27,7 +47,7 @@ public class ZkUtils {
                 return false;
             }
         } catch (Exception e) {
-            LogUtils.error("exist zk node error", e);
+            LogUtil.error("exist zk node error", e);
             throw new RuntimeException(e);
         }
 
@@ -39,7 +59,7 @@ public class ZkUtils {
             curatorFramework.create().creatingParentContainersIfNeeded()
                     .withMode(CreateMode.PERSISTENT).forPath(path, value.getBytes());
         }catch (Exception e){
-            LogUtils.error("create zk node error", e);
+            LogUtil.error("create zk node error", e);
             throw new RuntimeException(e);
         }
     }

@@ -1,6 +1,6 @@
 package com.common.aspect;
 
-import com.common.util.GsonUtils;
+import com.common.util.GsonUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -37,7 +37,7 @@ public abstract class BaseAspect {
         List args = filter(joinPoint.getArgs(), method);
         if (args!=null&&args.size() > 0) {
             for (Object arg : args) {
-                stringBuffer.append("请求参数:" + GsonUtils.toJSON(arg)+ ",");
+                stringBuffer.append("请求参数:" + GsonUtil.toJSON(arg)+ ",");
             }
         }
         return stringBuffer.toString();
