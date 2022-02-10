@@ -36,7 +36,8 @@ public class ArticleController  extends BaseController {
     @RequestMapping(value = BlogUrl.GET_ARTICLE)
     @LimitTime
     public ArticleRespVO getById(@RequestBody @Valid ArticleReqVO articleReqVO, BindingResult result){
-        return resultReturn(articleService.getById(articleReqVO.getId()),ArticleRespVO.class);
+        Article article = articleService.getById(articleReqVO.getId());
+        return resultReturn(article,ArticleRespVO.class);
     }
 
     @RequestMapping(value = BlogUrl.LIST_ARTICLE)
