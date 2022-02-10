@@ -1,6 +1,6 @@
 package com.blog.rpc;
 
-import com.pro.blog.api.BlogRpcService;
+import com.pro.blog.BlogRpcService;
 import org.apache.dubbo.config.annotation.Service;
 
 /**

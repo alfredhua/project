@@ -1,4 +1,4 @@
-package com.pro.message.api;
+package com.pro.message;
 
 public interface WeChatRpcService {
 

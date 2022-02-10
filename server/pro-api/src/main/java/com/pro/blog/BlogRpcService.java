@@ -1,4 +1,4 @@
-package com.pro.blog.api;
+package com.pro.blog;
 
 /**
  * @auth guozhenhua

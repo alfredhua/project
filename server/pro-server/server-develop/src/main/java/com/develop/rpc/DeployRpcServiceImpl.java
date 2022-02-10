@@ -1,6 +1,6 @@
 package com.develop.rpc;
 
-import com.pro.develop.api.DeployRpcService;
+import com.pro.develop.DeployRpcService;
 
 /**
  * @author guozhenhua

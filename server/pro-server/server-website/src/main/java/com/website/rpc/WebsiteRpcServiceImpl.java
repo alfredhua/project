@@ -1,6 +1,6 @@
 package com.website.rpc;
 
-import com.pro.website.api.WebsiteRpcService;
+import com.pro.website.WebsiteRpcService;
 import org.apache.dubbo.config.annotation.Service;
 
 /**

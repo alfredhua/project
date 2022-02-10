@@ -5,7 +5,7 @@ import com.common.domain.response.JSONResult;
 import com.common.middle.mq.MqSendClientUtil;
 import com.common.middle.mq.MqTopic;
 import com.common.util.ValidateUtil;
-import com.pro.message.api.SmsRpcService;
+import com.pro.message.SmsRpcService;
 import com.pro.message.constants.SmsTemplateEnum;
 import com.pro.message.dto.SmsQueueInfo;
 import org.apache.dubbo.config.annotation.Service;

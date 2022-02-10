@@ -1,4 +1,4 @@
-package com.pro.message.api;
+package com.pro.message;
 
 import com.common.domain.response.JSONResult;
 import com.pro.message.constants.SmsTemplateEnum;
