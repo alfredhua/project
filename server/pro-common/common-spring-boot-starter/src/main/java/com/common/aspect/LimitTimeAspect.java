@@ -3,7 +3,7 @@ package com.common.aspect;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.domain.constants.LimitTimeTypeEnum;
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -44,7 +44,7 @@ public class LimitTimeAspect extends BaseAspect{
         //处理限制策略
         if (method.getAnnotation(LimitTime.class).type()==LimitTimeTypeEnum.NULL){
             Object proceed = joinPoint.proceed(joinPoint.getArgs());
-            LogUtils.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
+            LogUtil.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
             return proceed;
         }
 
@@ -54,7 +54,7 @@ public class LimitTimeAspect extends BaseAspect{
         }else {
             returnObject=timeout(joinPoint);
         }
-        LogUtils.info(stringBuffer.append("请求耗时:" + (System.currentTimeMillis() - startTime) + "耗秒.").toString());
+        LogUtil.info(stringBuffer.append("请求耗时:" + (System.currentTimeMillis() - startTime) + "耗秒.").toString());
         return returnObject;
     }
 

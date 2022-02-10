@@ -4,7 +4,7 @@ import com.admin.controller.common.AdminBaseController;
 import com.admin.controller.website.vo.settingdetail.SettingDetailRespVO;
 import com.admin.controller.website.vo.settingdetail.SettingDetailUpdateReqVO;
 import com.common.util.BeanCopyUtil;
-import com.website.dto.entity.SettingDetail;
+import com.pro.website.dto.entity.SettingDetail;
 import com.website.service.SettingDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

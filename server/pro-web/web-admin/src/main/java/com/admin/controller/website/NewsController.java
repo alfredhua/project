@@ -4,8 +4,8 @@ import com.admin.controller.common.AdminBaseController;
 import com.admin.controller.website.vo.news.*;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
-import com.website.dto.entity.News;
-import com.website.dto.NewsListReqDTO;
+import com.pro.website.dto.NewsListReqDTO;
+import com.pro.website.dto.entity.News;
 import com.website.service.NewsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 /**

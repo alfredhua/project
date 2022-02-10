@@ -3,9 +3,9 @@ package com.admin.interceptor;
 import com.admin.constants.CommonConstant;
 import com.alibaba.druid.sql.SQLUtils;
 import com.alibaba.druid.util.JdbcConstants;
-import com.auth.dto.LoginAdminRespDTO;
 import com.common.aspect.annotation.DataAuth;
-import com.common.middle.redis.RedisUtils;
+import com.common.middle.redis.RedisUtil;
+import com.pro.auth.dto.LoginAdminRespDTO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -122,7 +122,7 @@ public class AuthDataInterceptor implements Interceptor {
         if (ObjectUtils.isEmpty(token)){
             return new ArrayList<>();
         }
-        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(CommonConstant.ADMIN_INFO.getKey() + token);
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtil.objectGet(CommonConstant.ADMIN_INFO.getKey() + token);
         if (ObjectUtils.isEmpty(loginAdminRespDTO)){
             return new ArrayList<>();
         }

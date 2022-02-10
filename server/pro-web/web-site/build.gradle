@@ -8,9 +8,9 @@ version("$projectVersion")
 
 dependencies {
 
-//    api project(':auth:auth-server')
-//    api project(':website:website-server')
-//    api project(':message:message-server')
+    api project(':pro-server:server-auth')
+    api project(':pro-server:server-website')
+    api project(':pro-server:server-message')
 
     implementation("javax.validation:validation-api:$validationVersion")
     implementation ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")

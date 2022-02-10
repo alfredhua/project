@@ -5,7 +5,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class IPUtils {
+public class IPUtil {
 
 
     public static String getIpAddress(){

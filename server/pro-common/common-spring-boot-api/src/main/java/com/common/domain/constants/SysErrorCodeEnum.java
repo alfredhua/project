@@ -12,9 +12,11 @@ public enum SysErrorCodeEnum {
 
     DELETE_ERROR("DELETE_ERROR","删除失败"),
     UPDATE_ERROR("UPDATE_ERROR","更新失败"),
+    PARAMS_ERROR("PARAMS_ERROR", "参数错误"),
     NONE("NONE_ERROR", "未知错误"),
     ERR_SYSTEM("ERR_SYSTEM", "系统错误"),
     ERR_SERVICE_STOP("ERR_SERVICE_STOP", "服务不可用"),
+    METHOD_ERROR("METHOD_ERROR", "方法请求错误"),
     ERR_AUTH_LIMIT("ERR_AUTH_LIMIT", "访问权限受限"),
     ERR_ILLEGAL_PARAM("ERR_ILLEGAL_PARAM", "参数值非法"),
     ERR_REST_FAIL("ERR_REST_FAIL", "服务接口调用失败"),

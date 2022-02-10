@@ -1,6 +1,6 @@
 package com;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -11,6 +11,6 @@ public class WebSiteServerApplication {
 
     public static void main(String[] args){
         SpringApplication.run(WebsiteCore.class,args);
-        LogUtils.info("website server  start......");
+        LogUtil.info("website server  start......");
     }
 }

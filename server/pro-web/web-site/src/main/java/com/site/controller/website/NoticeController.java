@@ -1,14 +1,13 @@
 package com.site.controller.website;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
+import com.pro.website.dto.NoticeListReqDTO;
+import com.pro.website.dto.entity.Notice;
 import com.site.controller.common.BaseController;
 import com.site.controller.website.vo.notice.NoticeListReqVo;
 import com.site.controller.website.vo.notice.NoticeRespVo;
-import com.website.dto.entity.Notice;
-import com.website.dto.NoticeListReqDTO;
 import com.website.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

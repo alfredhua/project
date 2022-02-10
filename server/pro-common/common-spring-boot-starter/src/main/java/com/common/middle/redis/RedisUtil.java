@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
-public class RedisUtils {
+public class RedisUtil {
 
   private static final long DEFAULT_TIME_OUT=30*24*60;
 

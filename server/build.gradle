@@ -35,6 +35,9 @@ subprojects{
         lombokVersion="1.18.16"
 
         validationVersion="2.0.0.Final"
+
+        commonSpringBootApiVersion="1.0.0"
+        commonSpringBootStarterVersion="1.0.0"
     }
 
     dependencies {

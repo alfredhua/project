@@ -1,14 +1,14 @@
 package com.blog.service;
 
 import com.blog.dao.TypeMapper;
-import com.pro.blog.dto.TypeListReqDTO;
-import com.pro.blog.dto.entity.Type;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.blog.dto.TypeListReqDTO;
+import com.pro.blog.dto.entity.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class TypeService {
 
     
     public void createType(Type typeReqDTO) {
-        typeReqDTO.setId(IDGenerate.generateId());
+        typeReqDTO.setId(IDGenerateUtil.generateId());
         typeReqDTO.setCreate_time(LocalDateTime.now());
         typeMapper.createType(typeReqDTO);
     }

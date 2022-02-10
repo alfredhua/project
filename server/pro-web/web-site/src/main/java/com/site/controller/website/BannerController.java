@@ -2,10 +2,10 @@ package com.site.controller.website;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.util.BeanCopyUtil;
+import com.pro.website.dto.entity.Banner;
 import com.site.controller.common.BaseController;
 import com.site.controller.website.vo.banner.BannerListRespVo;
 import com.site.controller.website.vo.banner.BannerTypeReqVo;
-import com.website.dto.entity.Banner;
 import com.website.service.BannerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

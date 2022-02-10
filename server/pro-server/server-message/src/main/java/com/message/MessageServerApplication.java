@@ -1,6 +1,6 @@
 package com.message;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -12,6 +12,6 @@ public class MessageServerApplication {
 
     public static void main(String[] args){
         SpringApplication.run(MessageCore.class,args);
-        LogUtils.info("message server  start......");
+        LogUtil.info("message server  start......");
     }
 }

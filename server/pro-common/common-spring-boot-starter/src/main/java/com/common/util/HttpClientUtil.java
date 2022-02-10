@@ -30,7 +30,7 @@ import java.util.Map;
  * @author guozhenhua
  * @date 2019/01/14
  */
-public class HttpClient {
+public class HttpClientUtil {
 
 
     static  String defaultContentType="application/json; charset=utf-8";
@@ -63,7 +63,7 @@ public class HttpClient {
         }
         requestPost.addHeader("Content-type",contentType);
         requestPost.setHeader("Accept", "application/json");
-        requestPost.setEntity(new StringEntity(GsonUtils.toJSON(paramsMap),"UTF-8"));
+        requestPost.setEntity(new StringEntity(GsonUtil.toJSON(paramsMap),"UTF-8"));
         HttpResponse response = httpClient.execute(requestPost);
         String result= EntityUtils.toString(response.getEntity(),"utf-8"); //body
         return result;

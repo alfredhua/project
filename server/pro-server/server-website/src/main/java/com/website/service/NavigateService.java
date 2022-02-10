@@ -4,7 +4,7 @@ import com.pro.website.dto.NavigateListReqDTO;
 import com.pro.website.dto.entity.Navigate;
 import com.website.dao.NavigateMapper;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class NavigateService {
     NavigateMapper navigateMapper;
 
     public void createNavigate(Navigate navigate) {
-        navigate.setId(IDGenerate.generateId());
+        navigate.setId(IDGenerateUtil.generateId());
         navigate.setCreate_time(LocalDateTime.now());
         navigateMapper.createNavigate(navigate);
     }

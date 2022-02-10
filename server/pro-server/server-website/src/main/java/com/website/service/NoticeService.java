@@ -3,7 +3,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.NoticeMapper;
 import com.pro.website.dto.entity.Notice;
@@ -23,7 +23,7 @@ public class NoticeService  {
 
 
     public void createNotice(Notice noticeReqDTO) {
-        noticeReqDTO.setId(IDGenerate.generateId());
+        noticeReqDTO.setId(IDGenerateUtil.generateId());
         noticeMapper.createNotice(noticeReqDTO);
     }
 

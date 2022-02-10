@@ -2,14 +2,14 @@ package com.blog.service;
 
 import com.blog.constant.BlogRedisStaticKey;
 import com.blog.dao.ArticleMapper;
-import com.pro.blog.dto.ArticleListReqDTO;
-import com.pro.blog.dto.entity.Article;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.middle.redis.RedisUtils;
-import com.common.util.IDGenerate;
+import com.common.middle.redis.RedisUtil;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.blog.dto.ArticleListReqDTO;
+import com.pro.blog.dto.entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -30,7 +30,7 @@ public class ArticleService {
 
 
     public void createArticle(Article article) {
-        article.setId(IDGenerate.generateId());
+        article.setId(IDGenerateUtil.generateId());
         article.setCreate_time(LocalDateTime.now());
         article.setClick_count(0);
         articleMapper.createArticle(article);
@@ -81,7 +81,7 @@ public class ArticleService {
 
 
     public void updateArticleStatus(Long id, short status) throws Exception {
-        RedisUtils.del(BlogRedisStaticKey.blog_home_list);
+        RedisUtil.del(BlogRedisStaticKey.blog_home_list);
         if (articleMapper.updateArticleStatus(id,status)){
             return;
         }

@@ -6,17 +6,18 @@ import com.admin.controller.blog.vo.type.TypeListReqVO;
 import com.admin.controller.blog.vo.type.TypeRespVO;
 import com.admin.controller.blog.vo.type.TypeUpdateReqVO;
 import com.admin.controller.common.AdminBaseController;
-import com.blog.dto.entity.Type;
-import com.blog.dto.TypeListReqDTO;
 import com.blog.service.TypeService;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
+import com.pro.blog.dto.TypeListReqDTO;
+import com.pro.blog.dto.entity.Type;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 

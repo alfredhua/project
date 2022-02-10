@@ -3,7 +3,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.NewsMapper;
 import com.pro.website.dto.entity.News;
@@ -25,7 +25,7 @@ public class NewsService  {
 
 
     public void createNews(News newsReqDTO) {
-        newsReqDTO.setId(IDGenerate.generateId());
+        newsReqDTO.setId(IDGenerateUtil.generateId());
         newsMapper.createNews(newsReqDTO);
     }
 

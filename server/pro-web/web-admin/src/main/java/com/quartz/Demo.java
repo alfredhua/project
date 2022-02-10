@@ -1,6 +1,6 @@
 package com.quartz;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +15,6 @@ public class Demo {
 
 //    @Scheduled(cron=TIME)
     public void cronJob(){
-        LogUtils.info(" >>cron执行....");
+        LogUtil.info(" >>cron执行....");
     }
 }

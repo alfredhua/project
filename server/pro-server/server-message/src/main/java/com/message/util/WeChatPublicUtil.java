@@ -1,8 +1,8 @@
 package com.message.util;
 
-import com.common.middle.redis.RedisUtils;
-import com.common.util.GsonUtils;
-import com.common.util.HttpClient;
+import com.common.middle.redis.RedisUtil;
+import com.common.util.GsonUtil;
+import com.common.util.HttpClientUtil;
 import com.google.gson.reflect.TypeToken;
 import com.pro.message.constants.WeChatConstantEnum;
 import com.pro.message.dto.WeChatAccessToken;
@@ -63,7 +63,7 @@ public class WeChatPublicUtil {
      * 获取微信分享的accessToken
      */
     public static WeChatAccessToken getAccessToken() throws Exception {
-        WeChatAccessToken weChatAccessToken = RedisUtils.objectGet(accessTokenKey);
+        WeChatAccessToken weChatAccessToken = RedisUtil.objectGet(accessTokenKey);
         if (!ObjectUtils.isEmpty(weChatAccessToken)){
             return weChatAccessToken;
         }
@@ -71,9 +71,9 @@ public class WeChatPublicUtil {
         map.put("grant_type", "client_credential");
         map.put("appid", public_app_id);
         map.put("secret", public_app_secret);
-        String s = HttpClient.get(WeChatUrl.ACCESS_TOKEN, map);
-        WeChatAccessToken newWeChatAccessToken =GsonUtils.gson.fromJson(s,new TypeToken<WeChatAccessToken>(){}.getType());
-        RedisUtils.objectSet(accessTokenKey,WeChatConstantEnum.ACCESS_TOKEN.getTimeOut(), newWeChatAccessToken);
+        String s = HttpClientUtil.get(WeChatUrl.ACCESS_TOKEN, map);
+        WeChatAccessToken newWeChatAccessToken =GsonUtil.gson.fromJson(s,new TypeToken<WeChatAccessToken>(){}.getType());
+        RedisUtil.objectSet(accessTokenKey,WeChatConstantEnum.ACCESS_TOKEN.getTimeOut(), newWeChatAccessToken);
         return newWeChatAccessToken;
     }
 
@@ -96,8 +96,8 @@ public class WeChatPublicUtil {
     public static List<String> getWeiXinIp(String accessToken)throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("access_token", accessToken);
-        String s = HttpClient.get(WeChatUrl.WEI_IP, map);
-        return  GsonUtils.gson.fromJson(s,new TypeToken<List<String>>(){}.getType());
+        String s = HttpClientUtil.get(WeChatUrl.WEI_IP, map);
+        return  GsonUtil.gson.fromJson(s,new TypeToken<List<String>>(){}.getType());
     }
 
     /**
@@ -107,7 +107,7 @@ public class WeChatPublicUtil {
         Map<String, String> map = new HashMap<>();
         map.put("action", "all");
         map.put("check_operator", "DEFAULT");
-        return HttpClient.post(WeChatUrl.CHECK_NET_WORK.replace("ACCESS_TOKEN",accessToken),map,null);
+        return HttpClientUtil.post(WeChatUrl.CHECK_NET_WORK.replace("ACCESS_TOKEN",accessToken),map,null);
     }
 
 
@@ -121,9 +121,9 @@ public class WeChatPublicUtil {
             map.put("access_token",accessToken.getAccess_token());
             map.put("openid", accessToken.getOpenid());
             map.put("lang","zh_CN");
-            String result = HttpClient.get(WeChatUrl.USER_INFO, map);
+            String result = HttpClientUtil.get(WeChatUrl.USER_INFO, map);
             if(!StringUtils.isEmpty(result)){
-                return GsonUtils.gson.fromJson(result,new TypeToken<WeChatUserInfo>(){}.getType());
+                return GsonUtil.gson.fromJson(result,new TypeToken<WeChatUserInfo>(){}.getType());
             }
             throw new RuntimeException("get com.auth.user-info-by-oauth2-access-token result:"+result);
         }catch (Exception e){
@@ -132,7 +132,7 @@ public class WeChatPublicUtil {
     }
 
     private static WeChatJsapiTicket getJsapiTicket()throws Exception {
-        WeChatJsapiTicket jsapiTicket = RedisUtils.objectGet(jsapiTicketKey);
+        WeChatJsapiTicket jsapiTicket = RedisUtil.objectGet(jsapiTicketKey);
         if (!ObjectUtils.isEmpty(jsapiTicket)){
             return jsapiTicket;
         }
@@ -141,11 +141,11 @@ public class WeChatPublicUtil {
         map.put("access_token", access.getAccess_token());
         map.put("type", "jsapi");
         try {
-            String result = HttpClient.get(WeChatUrl.TICKET, map);
+            String result = HttpClientUtil.get(WeChatUrl.TICKET, map);
             if(!StringUtils.isEmpty(result)){
-                jsapiTicket = GsonUtils.gson.fromJson(result, WeChatJsapiTicket.class);
+                jsapiTicket = GsonUtil.gson.fromJson(result, WeChatJsapiTicket.class);
                 jsapiTicket.setExpires_at(LocalDateTime.now().plusSeconds(jsapiTicket.getExpires_in()-60-60)); //再减60s 使得更新程序在redis失效前进行操作
-                RedisUtils.objectSet(jsapiTicketKey, (long)jsapiTicket.getExpires_in()-60,jsapiTicket);
+                RedisUtil.objectSet(jsapiTicketKey, (long)jsapiTicket.getExpires_in()-60,jsapiTicket);
             }
             return jsapiTicket;
         } catch (Exception e) {
@@ -176,9 +176,9 @@ public class WeChatPublicUtil {
         map.put("secret",public_app_secret);
         map.put("code",code);
         try {
-            String result = HttpClient.get(WeChatUrl.OAUTH2_ACCESS_TOKEN.replace("APPID",public_app_id).replace("CODE", code), map);
+            String result = HttpClientUtil.get(WeChatUrl.OAUTH2_ACCESS_TOKEN.replace("APPID",public_app_id).replace("CODE", code), map);
             if(!StringUtils.isEmpty(result)){
-                return  GsonUtils.gson.fromJson(result,new TypeToken<WeChatOauth2AccessToken>(){}.getType());
+                return  GsonUtil.gson.fromJson(result,new TypeToken<WeChatOauth2AccessToken>(){}.getType());
             }
             throw new RuntimeException("get-oauth2-access-token result:"+result);
         }catch (Exception e){

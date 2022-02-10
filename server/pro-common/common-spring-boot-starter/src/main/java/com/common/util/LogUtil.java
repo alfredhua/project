@@ -3,7 +3,7 @@ package com.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogUtils {
+public class LogUtil {
 
     private static Logger innerGet() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();

@@ -1,11 +1,11 @@
 package com.mq;
 
 import com.common.middle.mq.MqTopic;
-import com.common.util.GsonUtils;
-import com.common.util.LogUtils;
-import com.message.dto.SmsQueueInfo;
+import com.common.util.GsonUtil;
+import com.common.util.LogUtil;
 import com.message.service.SmsService;
 import com.mq.comsume.AbstractMqConsume;
+import com.pro.message.dto.SmsQueueInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
 
     @Override
     public SmsQueueInfo transform(String body) {
-        return GsonUtils.gson.fromJson(body, SmsQueueInfo.class);
+        return GsonUtil.gson.fromJson(body, SmsQueueInfo.class);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
         try {
             smsService.send(smsQueueInfo.getPhone(), smsQueueInfo.getParams(), smsQueueInfo.getTemplateType());
         }catch (Exception e){
-            LogUtils.error("短信发送失败:{}",e.getMessage());
+            LogUtil.error("短信发送失败:{}",e.getMessage());
         }
     }
 

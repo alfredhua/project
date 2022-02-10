@@ -3,7 +3,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.ProduceMapper;
 import com.pro.website.dto.ProduceListReqDTO;
@@ -25,7 +25,7 @@ public class ProduceService{
 
 
     public void createProduce(Produce produceReqDTO) {
-        produceReqDTO.setId(IDGenerate.generateId());
+        produceReqDTO.setId(IDGenerateUtil.generateId());
         produceMapper.createProduce(produceReqDTO);
     }
 

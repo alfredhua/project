@@ -62,7 +62,7 @@ public abstract class BaseChannel {
     return  phoneList.stream().allMatch(phone -> {
       if (ValidateUtil.isValidPhone(phone)) {
         try {
-          return smsRecord(phone, GsonUtils.toJSONString(parms), smsInfo);
+          return smsRecord(phone, GsonUtil.toJSONString(parms), smsInfo);
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -74,8 +74,8 @@ public abstract class BaseChannel {
 
   private boolean smsRecord(String phone,String params, SmsInfo smsInfo)throws Exception {
     long id = saveSmsRecord(phone, smsInfo.getCode(), smsInfo.getContent(),getChannelType());
-    LogUtils.info("短信开始发送："+smsInfo.getContent());
-    if(!EnvUtils.isDevActive()) {
+    LogUtil.info("短信开始发送："+smsInfo.getContent());
+    if(!EnvUtil.isDevActive()) {
       JSONResult<Void> result = post(phone, params, smsInfo);
       if (JSONResult.SUCCESS.equals(result.getCode())){
         return smsRecordMapper.updateSmsRecordById(id, SmsRecordStatusEnum.SUCCESS.getStatus(), getChannelType().getMsg()+"成功",null );
@@ -90,7 +90,7 @@ public abstract class BaseChannel {
 
   private long saveSmsRecord(String phone, String templateCode, String content, SmsChannelEnum channelType){
     SmsRecord record = new SmsRecord();
-    record.setId(IDGenerate.generateId());
+    record.setId(IDGenerateUtil.generateId());
     record.setNumbers(phone);
     record.setContent(content);
     record.setTemplate_code(templateCode);

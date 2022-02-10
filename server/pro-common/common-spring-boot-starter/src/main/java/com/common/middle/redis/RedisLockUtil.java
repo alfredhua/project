@@ -1,6 +1,6 @@
 package com.common.middle.redis;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * @author guozhenhua
  * @date 2020/07/11
  */
-public class RedisLockUtils {
+public class RedisLockUtil {
 
    private static RedissonClient redissonClient;
 
@@ -19,7 +19,7 @@ public class RedisLockUtils {
 
     public static void initRedissonClient(RedissonClient redissonClientParams) {
         redissonClient = redissonClientParams;
-        LogUtils.info("redis lock init success");
+        LogUtil.info("redis lock init success");
     }
 
     public static RLock lock(String key){

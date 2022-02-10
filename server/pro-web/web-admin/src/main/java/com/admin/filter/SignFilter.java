@@ -2,9 +2,9 @@ package com.admin.filter;
 
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.response.ErrorResponse;
-import com.common.util.EnvUtils;
-import com.common.util.GsonUtils;
-import com.common.util.LogUtils;
+import com.common.util.EnvUtil;
+import com.common.util.GsonUtil;
+import com.common.util.LogUtil;
 import com.common.util.SignUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class SignFilter implements Filter {
         ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(req);
         String body = getBodyString(requestWrapper);
         //开发环境，直接放过
-        if (EnvUtils.isDevActive()){
+        if (EnvUtil.isDevActive()){
             continueFilter(resp,chain,requestWrapper);
             return;
         }
@@ -66,7 +67,7 @@ public class SignFilter implements Filter {
             return;
         }
         //返回缺少sign
-        Map maps =GsonUtils.jsonStringToMap(body);
+        Map maps = GsonUtil.jsonStringToMap(body);
         if (!maps.containsKey("sign")){
             errorResponse(new ErrorResponse(SysErrorCodeEnum.SIGN_NULL.getCode(),SysErrorCodeEnum.SIGN_NULL.getMsg()),resp);
             return;
@@ -76,7 +77,7 @@ public class SignFilter implements Filter {
         //对现在数据加签
         String sign = getSign(req.getRequestURI(),req.getMethod(),treeMap);
         //sign签名错误
-        LogUtils.info("sign:"+sign);
+        LogUtil.info("sign:"+sign);
         if (!sign.equals(treeMap.get("sign"))){
             errorResponse(new ErrorResponse(SysErrorCodeEnum.SIGN_ERROR.getCode(),SysErrorCodeEnum.SIGN_ERROR.getMsg()),resp);
             return;
@@ -123,7 +124,7 @@ public class SignFilter implements Filter {
             }
         }
         String substring = Stringbuilder.substring(0, Stringbuilder.length() - 1);
-        LogUtils.info("签名数据:"+substring);
+        LogUtil.info("签名数据:"+substring);
         return SignUtil.sign(substring);
     }
 

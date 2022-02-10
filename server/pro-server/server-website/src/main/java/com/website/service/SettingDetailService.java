@@ -2,7 +2,7 @@ package com.website.service;
 
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.website.dao.SettingDetailMapper;
 import com.pro.website.dto.entity.SettingDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SettingDetailService {
     public void updateSettingDetail(SettingDetail settingDetailReqDTO) throws Exception {
         SettingDetail settingDetailRespDTO = settingDetailMapper.getByType(settingDetailReqDTO.getType());
         if(ObjectUtils.isEmpty(settingDetailRespDTO)){
-            settingDetailReqDTO.setId(IDGenerate.generateId());
+            settingDetailReqDTO.setId(IDGenerateUtil.generateId());
             settingDetailMapper.createSettingDetail(settingDetailReqDTO);
             return;
         }

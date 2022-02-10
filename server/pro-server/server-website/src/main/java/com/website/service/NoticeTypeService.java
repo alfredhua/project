@@ -3,7 +3,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.constant.NoticeTypeActiveEnum;
 import com.website.constant.NoticeTypeErrorEnum;
@@ -42,7 +42,7 @@ public class NoticeTypeService {
         if (noticeTypeMapper.getByType(noticeTypeReqDTO.getType())>0){
             throw ResultException.error(NoticeTypeErrorEnum.EXIST.getCode(),NoticeTypeErrorEnum.EXIST.getMsg());
         }
-        noticeTypeReqDTO.setId(IDGenerate.generateId());
+        noticeTypeReqDTO.setId(IDGenerateUtil.generateId());
         noticeTypeMapper.createNoticeType(noticeTypeReqDTO);
     }
 

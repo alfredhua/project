@@ -7,10 +7,10 @@ import com.admin.controller.develop.vo.DevelopUpdateReqVO;
 import com.common.domain.entity.UserInfo;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
-import com.common.util.LoginUtils;
-import com.develop.dto.DeployListReqDTO;
-import com.develop.dto.entity.Deploy;
+import com.common.util.LoginUtil;
 import com.develop.service.DeployService;
+import com.pro.develop.dto.DeployListReqDTO;
+import com.pro.develop.dto.entity.Deploy;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class DeployController extends AdminBaseController {
     @RequestMapping(value = DevelopUrl.UPDATE_DEPLOY)
     public void updateDevelop(@RequestBody @Valid DevelopUpdateReqVO developUpdateReqVO,  BindingResult result) throws Exception {
         Deploy deployReqDTO = BeanCopyUtil.copy(developUpdateReqVO, Deploy.class);
-        UserInfo admin = LoginUtils.getLoginUser();
+        UserInfo admin = LoginUtil.getLoginUser();
         deployReqDTO.setOperator(admin.getUser_name());
         deployService.update(deployReqDTO);
     }
@@ -44,7 +44,7 @@ public class DeployController extends AdminBaseController {
     @ApiOperation(value = "配置删除")
     @RequestMapping(value = DevelopUrl.DELETE_DEPLOY)
     public void delDevelop(@PathVariable("name") String name) throws Exception {
-        deployService.delDevelop(name,LoginUtils.getLoginUser().getUser_name());
+        deployService.delDevelop(name,LoginUtil.getLoginUser().getUser_name());
     }
 
     @ApiOperation(value = "配置列表")

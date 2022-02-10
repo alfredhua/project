@@ -4,14 +4,14 @@ import com.admin.controller.auth.vo.login.LoginReqVo;
 import com.admin.controller.auth.vo.login.LoginRespVo;
 import com.admin.controller.common.AdminBaseController;
 import com.auth.constants.AuthConstant;
-import com.auth.dto.LoginReqDTO;
 import com.auth.service.LoginService;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.middle.redis.RedisUtils;
+import com.common.middle.redis.RedisUtil;
 import com.common.util.BeanCopyUtil;
-import com.common.util.IPUtils;
-import com.common.util.LoginUtils;
+import com.common.util.IPUtil;
+import com.common.util.LoginUtil;
+import com.pro.auth.dto.LoginReqDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,19 @@ public class LoginController extends AdminBaseController {
     @ApiOperation(value="登录")
     @RequestMapping(value = AuthUrl.LOGIN,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public LoginRespVo login(@RequestBody @Valid LoginReqVo loginRequestVo, BindingResult result)throws Exception{
-        String s = RedisUtils.objectGet(AuthConstant.ADMIN_CAPTCHA.getKey() + loginRequestVo.getVerify().toLowerCase());
+        String s = RedisUtil.objectGet(AuthConstant.ADMIN_CAPTCHA.getKey() + loginRequestVo.getVerify().toLowerCase());
         if (!loginRequestVo.getVerify().equalsIgnoreCase(s)){
             throw ResultException.error(SysErrorCodeEnum.VERIFY_ERROR);
         }
         LoginReqDTO loginReqDTO = BeanCopyUtil.copy(loginRequestVo, LoginReqDTO.class);
-        loginReqDTO.setIpAddress(IPUtils.getIpAddress());
+        loginReqDTO.setIpAddress(IPUtil.getIpAddress());
         return resultReturn(loginService.login(loginReqDTO), LoginRespVo.class);
     }
 
     @ApiOperation(value="登出")
     @RequestMapping(value = AuthUrl.LOGOUT,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
     public void logout(){
-        RedisUtils.del(AuthConstant.ADMIN_INFO.getKey()+ LoginUtils.getLoginUser().getToken());
+        RedisUtil.del(AuthConstant.ADMIN_INFO.getKey()+ LoginUtil.getLoginUser().getToken());
     }
 
 }

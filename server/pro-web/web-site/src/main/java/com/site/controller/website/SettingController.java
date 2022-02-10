@@ -1,10 +1,10 @@
 package com.site.controller.website;
 
 import com.common.aspect.annotation.LimitTime;
+import com.pro.website.dto.entity.SettingDetail;
 import com.site.controller.common.BaseController;
 import com.site.controller.website.vo.setting.SettingDetailRespVO;
 import com.site.controller.website.vo.setting.SettingResponseVO;
-import com.website.dto.entity.SettingDetail;
 import com.website.service.SettingDetailService;
 import com.website.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;

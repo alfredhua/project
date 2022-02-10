@@ -1,11 +1,11 @@
 package com.site.controller.website;
 
 import com.common.util.BeanCopyUtil;
+import com.pro.website.dto.NavigateListReqDTO;
+import com.pro.website.dto.entity.Navigate;
 import com.site.controller.common.BaseController;
 import com.site.controller.website.vo.Navigate.NavigateListReqVO;
 import com.site.controller.website.vo.Navigate.NavigateRespVO;
-import com.website.dto.NavigateListReqDTO;
-import com.website.dto.entity.Navigate;
 import com.website.service.NavigateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

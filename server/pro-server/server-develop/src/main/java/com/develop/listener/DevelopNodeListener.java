@@ -1,8 +1,8 @@
 package com.develop.listener;
 
-import com.common.util.CaffeineCacheUtils;
-import com.common.middle.zk.ZkUtils;
-import com.common.util.LogUtils;
+import com.common.util.CaffeineCacheUtil;
+import com.common.middle.zk.ZkUtil;
+import com.common.util.LogUtil;
 import com.develop.constants.NodePathEnum;
 import com.pro.develop.dto.entity.Deploy;
 import com.develop.dao.DeployMapper;
@@ -46,15 +46,15 @@ public class DevelopNodeListener{
             createNode( nodePathEnum.getNodePath(), value);
             this.addListenerWithNode(nodePathEnum.getName());
         });
-        LogUtils.info("develop init zk node success");
+        LogUtil.info("develop init zk node success");
     }
 
     private void createNode(String path,String value){
-        if (!ZkUtils.exist(path)) {
-            ZkUtils.create(path,value);
+        if (!ZkUtil.exist(path)) {
+            ZkUtil.create(path,value);
             return;
         }
-        ZkUtils.updateNode(path,value);
+        ZkUtil.updateNode(path,value);
     }
 
     public CuratorCacheListener listenerNode(){
@@ -63,7 +63,7 @@ public class DevelopNodeListener{
                 return;
             }
             String path = data.getPath();
-            CaffeineCacheUtils.put(path.substring(1),new String(data.getData()));
+            CaffeineCacheUtil.put(path.substring(1),new String(data.getData()));
         };
     }
 

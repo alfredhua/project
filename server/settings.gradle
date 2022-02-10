@@ -6,6 +6,8 @@ project(':common:common-spring-boot-starter').projectDir = file('common/common-s
 include ':pro-api'
 project(':pro-api').projectDir = file('pro-api')
 
+include ':pro-common:common-spring-boot-api'
+project(':pro-common:common-spring-boot-api').projectDir = file('pro-common/common-spring-boot-api')
 include ':pro-common:common-spring-boot-starter'
 project(':pro-common:common-spring-boot-starter').projectDir = file('pro-common/common-spring-boot-starter')
 

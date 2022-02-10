@@ -1,14 +1,14 @@
 package com.admin.controller.auth;
 
-import com.auth.dto.entity.AuthData;
-import com.auth.dto.AuthDataReqDTO;
-import com.auth.service.AuthDataService;
-import com.common.domain.response.PageBean;
-import com.common.util.BeanCopyUtil;
 import com.admin.controller.auth.vo.admin.AuthDataListReqVo;
 import com.admin.controller.auth.vo.admin.AuthDataReqVo;
 import com.admin.controller.auth.vo.admin.AuthDataRespVo;
 import com.admin.controller.common.AdminBaseController;
+import com.auth.service.AuthDataService;
+import com.common.domain.response.PageBean;
+import com.common.util.BeanCopyUtil;
+import com.pro.auth.dto.AuthDataReqDTO;
+import com.pro.auth.dto.entity.AuthData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

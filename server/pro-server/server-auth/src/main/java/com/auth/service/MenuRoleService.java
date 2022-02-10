@@ -1,13 +1,13 @@
 package com.auth.service;
 
 import com.auth.dao.MenuRoleMapper;
-import com.pro.auth.dto.entity.MenuRole;
-import com.pro.auth.dto.MenuRoleListReqDTO;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.auth.dto.MenuRoleListReqDTO;
+import com.pro.auth.dto.entity.MenuRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class MenuRoleService {
     MenuRoleMapper menuRoleMapper;
 
     public void createRole(MenuRole menuRole) {
-        menuRole.setId(IDGenerate.generateId());
+        menuRole.setId(IDGenerateUtil.generateId());
         menuRoleMapper.createRole(menuRole);
     }
 

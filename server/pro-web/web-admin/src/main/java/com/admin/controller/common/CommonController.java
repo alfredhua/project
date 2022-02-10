@@ -3,7 +3,7 @@ package com.admin.controller.common;
 import com.admin.constants.CommonConstant;
 import com.admin.controller.common.vo.UserCaptchaReqVo;
 import com.common.aspect.annotation.LimitTime;
-import com.common.middle.redis.RedisUtils;
+import com.common.middle.redis.RedisUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ public class CommonController  extends AdminBaseController {
     @RequestMapping(value = CommonUrl.SAVE_CAPTCHA)
     @LimitTime
     public void saveCaptcha(@RequestBody UserCaptchaReqVo userCaptchaReqVo){
-        RedisUtils.objectSet(CommonConstant.ADMIN_CAPTCHA.getKey()+userCaptchaReqVo.getPic_verify().toLowerCase(),
+        RedisUtil.objectSet(CommonConstant.ADMIN_CAPTCHA.getKey()+userCaptchaReqVo.getPic_verify().toLowerCase(),
                 CommonConstant.ADMIN_CAPTCHA.getTimeOut(),userCaptchaReqVo.getPic_verify().toLowerCase());
     }
 

@@ -2,7 +2,7 @@ package com.common.util;
 
 import com.common.domain.entity.UserInfo;
 
-public class LoginUtils {
+public class LoginUtil {
 
     private static ThreadLocal<UserInfo> local=new ThreadLocal();
 

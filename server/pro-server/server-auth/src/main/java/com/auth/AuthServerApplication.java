@@ -1,6 +1,6 @@
 package com.auth;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -13,7 +13,7 @@ public class AuthServerApplication {
 
         SpringApplication.run(AuthCore.class,args);
 
-        LogUtils.info("auth server  start......");
+        LogUtil.info("auth server  start......");
 
     }
 }

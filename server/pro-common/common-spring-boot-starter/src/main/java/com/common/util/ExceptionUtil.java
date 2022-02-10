@@ -3,9 +3,9 @@ package com.common.util;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.response.ErrorResponse;
 
-public class ExceptionUtils {
+public class ExceptionUtil {
 
-    private ExceptionUtils() {}
+    private ExceptionUtil() {}
 
     /**
      * 未知错误

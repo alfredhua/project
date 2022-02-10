@@ -3,13 +3,12 @@ package com.common.util;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author guozhenhua
  * @date 2021/01/24
  */
-public class CaffeineCacheUtils {
+public class CaffeineCacheUtil {
 
     private static Cache<String, Object> cache=Caffeine.newBuilder()
             .initialCapacity(100)//初始大小

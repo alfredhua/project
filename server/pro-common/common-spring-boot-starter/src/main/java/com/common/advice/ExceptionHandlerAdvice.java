@@ -4,9 +4,9 @@ import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
 import com.common.middle.mail.MailConfigProperties;
-import com.common.middle.mail.MailUtils;
-import com.common.util.EnvUtils;
-import com.common.util.GsonUtils;
+import com.common.middle.mail.MailUtil;
+import com.common.util.EnvUtil;
+import com.common.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -48,14 +48,14 @@ public class ExceptionHandlerAdvice {
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         String paramsStr="";
         if (parameterMap!=null){
-            paramsStr= GsonUtils.toJSONString(parameterMap);
+            paramsStr= GsonUtil.toJSONString(parameterMap);
         }
         errorData.append("请求地址:<br>").append(requestURI).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
         List<String> toMailList=new ArrayList<>();
         toMailList.add(mailProperties.getTo_mail());
-        if(!EnvUtils.isDevActive()) {
+        if(!EnvUtil.isDevActive()) {
             try {
-                MailUtils.sendMails(toMailList, "错误故障", errorData.toString());
+                MailUtil.sendMails(toMailList, "错误故障", errorData.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }

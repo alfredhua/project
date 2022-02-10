@@ -1,13 +1,13 @@
 package com.common.middle;
 
 import com.common.middle.mail.MailConfigProperties;
-import com.common.middle.mail.MailUtils;
+import com.common.middle.mail.MailUtil;
 import com.common.middle.mq.MqSendClientUtil;
-import com.common.middle.redis.RedisLockUtils;
-import com.common.middle.redis.RedisUtils;
-import com.common.middle.zk.ZkUtils;
-import com.common.util.EnvUtils;
-import com.common.util.LogUtils;
+import com.common.middle.redis.RedisLockUtil;
+import com.common.middle.redis.RedisUtil;
+import com.common.middle.zk.ZkUtil;
+import com.common.util.EnvUtil;
+import com.common.util.LogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.redisson.Redisson;
@@ -58,14 +58,14 @@ public class InitMiddle {
      * 初始化zk
      */
     private void initZk() {
-        ZkUtils.initCuratorFramework(curatorFramework);
+        ZkUtil.initCuratorFramework(curatorFramework);
     }
 
     /**
      * 初始化redis
      */
     private void initRedis() {
-        RedisUtils.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
+        RedisUtil.initRedisTemplate(createRedisTemplate(redisConnectionFactory));
     }
 
     /**
@@ -74,9 +74,9 @@ public class InitMiddle {
     private void initRedisLock() {
         try {
             Config config = Config.fromYAML(new ClassPathResource("redisson.yaml").getInputStream());
-            RedisLockUtils.initRedissonClient(Redisson.create(config));
+            RedisLockUtil.initRedissonClient(Redisson.create(config));
         } catch (IOException e) {
-            LogUtils.error("redisLock init error", e);
+            LogUtil.error("redisLock init error", e);
         }
     }
 
@@ -91,14 +91,14 @@ public class InitMiddle {
      * 初始化邮件发送
      */
     private void initMailUtils() {
-        MailUtils.initMailConfigProperties(mailConfigProperties);
+        MailUtil.initMailConfigProperties(mailConfigProperties);
     }
 
     /**
      * 初始化环境
      */
     private void initEnvUtils() {
-        EnvUtils.initEnv(environment);
+        EnvUtil.initEnv(environment);
     }
 
 }

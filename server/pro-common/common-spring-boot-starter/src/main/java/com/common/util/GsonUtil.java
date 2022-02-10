@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.Map;
 
-public class GsonUtils {
+public class GsonUtil {
 
     public static Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 

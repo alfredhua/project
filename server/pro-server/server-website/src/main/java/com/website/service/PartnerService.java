@@ -3,7 +3,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.PartnerMapper;
 import com.pro.website.dto.entity.Partner;
@@ -26,7 +26,7 @@ public class PartnerService {
 
     
     public void createPartner(Partner partnerReqDTO) {
-        partnerReqDTO.setId(IDGenerate.generateId());
+        partnerReqDTO.setId(IDGenerateUtil.generateId());
         partnerMapper.createPartner(partnerReqDTO);
     }
 

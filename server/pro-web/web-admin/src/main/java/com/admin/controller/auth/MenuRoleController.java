@@ -1,14 +1,14 @@
 package com.admin.controller.auth;
 
-import com.auth.dto.entity.MenuRole;
-import com.auth.dto.MenuRoleListReqDTO;
+import com.admin.controller.auth.vo.role.*;
+import com.admin.controller.common.AdminBaseController;
 import com.auth.service.MenuRoleService;
 import com.common.aspect.annotation.LimitTime;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
-import com.admin.controller.auth.vo.role.*;
-import com.admin.controller.common.AdminBaseController;
+import com.pro.auth.dto.MenuRoleListReqDTO;
+import com.pro.auth.dto.entity.MenuRole;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

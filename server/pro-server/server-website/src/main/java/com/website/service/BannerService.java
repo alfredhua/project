@@ -4,7 +4,7 @@ package com.website.service;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.BannerMapper;
 import com.pro.website.dto.entity.Banner;
@@ -25,7 +25,7 @@ public class BannerService {
     BannerMapper bannerMapper;
 
     public void createBanner(Banner bannerReqDTO) {
-        bannerReqDTO.setId(IDGenerate.generateId());
+        bannerReqDTO.setId(IDGenerateUtil.generateId());
         bannerMapper.createBanner(bannerReqDTO);
     }
 

@@ -1,8 +1,8 @@
 package com.auth.service;
 
 import com.auth.dao.AuthDataAdminMapper;
+import com.common.util.IDGenerateUtil;
 import com.pro.auth.dto.entity.AuthDataAdmin;
-import com.common.util.IDGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class AuthDataAdminService {
         for (String authCode : authCodeList) {
             AuthDataAdmin authDataAdmin = new AuthDataAdmin();
             authDataAdmin.setAdmin_id(adminId);
-            authDataAdmin.setId(IDGenerate.generateId());
+            authDataAdmin.setId(IDGenerateUtil.generateId());
             authDataAdmin.setData_code(authCode);
             authDataAdminMapper.saveAuthDataAdmin(authDataAdmin);
         }

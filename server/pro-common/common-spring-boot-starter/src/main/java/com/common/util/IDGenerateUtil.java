@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * @author hua
  *
  */
-public class IDGenerate {
+public class IDGenerateUtil {
 
     private static final Pattern PATTERN_HOSTNAME = Pattern.compile("^.*\\D+([0-9]+)$");
 
@@ -33,7 +33,7 @@ public class IDGenerate {
     private static synchronized long nextId(long epochSecond) {
         if (epochSecond < lastEpoch) {
             // warning: clock is turn back:
-            LogUtils.warn("clock is back: " + epochSecond + " from previous:" + lastEpoch);
+            LogUtil.warn("clock is back: " + epochSecond + " from previous:" + lastEpoch);
             epochSecond = lastEpoch;
         }
         if (lastEpoch != epochSecond) {
@@ -43,7 +43,7 @@ public class IDGenerate {
         offset++;
         long next = offset & MAX_NEXT;
         if (next == 0) {
-            LogUtils.warn("maximum id reached in 1 second in epoch: " + epochSecond);
+            LogUtil.warn("maximum id reached in 1 second in epoch: " + epochSecond);
             return nextId(epochSecond + 1);
         }
         return generateId(epochSecond, next, SHARD_ID);
@@ -64,12 +64,12 @@ public class IDGenerate {
             if (matcher.matches()) {
                 long n = Long.parseLong(matcher.group(1));
                 if (n >= 0 && n < 8) {
-                    LogUtils.info("detect server id from host name "+hostname+ n);
+                    LogUtil.info("detect server id from host name "+hostname+ n);
                     return n;
                 }
             }
         } catch (UnknownHostException e) {
-            LogUtils.warn("unable to get host name. set server id = 0.");
+            LogUtil.warn("unable to get host name. set server id = 0.");
         }
         return 0;
     }

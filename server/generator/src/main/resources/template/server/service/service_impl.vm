@@ -4,7 +4,7 @@ import ${packageName}.dto.${entityName}ListReqDTO;
 import ${packageName}.dto.entity.${entityName};
 import ${packageName}.dao.${entityName}Mapper;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public class ${entityName}Service {
     ${entityName}Mapper ${firstLowerEntityName}Mapper;
 
     public void create${entityName}(${entityName} ${firstLowerEntityName}) {
-        ${firstLowerEntityName}.setId(IDGenerate.generateId());
+        ${firstLowerEntityName}.setId(IDGenerateUtil.generateId());
         ${firstLowerEntityName}.setCreate_time(LocalDateTime.now());
         ${firstLowerEntityName}Mapper.create${entityName}(${firstLowerEntityName});
     }

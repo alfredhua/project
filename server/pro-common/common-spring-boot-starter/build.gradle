@@ -19,33 +19,43 @@ ext{
 
 dependencies {
 
+    compile("com.common:common-spring-boot-api:${commonSpringBootApiVersion}")
+
+    //spring
     api("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    api("org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion")
     api("org.redisson:redisson-spring-boot-starter:$redissonVersion")
     api("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
-    api("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
     api("com.alibaba:druid-spring-boot-starter:${dubboSpringBootStartVersion}")
     api("org.apache.commons:commons-lang3:${commonsLangVersion}")
     api ("org.apache.curator:curator-framework:$curatorVersion"){
         exclude group: 'org.apache.zookeeper', module: 'zookeeper'
     }
-    api("com.github.ben-manes.caffeine:caffeine:${caffeineVersion}")
+    //mybatis
+    api("org.mybatis:mybatis:$mybatisVersion")
+    api("org.mybatis:mybatis-spring:$mybatisSpringVersion")
+    //redis,rabbitmq
+    api("org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion")
+    api("redis.clients:jedis:$jedisVersion")
+    api("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
+    //zk
     api ("org.apache.curator:curator-recipes:$curatorVersion")
     api ("org.apache.zookeeper:zookeeper:$zookeeperVersion"){
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
         exclude group: 'log4j', module: 'log4j'
     }
-    api("org.apache.httpcomponents:httpclient:$httpclientVersion")
-    api("javax.mail:mail:$mailVersion")
-    api("redis.clients:jedis:$jedisVersion")
-    api("com.google.code.gson:gson:$gsonVersion")
+    //es
     api("org.elasticsearch.client:elasticsearch-rest-high-level-client:6.8.7"){
         exclude group: 'org.elasticsearch', module: 'elasticsearch'
     }
     api("org.elasticsearch.client:transport:$transportVersion")
     api("org.elasticsearch:elasticsearch:6.8.7")
+    //tool
+    api("com.github.ben-manes.caffeine:caffeine:${caffeineVersion}")
+    api("org.apache.httpcomponents:httpclient:$httpclientVersion")
+    api("javax.mail:mail:$mailVersion")
+    api("com.google.code.gson:gson:$gsonVersion")
+
     api("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    api("org.mybatis:mybatis:$mybatisVersion")
 
 }
 

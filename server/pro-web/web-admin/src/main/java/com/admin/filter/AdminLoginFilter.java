@@ -2,15 +2,15 @@ package com.admin.filter;
 
 import com.admin.config.NoLoginUrlConfig;
 import com.auth.constants.AuthConstant;
-import com.auth.dto.LoginAdminRespDTO;
 import com.auth.service.LoginService;
 import com.common.domain.constants.SourceEnum;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.entity.UserInfo;
 import com.common.domain.response.JSONResult;
-import com.common.middle.redis.RedisUtils;
-import com.common.util.LogUtils;
-import com.common.util.LoginUtils;
+import com.common.middle.redis.RedisUtil;
+import com.common.util.LogUtil;
+import com.common.util.LoginUtil;
+import com.pro.auth.dto.LoginAdminRespDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
@@ -48,7 +48,7 @@ public class AdminLoginFilter implements Filter {
             returnResponse(response,JSONResult.errorSysError(SysErrorCodeEnum.TOKEN_IS_NULL));
             return;
         }
-        LoginAdminRespDTO loginAdminRespDTO= RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + token);
+        LoginAdminRespDTO loginAdminRespDTO= RedisUtil.objectGet(AuthConstant.ADMIN_INFO.getKey() + token);
         if (ObjectUtils.isEmpty(loginAdminRespDTO)){
             returnResponse(response,JSONResult.errorSysError(SysErrorCodeEnum.TOKEN_INVALID));
             return;
@@ -61,10 +61,10 @@ public class AdminLoginFilter implements Filter {
         userInfo.setPhone(loginAdminRespDTO.getPhone());
         userInfo.setCreate_time(loginAdminRespDTO.getCreate_time());
         userInfo.setSourceEnum(SourceEnum.ADMIN);
-        LoginUtils.initLoginUser(userInfo);
-        RedisUtils.expire(AuthConstant.ADMIN_INFO.getKey()+token, AuthConstant.ADMIN_INFO.getTimeOut()); //延迟登录时间
+        LoginUtil.initLoginUser(userInfo);
+        RedisUtil.expire(AuthConstant.ADMIN_INFO.getKey()+token, AuthConstant.ADMIN_INFO.getTimeOut()); //延迟登录时间
         chain.doFilter(request,resp);
-        LoginUtils.remove();
+        LoginUtil.remove();
     }
 
     private void returnResponse(HttpServletResponse response ,JSONResult jsonResult){
@@ -74,7 +74,7 @@ public class AdminLoginFilter implements Filter {
             response.setStatus(200);
             response.getWriter().append(jsonResult.toString());
         }catch (Exception e){
-            LogUtils.error("AdminLoginFilter error",e);
+            LogUtil.error("AdminLoginFilter error",e);
         }
     }
 

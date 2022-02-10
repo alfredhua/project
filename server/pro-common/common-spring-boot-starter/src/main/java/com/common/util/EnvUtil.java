@@ -2,7 +2,7 @@ package com.common.util;
 
 import org.springframework.core.env.Environment;
 
-public class EnvUtils {
+public class EnvUtil {
 
     private static Environment env;
 

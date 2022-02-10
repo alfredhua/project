@@ -3,16 +3,16 @@ package com.admin.controller.auth;
 import com.admin.controller.auth.vo.admin.*;
 import com.admin.controller.common.AdminBaseController;
 import com.auth.constants.AuthConstant;
-import com.auth.dto.entity.Admin;
-import com.auth.dto.AdminListReqDTO;
-import com.auth.dto.LoginAdminRespDTO;
 import com.auth.service.AdminService;
 import com.common.domain.entity.UserInfo;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.middle.redis.RedisUtils;
+import com.common.middle.redis.RedisUtil;
 import com.common.util.BeanCopyUtil;
-import com.common.util.LoginUtils;
+import com.common.util.LoginUtil;
+import com.pro.auth.dto.AdminListReqDTO;
+import com.pro.auth.dto.LoginAdminRespDTO;
+import com.pro.auth.dto.entity.Admin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +62,8 @@ public class AdminController extends AdminBaseController {
     @ApiOperation(value="获取当前用户信息")
     @RequestMapping(value = AuthUrl.GET_ADMIN_TOKEN)
     public AdminRespVo getAdminInfo(){
-        String token = LoginUtils.getLoginUser().getToken();
-        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(token);
+        String token = LoginUtil.getLoginUser().getToken();
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtil.objectGet(token);
         return resultReturn(loginAdminRespDTO,AdminRespVo.class);
     }
 
@@ -73,18 +73,18 @@ public class AdminController extends AdminBaseController {
         if(!resetAdminPasswordReq.getNew_password().equals(resetAdminPasswordReq.getConfirm_password())){
             throw ResultException.error(CONFIRM_PASSWORD_ERROR);
         }
-        adminService.updatePassword(LoginUtils.getLoginUser().getId(),resetAdminPasswordReq.getOld_password(),resetAdminPasswordReq.getConfirm_password());
+        adminService.updatePassword(LoginUtil.getLoginUser().getId(),resetAdminPasswordReq.getOld_password(),resetAdminPasswordReq.getConfirm_password());
     }
 
     @ApiOperation(value="更改管理员自己信息")
     @RequestMapping(value = AuthUrl.UPDATE_ADMIN_INFO)
     public void updateAdminInfo(@RequestBody @Valid AdminInfoReqVo adminInfoReqVo,BindingResult result)throws Exception{
-        UserInfo loginUser = LoginUtils.getLoginUser();
-        LoginAdminRespDTO loginAdminResp = RedisUtils.objectGet(loginUser.getToken());
+        UserInfo loginUser = LoginUtil.getLoginUser();
+        LoginAdminRespDTO loginAdminResp = RedisUtil.objectGet(loginUser.getToken());
         adminService.updateAdminInfo(loginAdminResp.getId(), adminInfoReqVo.getPhone(), adminInfoReqVo.getEmail());
         loginAdminResp.setEmail( adminInfoReqVo.getEmail());
         loginAdminResp.setPhone( adminInfoReqVo.getPhone());
-        RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginUser.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminResp);
+        RedisUtil.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginUser.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminResp);
     }
 
     @ApiOperation(value="密码重置")

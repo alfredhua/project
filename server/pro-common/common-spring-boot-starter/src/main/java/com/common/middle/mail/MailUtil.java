@@ -1,6 +1,6 @@
 package com.common.middle.mail;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-public class MailUtils {
+public class MailUtil {
 
   private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
@@ -20,7 +20,7 @@ public class MailUtils {
 
   public static void initMailConfigProperties(MailConfigProperties mailConfigProperties){
     mailProperties=mailConfigProperties;
-    LogUtils.info("mail init success");
+    LogUtil.info("mail init success");
   }
 
   public static void sendMail(String toMail,String title, String context)throws Exception {

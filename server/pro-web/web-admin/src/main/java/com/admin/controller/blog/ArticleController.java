@@ -1,12 +1,12 @@
 package com.admin.controller.blog;
 
-import com.blog.dto.entity.Article;
-import com.blog.dto.ArticleListReqDTO;
+import com.admin.controller.blog.vo.article.*;
+import com.admin.controller.common.AdminBaseController;
 import com.blog.service.ArticleService;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
-import com.admin.controller.blog.vo.article.*;
-import com.admin.controller.common.AdminBaseController;
+import com.pro.blog.dto.ArticleListReqDTO;
+import com.pro.blog.dto.entity.Article;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

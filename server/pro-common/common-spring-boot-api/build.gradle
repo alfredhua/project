@@ -1,0 +1,33 @@
+repositories {
+    mavenLocal()
+    mavenCentral()
+    apply(plugin: "java-library")
+    apply(plugin: 'maven-publish')
+}
+
+group 'com.common'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    lombokVersion= '1.18.22'
+}
+
+dependencies {
+
+    //lombok
+    compile("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor ("org.projectlombok:lombok:$lombokVersion")
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common'
+            artifactId = 'common-spring-boot-api'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}

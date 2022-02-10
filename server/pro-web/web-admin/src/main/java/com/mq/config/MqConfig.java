@@ -1,6 +1,6 @@
 package com.mq.config;
 
-import com.common.util.LogUtils;
+import com.common.util.LogUtil;
 import com.mq.comsume.AbstractMqConsume;
 import com.rabbitmq.client.*;
 import org.apache.commons.lang3.SerializationUtils;
@@ -49,7 +49,7 @@ public class MqConfig {
             channel.exchangeDeclare(exchangeName, "fanout", true, false, null);
             String queueName = channel.queueDeclare(channelName, true, false, false, null).getQueue();
             channel.queueBind( queueName, exchangeName,"");
-            LogUtils.info(queueName+" Waiting for messages... ");
+            LogUtil.info(queueName+" Waiting for messages... ");
 
             Consumer consumer = new LocalConsumer(channel, abstractMqConsume);
             channel.basicConsume(queueName, true, consumer);
@@ -75,7 +75,7 @@ public class MqConfig {
                 String deserialize = SerializationUtils.deserialize(body);
                 abstractMqConsume.consume(abstractMqConsume.transform(deserialize));
             } catch (Throwable t){
-                LogUtils.error("消息调用出错", t);
+                LogUtil.error("消息调用出错", t);
             }
         }
     }

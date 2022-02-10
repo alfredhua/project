@@ -2,9 +2,9 @@ package com.site.controller.website;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.util.BeanCopyUtil;
+import com.pro.website.dto.entity.Partner;
 import com.site.controller.common.BaseController;
 import com.site.controller.website.vo.partner.PartnerResponseVO;
-import com.website.dto.entity.Partner;
 import com.website.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
