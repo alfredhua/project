@@ -1,43 +1,22 @@
 package com.common.middle.zk;
 
-import com.common.util.LoadPropertiesUtil;
 import com.common.util.LogUtil;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
-
-import java.util.Properties;
 
 /**
  * @author guozhenhua
  * @date 2021/01/17
  */
-public class ZkUtil {
+//@NoArgsConstructor
+public class ZkUtilsss {
 
     private static CuratorFramework curatorFramework;
 
-    private static final String CONFIG_FILE="zk.config.file";
-
-    private static final Properties properties;
-
-    static {
-        properties= LoadPropertiesUtil.loadConfig(CONFIG_FILE);
-        if (!ObjectUtils.isEmpty(properties)){
-            String url = properties.getProperty("zk.url", "localhost");
-            CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
-            CuratorFramework curator = builder.connectString(url)
-                    .sessionTimeoutMs(5000)
-                    .retryPolicy(new ExponentialBackoffRetry(100, 3)).build();
-            curator.start();
-            curatorFramework=curator;
-        }
-    }
-
-    public static String getZkProperty(String property){
-        return properties.getProperty(property);
+    public static void initCuratorFramework(CuratorFramework curatorFrameworkParam) {
+        curatorFramework = curatorFrameworkParam;
+        LogUtil.info("zk init success");
     }
 
     public static boolean exist(String path){

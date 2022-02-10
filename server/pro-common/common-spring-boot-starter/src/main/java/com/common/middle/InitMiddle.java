@@ -5,7 +5,6 @@ import com.common.middle.mail.MailUtil;
 import com.common.middle.mq.MqSendClientUtil;
 import com.common.middle.redis.RedisLockUtil;
 import com.common.middle.redis.RedisUtil;
-import com.common.middle.zk.ZkUtil;
 import com.common.util.EnvUtil;
 import com.common.util.LogUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -46,19 +45,11 @@ public class InitMiddle {
 
     @Bean
     public void initAllMiddle(){
-        initZk();
         initRedis();
 //        initRedisLock();
         initMqSendClientUtil();
         initMailUtils();
         initEnvUtils();
-    }
-
-    /**
-     * 初始化zk
-     */
-    private void initZk() {
-        ZkUtil.initCuratorFramework(curatorFramework);
     }
 
     /**
