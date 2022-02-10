@@ -3,8 +3,6 @@ package com.common.advice;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
-import com.common.middle.mail.MailConfigProperties;
-import com.common.middle.mail.MailUtil;
 import com.common.util.EnvUtil;
 import com.common.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;

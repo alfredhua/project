@@ -1,8 +1,5 @@
 package com.common.middle;
 
-import com.common.middle.mail.MailConfigProperties;
-import com.common.middle.mail.MailUtil;
-import com.common.middle.mq.MqSendClientUtil;
 import com.common.middle.redis.RedisLockUtil;
 import com.common.middle.redis.RedisUtil;
 import com.common.util.EnvUtil;
@@ -21,7 +18,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 import java.io.IOException;
 
-import static com.common.middle.mq.MqServerConfig.createRabbitTemplate;
 import static com.common.middle.redis.RedisConfig.createRedisTemplate;
 
 @Slf4j
@@ -36,19 +32,12 @@ public class InitMiddle {
 
     @Autowired
     ConnectionFactory connectionFactory;
-
-    @Autowired
-    MailConfigProperties mailConfigProperties;
-
     @Autowired
     Environment environment;
 
     @Bean
     public void initAllMiddle(){
         initRedis();
-//        initRedisLock();
-        initMqSendClientUtil();
-        initMailUtils();
         initEnvUtils();
     }
 
@@ -71,19 +60,6 @@ public class InitMiddle {
         }
     }
 
-    /**
-     * 初始化MQ
-     */
-    private void initMqSendClientUtil() {
-        MqSendClientUtil.initRabbitTemplate(createRabbitTemplate(connectionFactory));
-    }
-
-    /**
-     * 初始化邮件发送
-     */
-    private void initMailUtils() {
-        MailUtil.initMailConfigProperties(mailConfigProperties);
-    }
 
     /**
      * 初始化环境
