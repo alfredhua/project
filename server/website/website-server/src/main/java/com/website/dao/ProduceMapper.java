@@ -1,6 +1,6 @@
 package com.website.dao;
 
-import com.common.aspect.annotation.DataAuth;
+import com.common.dao.annotation.DataAuth;
 import com.website.dto.entity.Produce;
 import com.website.dto.ProduceListReqDTO;
 import org.apache.ibatis.annotations.*;

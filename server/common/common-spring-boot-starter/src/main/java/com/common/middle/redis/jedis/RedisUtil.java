@@ -1,5 +1,6 @@
 package com.common.middle.redis.jedis;
 
+import com.common.util.GsonUtil;
 import com.common.util.LoadPropertiesUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,14 @@ public class RedisUtil {
         return jedisPool.getResource();
     }
 
+    public static void objectSet(String key,long time,Object value){
+        set(key, GsonUtil.toJSON(value),time);
+    }
+
+    public static Object objectGet(String key){
+        return get(key);
+    }
+    
     /**
      * get
      * @param key

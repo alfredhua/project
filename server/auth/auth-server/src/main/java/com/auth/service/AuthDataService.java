@@ -1,12 +1,12 @@
 package com.auth.service;
 
 import com.auth.dao.AuthDataMapper;
-import com.auth.dto.entity.AuthData;
 import com.auth.dto.AuthDataReqDTO;
+import com.auth.dto.entity.AuthData;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
-import com.common.util.IDGenerate;
+import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class AuthDataService {
     public void saveAuthData(AuthData authData) throws Exception{
         try {
             if (ObjectUtils.isEmpty(authData.getId())) {
-                authData.setId(IDGenerate.generateId());
+                authData.setId(IDGenerateUtil.generateId());
                 dataMapper.saveAuthData(authData);
                 return;
             }

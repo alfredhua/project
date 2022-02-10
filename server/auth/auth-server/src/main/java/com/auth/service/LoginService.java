@@ -12,11 +12,8 @@ import com.auth.dto.entity.Admin;
 import com.auth.dto.entity.LoginLog;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.middle.redis.RedisUtils;
-import com.common.util.BeanCopyUtil;
-import com.common.util.GsonUtils;
-import com.common.util.IDGenerate;
-import com.common.util.MessageDigestUtil;
+import com.common.middle.redis.jedis.RedisUtil;
+import com.common.util.*;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,17 +43,6 @@ public class LoginService  {
     @Autowired
     AuthDataAdminService authDataAdminService;
 
-
-//    public JSONResult<LoginAdminRespDTO>  getLoginAdminInfo(){
-//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-//        LoginAdminRespDTO loginAdminRespDTO = RedisUtils.objectGet(AuthConstant.ADMIN_INFO.getKey() + request.getHeader("token"));
-//        if (ObjectUtils.isEmpty(loginAdminRespDTO)){
-//            return JSONResult.error(SysErrorCodeEnum.TOKEN_INVALID.getCode(),SysErrorCodeEnum.TOKEN_INVALID.getMsg());
-//        }
-//        return JSONResult.success(loginAdminRespDTO);
-//    }
-
-
     public LoginRespDTO login(LoginReqDTO loginReqDTO)throws Exception{
             if (StringUtils.isEmpty(loginReqDTO.getUser_name()) || StringUtils.isEmpty(loginReqDTO.getPassword())) {
                 throw ResultException.error(SysErrorCodeEnum.NULL_ERROR);
@@ -76,23 +62,21 @@ public class LoginService  {
             }
             String token = insertLoginLog(loginReqDTO.getIpAddress(), admin);
             LoginAdminRespDTO loginAdminRespDTO = loginUser(admin);
-            RedisUtils.objectSet(AuthConstant.ADMIN_INFO.getKey() + token, AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminRespDTO);
+            RedisUtil.objectSet(AuthConstant.ADMIN_INFO.getKey() + token, AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminRespDTO);
             return new LoginRespDTO(token, loginAdminRespDTO.getAuth_list());
     }
 
     
     private LoginAdminRespDTO  loginUser(Admin admin){
         //获取所有的roleIds
-        List<Object> roleIds=GsonUtils.gson.fromJson(admin.getRole_id_list(),new TypeToken<List<Object>>(){}.getType());
+        List<Object> roleIds= GsonUtil.gson.fromJson(admin.getRole_id_list(),new TypeToken<List<Object>>(){}.getType());
         List<String> authList = menuRoleMapper.getRoleByIdList(roleIds);
         //所有的authDictionary id的set
         Set<String> authSet = new HashSet<>();
         for (String str:authList) {
-            List<String> list=GsonUtils.gson.fromJson(str,new TypeToken<List<String>>(){}.getType());
+            List<String> list=GsonUtil.gson.fromJson(str,new TypeToken<List<String>>(){}.getType());
             if (!list.isEmpty()){
-                list.forEach(item->{
-                    authSet.add(item);
-                });
+                list.forEach(item-> authSet.add(item));
             }
         }
         LoginAdminRespDTO loginAdminRespDTO = BeanCopyUtil.copy(admin, LoginAdminRespDTO.class);
@@ -104,7 +88,7 @@ public class LoginService  {
 
     private String insertLoginLog(String ipAddress,Admin admin){
         LoginLog loginLog=new LoginLog();
-        loginLog.setId(IDGenerate.uuid());
+        loginLog.setId(IDGenerateUtil.uuid());
         loginLog.setAdminId(admin.getId());
         loginLog.setIpAddress(ipAddress);
         loginLogMapper.insert(loginLog);

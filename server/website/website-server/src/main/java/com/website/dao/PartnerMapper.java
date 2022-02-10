@@ -1,6 +1,6 @@
 package com.website.dao;
 
-import com.common.aspect.annotation.DataAuth;
+import com.common.dao.annotation.DataAuth;
 import com.website.dto.entity.Partner;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
