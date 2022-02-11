@@ -3,10 +3,10 @@ package com.common.advice;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.JSONResult;
+import com.common.middle.mail.MailUtil;
 import com.common.util.EnvUtil;
 import com.common.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,10 +28,6 @@ import static java.lang.Thread.currentThread;
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
 
-    @Autowired
-    MailConfigProperties mailProperties;
-
-
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public JSONResult exceptionHandler(HttpServletRequest httpServletRequest, Exception ex) {
@@ -50,7 +46,7 @@ public class ExceptionHandlerAdvice {
         }
         errorData.append("请求地址:<br>").append(requestURI).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
         List<String> toMailList=new ArrayList<>();
-        toMailList.add(mailProperties.getTo_mail());
+//        toMailList.add(mailProperties.getTo_mail());
         if(!EnvUtil.isDevActive()) {
             try {
                 MailUtil.sendMails(toMailList, "错误故障", errorData.toString());

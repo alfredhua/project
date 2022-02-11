@@ -1,6 +1,6 @@
 package com.mq;
 
-import com.common.middle.mq.MqTopic;
+//import com.common.middle.mq.MqTopic;
 import com.common.util.GsonUtil;
 import com.common.util.LogUtil;
 import com.message.service.SmsService;
@@ -17,7 +17,8 @@ public class SmsConsume extends AbstractMqConsume<SmsQueueInfo> {
 
     @Override
     public String getChannelName() {
-        return MqTopic.SMS;
+//        return MqTopic.SMS;
+        return null;
     }
 
     @Override

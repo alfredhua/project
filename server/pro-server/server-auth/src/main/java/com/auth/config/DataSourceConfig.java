@@ -19,12 +19,12 @@ public class DataSourceConfig {
 
     @Bean("authDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.auth") //读取application.yml中的配置参数映射成为一个对象
-    public DataSource getDb1DataSource(){
+    public DataSource getDataSource(){
         return DataSourceBuilder.create().build();
     }
 
     @Bean("authSqlSessionFactory")
-    public SqlSessionFactory db1SqlSessionFactory(@Qualifier("authDataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("authDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         // mapper的xml形式文件位置必须要配置，不然将报错：no statement （这种错误也可能是mapper的xml中，namespace与项目的路径不一致导致）
@@ -34,7 +34,7 @@ public class DataSourceConfig {
 
     @Primary
     @Bean("authSqlSessionTemplate")
-    public SqlSessionTemplate db1SqlSessionTemplate(@Qualifier("db1SqlSessionFactory") SqlSessionFactory sqlSessionFactory){
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("authSqlSessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

@@ -1,20 +1,20 @@
 package com.develop.listener;
 
-import com.common.util.CaffeineCacheUtil;
 import com.common.middle.zk.ZkUtil;
+import com.common.util.CaffeineCacheUtil;
 import com.common.util.LogUtil;
 import com.develop.constants.NodePathEnum;
-import com.pro.develop.dto.entity.Deploy;
 import com.develop.dao.DeployMapper;
+import com.pro.develop.dto.entity.Deploy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.CuratorCache;
 import org.apache.curator.framework.recipes.cache.CuratorCacheListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,8 +29,6 @@ public class DevelopNodeListener{
     @Autowired
     DeployMapper deployMapper;
 
-    @Autowired
-    CuratorFramework curatorFramework;
 
     @Bean
     @DependsOn(value={"flywayInitializer","initAllMiddle"})
@@ -69,7 +67,8 @@ public class DevelopNodeListener{
 
     public  void addListenerWithNode(String path) {
         try {
-            CuratorCache curatorCache = CuratorCache.builder(curatorFramework, "/"+path).build();
+
+            CuratorCache curatorCache = CuratorCache.builder(ZkUtil.getCuratorFramework(), "/"+path).build();
             curatorCache.listenable().addListener(listenerNode());
             curatorCache.start();
         }catch (Exception e){

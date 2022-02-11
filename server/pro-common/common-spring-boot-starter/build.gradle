@@ -33,6 +33,9 @@ dependencies {
     //mybatis
     api("org.mybatis:mybatis:$mybatisVersion")
     api("org.mybatis:mybatis-spring:$mybatisSpringVersion")
+    api("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
+    api("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
+    api("mysql:mysql-connector-java:$mysqlConnectorVersion")
     //redis,rabbitmq
     api("org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion")
     api("redis.clients:jedis:$jedisVersion")

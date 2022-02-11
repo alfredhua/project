@@ -36,6 +36,13 @@ public class ZkUtil {
         }
     }
 
+    public static CuratorFramework getCuratorFramework(){
+        if (curatorFramework==null){
+            throw new RuntimeException("curatorFramework init error");
+        }
+        return curatorFramework;
+    }
+
     public static String getZkProperty(String property){
         return properties.getProperty(property);
     }

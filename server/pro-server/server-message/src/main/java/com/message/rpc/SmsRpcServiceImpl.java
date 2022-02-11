@@ -2,8 +2,6 @@ package com.message.rpc;
 
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.response.JSONResult;
-import com.common.middle.mq.MqSendClientUtil;
-import com.common.middle.mq.MqTopic;
 import com.common.util.ValidateUtil;
 import com.pro.message.SmsRpcService;
 import com.pro.message.constants.SmsTemplateEnum;
@@ -29,7 +27,7 @@ public class SmsRpcServiceImpl implements SmsRpcService {
             smsQueueInfo.setParams(params);
             smsQueueInfo.setPhone(phone);
             smsQueueInfo.setTemplateType(templateType);
-            MqSendClientUtil.send(MqTopic.SMS, smsQueueInfo);
+//            MqSendClientUtil.send(MqTopic.SMS, smsQueueInfo);
         }catch (Exception e){
             throw new RuntimeException("短信发送失败",e);
         }
@@ -47,7 +45,7 @@ public class SmsRpcServiceImpl implements SmsRpcService {
                 smsQueueInfo.setParams(params);
                 smsQueueInfo.setPhone(phone);
                 smsQueueInfo.setTemplateType(templateType);
-                MqSendClientUtil.send(MqTopic.SMS, smsQueueInfo);
+//                MqClientUtil.send(MqTopic.SMS, smsQueueInfo);
             }
         });
         return JSONResult.success();
