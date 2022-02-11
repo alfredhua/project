@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @author hua
  */
-@SpringBootApplication
 @EnableScheduling
+@SpringBootApplication
 public class WebAdminApplication {
 
     public static void main(String[] args){

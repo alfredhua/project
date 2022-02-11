@@ -29,9 +29,8 @@ public class DevelopNodeListener{
     @Autowired
     DeployMapper deployMapper;
 
-
     @Bean
-    @DependsOn(value={"flywayInitializer","initAllMiddle"})
+    @DependsOn(value={"flywayInitializer"})
     public void initDevelopNode(){
         NodePathEnum[] values = NodePathEnum.values();
         List<NodePathEnum> nodePathEnums = Arrays.asList(values);
