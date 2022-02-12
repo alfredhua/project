@@ -24,7 +24,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.io.IOException;
 
 @Configuration
-@ConditionalOnProperty(prefix = "spring.redis", value = "enable", matchIfMissing = true)
+@ConditionalOnProperty( value = "spring.redis.host")
 public class RedisConfig {
 
     public static<T> RedisTemplate<String, T> createRedisTemplate(RedisConnectionFactory connectionFactory){
