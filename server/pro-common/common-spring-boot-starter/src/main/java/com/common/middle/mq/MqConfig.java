@@ -17,8 +17,6 @@ public class MqConfig {
 
     private static ConnectionFactory factory;
 
-    static List<AbstractMqConsumer> list;
-
     static {
         factory = new ConnectionFactory();
         Properties properties = LoadPropertiesUtil.loadConfig(CONFIG_FILE);
@@ -40,8 +38,12 @@ public class MqConfig {
         return null;
     }
 
-    public static void start(){
+    public static void start(List<AbstractMqConsumer> list){
         try{
+            if (list==null||list.isEmpty()){
+                LogUtil.info(" mq topic is empty");
+                return;
+            }
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             for (AbstractMqConsumer abstractMqConsumer:list){
@@ -53,7 +55,7 @@ public class MqConfig {
                 channel.basicConsume(queueName, abstractMqConsumer.autoAck(), (consumerTag, delivery) -> {
                     //处理接收MQ
                     String message = new String(delivery.getBody(), "UTF-8");
-                    System.out.println(topic+" Received :" + message);
+//                    LogUtil.info(topic+" Received :" + message);
                     abstractMqConsumer.consume(message);
                     channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
                 }, consumerTag -> { });

@@ -6,13 +6,13 @@ public abstract class AbstractMqConsumer<T> {
      * 设置topic
      * @return
      */
-    abstract String getTopic();
+   public abstract String getTopic();
 
     /**
      * 消费MQ
      * @return
      */
-    abstract String consume(T t);
+   public abstract void consume(T t);
 
     /**
      * 是否自动应答
