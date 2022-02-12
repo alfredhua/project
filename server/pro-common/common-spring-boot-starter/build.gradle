@@ -23,7 +23,6 @@ dependencies {
 
     //spring
     api("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    api("org.redisson:redisson-spring-boot-starter:$redissonVersion")
     api("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
     api("com.alibaba:druid-spring-boot-starter:${dubboSpringBootStartVersion}")
     api("org.apache.commons:commons-lang3:${commonsLangVersion}")
@@ -36,9 +35,10 @@ dependencies {
     api("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
     api("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
     api("mysql:mysql-connector-java:$mysqlConnectorVersion")
-    //redis,rabbitmq
+    //redis
     api("org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion")
-    api("redis.clients:jedis:$jedisVersion")
+    api("org.redisson:redisson-spring-boot-starter:$redissonVersion")
+    //rabbitmq
     api("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
     //zk
     api ("org.apache.curator:curator-recipes:$curatorVersion")

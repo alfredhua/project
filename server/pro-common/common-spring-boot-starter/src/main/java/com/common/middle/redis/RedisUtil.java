@@ -1,11 +1,22 @@
 package com.common.middle.redis;
 
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
@@ -14,16 +25,44 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@NoArgsConstructor
 public class RedisUtil {
 
   private static final long DEFAULT_TIME_OUT=30*24*60;
 
   private static RedisTemplate<String,Object> template;
 
-  public static void initRedisTemplate(RedisTemplate<String, Object> templateParams) {
-    template = templateParams;
+  public static void initRedisTemplate( RedisConnectionFactory connectionFactory) {
+    template=createRedisTemplate(connectionFactory);
   }
+
+  private static<T> RedisTemplate<String, T> createRedisTemplate(RedisConnectionFactory connectionFactory){
+    RedisTemplate<String, T> redisTemplate = new RedisTemplate<>();
+    StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+    redisTemplate.setKeySerializer(stringRedisSerializer);
+    redisTemplate.setHashKeySerializer(stringRedisSerializer);
+    redisTemplate.setValueSerializer(valueSerializer());
+    redisTemplate.setHashValueSerializer(valueSerializer());
+    redisTemplate.setEnableTransactionSupport(true);
+    redisTemplate.setConnectionFactory(connectionFactory);
+    redisTemplate.setDefaultSerializer(valueSerializer());
+    redisTemplate.afterPropertiesSet();
+    return redisTemplate;
+  }
+
+  private static RedisSerializer valueSerializer() {
+    Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+    objectMapper.activateDefaultTyping( LaissezFaireSubTypeValidator.instance ,
+            ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
+    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    objectMapper.registerModule(new JavaTimeModule());
+    jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+    return jackson2JsonRedisSerializer;
+  }
+
 
   /**
    * 设置过期时间，默认单位秒

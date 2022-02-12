@@ -14,8 +14,7 @@ public class RedisLockUtil {
 
    private static RedissonClient redissonClient;
 
-    private static final String PREX_LOAK="redis_lock:";
-
+    private static final String PRE_LOCK="redis_lock:";
 
     public static void initRedissonClient(RedissonClient redissonClientParams) {
         redissonClient = redissonClientParams;
@@ -23,26 +22,26 @@ public class RedisLockUtil {
     }
 
     public static RLock lock(String key){
-        RLock lock = redissonClient.getLock(PREX_LOAK+key);
+        RLock lock = redissonClient.getLock(PRE_LOCK+key);
         lock.lock();
         return lock;
     }
 
 
     public static RLock lock(String lockKey, int leaseTime) {
-        RLock lock = redissonClient.getLock(PREX_LOAK+lockKey);
+        RLock lock = redissonClient.getLock(PRE_LOCK+lockKey);
         lock.lock(leaseTime, TimeUnit.SECONDS);
         return lock;
     }
 
     public static RLock lock(String lockKey, TimeUnit unit ,int timeout) {
-        RLock lock = redissonClient.getLock(PREX_LOAK+lockKey);
+        RLock lock = redissonClient.getLock(PRE_LOCK+lockKey);
         lock.lock(timeout, unit);
         return lock;
     }
 
     public static boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime) {
-        RLock lock = redissonClient.getLock(PREX_LOAK+lockKey);
+        RLock lock = redissonClient.getLock(PRE_LOCK+lockKey);
         try {
             return lock.tryLock(waitTime, leaseTime, unit);
         } catch (InterruptedException e) {
@@ -51,7 +50,7 @@ public class RedisLockUtil {
     }
 
     public static void unlock(String lockKey) {
-        RLock lock = redissonClient.getLock(PREX_LOAK+lockKey);
+        RLock lock = redissonClient.getLock(PRE_LOCK+lockKey);
         lock.unlock();
     }
 
