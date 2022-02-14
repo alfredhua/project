@@ -35,7 +35,6 @@ function jar(){
    fi
 }
 
-
 function mv_web_file(){
     for file in `ls $server_path/$1` 
     do

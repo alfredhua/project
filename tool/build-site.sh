@@ -6,7 +6,6 @@ path=`pwd`
 
 site=('admin', 'blog' , 'web')
 
-
 function build_site(){
  if [ $1 == 'admin' ]
  then
