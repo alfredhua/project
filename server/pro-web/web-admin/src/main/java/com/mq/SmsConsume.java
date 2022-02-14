@@ -1,7 +1,6 @@
 package com.mq;
 
 import com.common.middle.mq.AbstractMqConsumer;
-import com.common.util.GsonUtil;
 import com.common.util.LogUtil;
 import com.message.service.SmsService;
 import com.pro.message.dto.SmsQueueInfo;
