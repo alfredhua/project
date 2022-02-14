@@ -14,6 +14,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class WeChatPublicUtil {
         String parms = "jsapi_ticket=" + jsapi_ticket +"&noncestr=" + noncestr +"&timestamp=" + timestamp+"&url=" + url;
         MessageDigest crypt = MessageDigest.getInstance("SHA-1");
         crypt.reset();
-        crypt.update(parms.getBytes("UTF-8"));
+        crypt.update(parms.getBytes(StandardCharsets.UTF_8));
         String signature = Hex.encodeHexString(crypt.digest());
         WeChatShareInfo wxShareInfo=new WeChatShareInfo();
         wxShareInfo.setUrl(url);

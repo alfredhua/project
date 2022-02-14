@@ -27,7 +27,7 @@ function get_all_file(){
 }
 
 function jar(){
-   if [ $file == 'web' ]
+   if [ $file == 'pro-web' ]
    then
       mv_web_file $file 
    else
@@ -39,7 +39,7 @@ function jar(){
 function mv_web_file(){
     for file in `ls $server_path/$1` 
     do
-      cd $server_path && ./gradlew web:$file:bootJar && mv $server_path/web/$file/build/libs/$file-1.0.0.jar $path/build/
+      cd $server_path && ./gradlew :pro-web:$file:bootJar && mv $server_path/pro-web/$file/build/libs/$file-1.0.0.jar $path/build/
     done
 }
 
