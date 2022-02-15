@@ -48,14 +48,18 @@ public class MqConfig {
             Channel channel = connection.createChannel();
             for (AbstractMqConsumer abstractMqConsumer:list){
                 String topic = abstractMqConsumer.getTopic();
+
                 String exchangeName = MqSupple.initExchange(topic);
                 channel.exchangeDeclare(exchangeName, MqSupple.TYPE);
+
                 String queueName = MqSupple.initQueue(topic);
-                channel.queueBind(queueName, exchangeName, "");
+                channel.queueDeclare(queueName, true, false, false, null);
+
+                channel.queueBind(queueName, exchangeName, topic);
+
                 channel.basicConsume(queueName, abstractMqConsumer.autoAck(), (consumerTag, delivery) -> {
                     //处理接收MQ
                     String message = new String(delivery.getBody(), "UTF-8");
-//                    LogUtil.info(topic+" Received :" + message);
                     abstractMqConsumer.consume(message);
                     channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
                 }, consumerTag -> { });

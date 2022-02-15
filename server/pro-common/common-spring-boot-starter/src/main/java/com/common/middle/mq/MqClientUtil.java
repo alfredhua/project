@@ -20,7 +20,7 @@ public class MqClientUtil {
             String name =initExchange(topic);
             channel.exchangeDeclare(name, MqSupple.TYPE);
             byte[] bytes = SerializationUtils.serialize(message);
-            channel.basicPublish(name, "", null, bytes);
+            channel.basicPublish(name, topic, null, bytes);
             LogUtil.info("Sent '" + message.toString() + "'");
         }catch (Exception e){
             LogUtil.error("send error ",e);
