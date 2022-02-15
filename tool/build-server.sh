@@ -16,7 +16,7 @@ function get_all_file(){
 
   for file in `ls $server_path` 
     do
-      if [[ -d $server_path/$file && $file != 'gradle' && $file != 'common' ]]
+      if [[ -d $server_path/$file && $file != 'gradle' && $file != 'pro-common' ]]
       then
           ## 进行
           jar $file
