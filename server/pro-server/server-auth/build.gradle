@@ -10,7 +10,6 @@ dependencies {
     implementation project(":pro-api")
     api("com.common:common-spring-boot-starter:${commonSpringBootStarterVersion}")
 
-    implementation("org.flywaydb:flyway-core:$flyWayVersion")
 
     implementation ("org.apache.dubbo:dubbo-spring-boot-starter:$dubboSpringBootVersion")
     implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")

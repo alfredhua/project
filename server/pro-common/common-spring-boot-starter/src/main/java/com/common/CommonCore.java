@@ -23,7 +23,7 @@ public class CommonCore {
     @Autowired
     RedisConnectionFactory connectionFactory;
 
-    @Autowired
+    @Autowired(required = false)
     List<AbstractMqConsumer> list;
 
     @PostConstruct

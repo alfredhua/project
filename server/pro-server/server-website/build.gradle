@@ -15,7 +15,6 @@ dependencies {
 //    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
 //    implementation("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
 //    implementation("mysql:mysql-connector-java:$mysqlConnectorVersion")
-    implementation("org.flywaydb:flyway-core:$flyWayVersion")
 
     implementation ("org.apache.dubbo:dubbo-spring-boot-starter:$dubboSpringBootVersion")
     implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
