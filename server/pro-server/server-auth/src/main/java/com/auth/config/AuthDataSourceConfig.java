@@ -1,5 +1,6 @@
 package com.auth.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,7 +20,7 @@ public class AuthDataSourceConfig {
     @Bean("authDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.auth") //读取application.yml中的配置参数映射成为一个对象
     public DataSource getDataSource(){
-        return DataSourceBuilder.create().build();
+        return new DruidDataSource();
     }
 
     @Bean("authSqlSessionFactory")
