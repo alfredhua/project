@@ -1,6 +1,6 @@
 package com.admin.config;
 
-import com.admin.interceptor.AuthDataInterceptor;
+import com.admin.web.interceptor.AuthDataInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

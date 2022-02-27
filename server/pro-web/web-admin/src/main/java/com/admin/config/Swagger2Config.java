@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Config {
 
-    public static final String ADMIN = "com.admin.controller";
+    public static final String ADMIN = "com.admin.web.controller";
 
     @Bean
     public Docket api() {
