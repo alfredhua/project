@@ -4,6 +4,7 @@ import com.WebsiteCore;
 import com.blog.constant.NavigateOneTypeEnum;
 import com.pro.website.dto.entity.Navigate;
 import com.website.service.NavigateService;
+import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,12 @@ public class WebsiteTest {
 
     @Test
     public void insert(){
-        List<String> list = readFile(NavigateOneTypeEnum.MANUAL);
+        NavigateOneTypeEnum navigateOneTypeEnum = NavigateOneTypeEnum.MANUAL;
+        List<String> list = readFile(navigateOneTypeEnum);
         list.forEach(line->{
             Navigate navigate=new Navigate();
             String[] split =line.split("\\|");
-            navigate.setOne_type(NavigateOneTypeEnum.BOOK.getType());
+            navigate.setOne_type(navigateOneTypeEnum.getType());
             navigate.setTwo_type(split[1]);
             navigate.setIcon(split[2]);
             navigate.setHref(split[3]);
@@ -60,7 +62,8 @@ public class WebsiteTest {
 
     @Test
     public void update(){
-        List<String> list = readFile(NavigateOneTypeEnum.BOOK);
+        NavigateOneTypeEnum navigateOneTypeEnum = NavigateOneTypeEnum.MANUAL;
+        List<String> list = readFile(navigateOneTypeEnum);
         list.forEach(line->{
             String[] split =line.split("\\|");
                 Navigate navigate=new Navigate();
