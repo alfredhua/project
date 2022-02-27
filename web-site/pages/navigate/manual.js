@@ -49,12 +49,12 @@ class Index extends React.Component{
 }
 
 Index.getInitialProps = async (res) => Promise.all([
-  list_ngvigate('MANUAL', 'HOT'),
-  list_ngvigate('MANUAL', 'FRONT'),
-  list_ngvigate('MANUAL', 'JAVA'),
-  list_ngvigate('MANUAL', 'PYTHON'),
-  list_ngvigate('MANUAL', 'ADMIN'),
-  list_ngvigate('MANUAL', 'MID'),
+  list_ngvigate('MANUAL', 'top_tech'),
+  list_ngvigate('MANUAL', 'top_relax'),
+  list_ngvigate('MANUAL', 'top_study'),
+  list_ngvigate('MANUAL', 'top_devtool'),
+  list_ngvigate('MANUAL', 'top_work'),
+  list_ngvigate('MANUAL', 'top_media'),
 ]).then((result) => {
   return {
     hots: result[0].data,

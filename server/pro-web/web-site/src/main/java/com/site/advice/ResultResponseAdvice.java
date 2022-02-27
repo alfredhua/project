@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 返回统一的 JSONResult 格式
  */
-@ControllerAdvice(basePackages = "com.admin.web.controller")
+@ControllerAdvice(basePackages = "com.site.controller")
 @Slf4j
 public class ResultResponseAdvice implements ResponseBodyAdvice {
 

@@ -37,8 +37,9 @@ class Index extends React.Component{
                </Anchor>
             </Affix>
           </div>
+
           <div className={styles.right}>
-            <div  id="tool" className={styles.card} >
+            <div id="tool" className={styles.card} >
                 <Card tabList={[{key:'1',tab: '常用工具'}]}>
                   <ul>
                   {tools && tools.map(item=>{
@@ -72,18 +73,18 @@ class Index extends React.Component{
 }
 
 Index.getInitialProps = async (res) => Promise.all([
-  list_ngvigate('INDEX', 'TOOL'),
-  list_ngvigate('INDEX', 'TECH'),
-  list_ngvigate('INDEX', 'RELAX'),
-  list_ngvigate('INDEX', 'STUDY'),
-  list_ngvigate('INDEX', 'DEV_TOOL'),
-  list_ngvigate('INDEX', 'MEDIA'),
-  list_ngvigate('INDEX', 'RESOURCES'),
-  list_ngvigate('INDEX','IMAGES'),
-  list_ngvigate('INDEX','VIDEO'),
-  list_ngvigate('INDEX','WEB_TOOL'),
-
+  list_ngvigate('INDEX', 'tool'),
+  list_ngvigate('INDEX', 'top_tech'),
+  list_ngvigate('INDEX', 'top_relax'),
+  list_ngvigate('INDEX', 'top_study'),
+  list_ngvigate('INDEX', 'top_devtool'),
+  list_ngvigate('INDEX', 'top_media'),
+  list_ngvigate('INDEX', 'top_resources'),
+  list_ngvigate('INDEX','top_image'),
+  list_ngvigate('INDEX','top_video'),
+  list_ngvigate('INDEX','top_web')
 ]).then((result) => {
+  console.log(result[0].data)
   return {
     tools: result[0].data,
     techs: result[1].data,
