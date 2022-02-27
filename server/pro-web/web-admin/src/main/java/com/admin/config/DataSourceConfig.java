@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = { "com.public"},sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = { "com.auth"},sqlSessionFactoryRef = "sqlSessionFactory")
 public class DataSourceConfig {
 
     @Primary
