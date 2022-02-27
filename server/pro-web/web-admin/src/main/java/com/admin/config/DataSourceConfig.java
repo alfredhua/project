@@ -1,4 +1,4 @@
-package com.config;
+package com.admin.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,7 +22,6 @@ public class DataSourceConfig {
     @ConfigurationProperties(prefix = "spring.datasource.primary") //读取application.yml中的配置参数映射成为一个对象
     public DataSource getDataSource(){
         return new DruidDataSource();
-//        return DataSourceBuilder.create().build();
     }
 
     @Primary
@@ -30,8 +29,6 @@ public class DataSourceConfig {
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        // mapper的xml形式文件位置必须要配置，不然将报错：no statement （这种错误也可能是mapper的xml中，namespace与项目的路径不一致导致）
-//        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapping/db1/*.xml"));
         return bean.getObject();
     }
 

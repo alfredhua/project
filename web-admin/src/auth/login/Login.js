@@ -5,7 +5,7 @@ import {post} from 'common/util/request';
 export default  class Login extends React.Component{
 
   constructor(props){
-    super(props);
+		super(props)
     this.state={
       login:{
       },
@@ -78,7 +78,6 @@ export default  class Login extends React.Component{
                 <div className="error">{login.msg}</div>
                 <div className="login_div">
                    <button className="login_btn" onClick={()=>{this.login_user()}}>登录</button>
-
                 </div> 
           </div>
       </div>

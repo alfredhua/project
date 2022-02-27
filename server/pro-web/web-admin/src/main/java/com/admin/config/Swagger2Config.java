@@ -1,6 +1,7 @@
 package com.admin.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -18,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Config {
 
-    public static final String ADMIN = "com.admin";
+    public static final String ADMIN = "com.admin.controller";
 
     @Bean
     public Docket api() {

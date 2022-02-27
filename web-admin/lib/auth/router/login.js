@@ -17,7 +17,7 @@ router.post('/login',login_required,async(ctx,next)=>{
 router.post('/check-login',login_required,async(ctx,next)=>{
     const token=ctx.cookies.get("sessionId");
     if(token&&token!=null){
-      const result=await ctx.postJson('/check-login',{token}); 
+      const result=await ctx.postJson('/admin/common/check-login',{token}); 
        ctx.body=result
     }else{
         ctx.body={code:"FAIL",msg:"token不存在"};

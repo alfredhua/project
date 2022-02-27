@@ -1,5 +1,6 @@
 package com.admin.controller.auth;
 
+import com.admin.constants.CommonConstant;
 import com.admin.controller.auth.vo.admin.*;
 import com.admin.controller.common.AdminBaseController;
 import com.auth.constants.AuthConstant;
@@ -63,7 +64,7 @@ public class AdminController extends AdminBaseController {
     @RequestMapping(value = AuthUrl.GET_ADMIN_TOKEN)
     public AdminRespVo getAdminInfo(){
         String token = LoginUtil.getLoginUser().getToken();
-        LoginAdminRespDTO loginAdminRespDTO = RedisUtil.objectGet(token);
+        LoginAdminRespDTO loginAdminRespDTO = RedisUtil.objectGet(CommonConstant.ADMIN_INFO.getKey()+token);
         return resultReturn(loginAdminRespDTO,AdminRespVo.class);
     }
 
