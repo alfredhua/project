@@ -17,8 +17,11 @@ router.post('/login',login_required,async(ctx,next)=>{
 router.post('/check-login',login_required,async(ctx,next)=>{
     const token=ctx.cookies.get("sessionId");
     if(token&&token!=null){
-      const result=await ctx.postJson('/admin/common/check-login',{token}); 
-       ctx.body=result
+      const result=await ctx.postJson('/admin/auth/get-admin-by-token',{}); 
+      if(result.data!=null){
+        ctx.body={code:"SUCCESS",msg:"当前存在登录用户"};
+      }
+        ctx.body={code:"FAIL",msg:"登录用户已失效"};
     }else{
         ctx.body={code:"FAIL",msg:"token不存在"};
     }

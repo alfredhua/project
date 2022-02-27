@@ -15,8 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by guozhenhua
  * date 2020/2/7.
  */
-@Configuration
 @EnableSwagger2
+@Configuration
 public class Swagger2Config {
 
     public static final String ADMIN = "com.admin.web.controller";

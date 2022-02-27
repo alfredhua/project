@@ -1,4 +1,4 @@
-package com.common.advice;
+package com.admin.web.advice;
 
 import com.common.domain.response.JSONResult;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 返回统一的 JSONResult 格式
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.admin.web.controller")
 @Slf4j
 public class ResultResponseAdvice implements ResponseBodyAdvice {
 

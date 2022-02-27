@@ -1,4 +1,4 @@
-package com.common.advice;
+package com.admin.web.advice;
 
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
@@ -25,7 +25,7 @@ import static java.lang.Thread.currentThread;
  * RuntimeException 全局异常处理
  */
 @Slf4j
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.admin.web.controller")
 public class ExceptionHandlerAdvice {
 
     @ResponseBody

@@ -7,7 +7,7 @@ import com.pro.message.dto.SmsQueueInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class SmsConsume extends AbstractMqConsumer<SmsQueueInfo> {
 
     @Autowired

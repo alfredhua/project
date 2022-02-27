@@ -107,13 +107,10 @@ public class AdminController extends AdminBaseController {
         return resultReturn(admin, AdminRespVo.class);
     }
 
-
-
     @ApiOperation(value="管理员冻结")
     @RequestMapping(value = AuthUrl.UPDATE_ACTIVE_ADMIN)
     public void updateActiveAdmin(@RequestBody @Valid AdminActiveReqVo adminActiveReqVO, BindingResult result) throws ResultException {
         adminService.updateActiveAdmin(adminActiveReqVO.getId(),adminActiveReqVO.getIsActive());
     }
-
 
 }
