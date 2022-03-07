@@ -78,9 +78,7 @@ public class LoginService  {
         for (String str:authList) {
             List<String> list= GsonUtil.gson.fromJson(str,new TypeToken<List<String>>(){}.getType());
             if (!list.isEmpty()){
-                list.forEach(item->{
-                    authSet.add(item);
-                });
+                authSet.addAll(list);
             }
         }
         LoginAdminRespDTO loginAdminRespDTO = BeanCopyUtil.copy(admin, LoginAdminRespDTO.class);
