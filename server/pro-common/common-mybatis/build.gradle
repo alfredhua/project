@@ -1,0 +1,38 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.mybatis'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    mybatisSpringBootStarterVersion= '2.2.2'
+}
+
+dependencies {
+    api project(':pro-common:common-util')
+    api("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
+    api("org.mybatis:mybatis-typehandlers-jsr310:1.0.1")
+    api("mysql:mysql-connector-java:8.0.15")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.mybatis'
+            artifactId = 'common-mybatis'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}

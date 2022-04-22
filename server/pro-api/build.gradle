@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api("com.common:common-spring-boot-api:${commonSpringBootApiVersion}")
+    api project(":pro-common:common-api")
 }
 
 group(project.name)

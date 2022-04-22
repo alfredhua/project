@@ -1,9 +1,9 @@
 package com.auth.service;
 
 import com.auth.dao.MenuRoleMapper;
+import com.common.api.entity.response.PageBean;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.pro.auth.dto.MenuRoleListReqDTO;

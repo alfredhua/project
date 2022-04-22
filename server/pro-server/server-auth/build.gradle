@@ -8,13 +8,11 @@ version("$projectVersion")
 dependencies {
 
     implementation project(":pro-api")
-    api("com.common:common-spring-boot-starter:${commonSpringBootStarterVersion}")
-
-
-    implementation ("org.apache.dubbo:dubbo-spring-boot-starter:$dubboSpringBootVersion")
-    implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-
-    implementation ("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    implementation project(':pro-common:common-redis')
+    implementation project(':pro-common:common-zk')
+    implementation project(':pro-common:common-rabbitmq')
+    implementation project(':pro-common:common-mybatis')
+    implementation project(':pro-common:common-es')
 
 }
 

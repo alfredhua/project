@@ -8,18 +8,13 @@ version "$projectVersion"
 
 dependencies {
 
-    compile project(":pro-api")
-    compile("com.common:common-spring-boot-starter:${commonSpringBootStarterVersion}")
 
-//    implementation("org.mybatis:mybatis:$mybatisVersion")
-//    implementation("org.mybatis:mybatis-spring:$mybatisSpringVersion")
-//    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringBootStarterVersion")
-//    implementation("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
-//    implementation("mysql:mysql-connector-java:$mysqlConnectorVersion")
-
-    implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-
-    implementation ("org.apache.dubbo:dubbo-spring-boot-starter:$dubboSpringBootVersion")
+    implementation project(":pro-api")
+    compile project(':pro-common:common-redis')
+    compile project(':pro-common:common-zk')
+    compile project(':pro-common:common-rabbitmq')
+    compile project(':pro-common:common-mybatis')
+    compile project(':pro-common:common-es')
 
     implementation('com.github.spullara.mustache.java:compiler:0.9.5')
     implementation('com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0')

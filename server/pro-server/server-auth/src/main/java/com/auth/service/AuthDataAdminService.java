@@ -24,10 +24,10 @@ public class AuthDataAdminService {
         authDataAdminMapper.deleteByAdminId(adminId);
         for (String authCode : authCodeList) {
             AuthDataAdmin authDataAdmin = new AuthDataAdmin();
-            authDataAdmin.setAdmin_id(adminId);
             authDataAdmin.setId(IDGenerateUtil.generateId());
+            authDataAdmin.setAdmin_id(adminId);
             authDataAdmin.setData_code(authCode);
-            authDataAdminMapper.saveAuthDataAdmin(authDataAdmin);
+            authDataAdminMapper.insert(authDataAdmin);
         }
     }
 

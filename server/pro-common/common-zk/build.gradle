@@ -1,0 +1,42 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.zk'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    zookeeperVersion= '3.7.0'
+    curatorVersion= '5.1.0'
+}
+
+dependencies {
+    compile ("org.apache.curator:curator-recipes:$curatorVersion")
+    compile ("org.apache.zookeeper:zookeeper:$zookeeperVersion"){
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'log4j', module: 'log4j'
+    }
+    api project(':pro-common:common-util')
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.zk'
+            artifactId = 'common-zk'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}

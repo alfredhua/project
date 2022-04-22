@@ -1,0 +1,51 @@
+package ${packageName}.service;
+import com.common.api.entity.response.PageBean;
+import com.common.api.entity.request.PageRequest;
+import ${packageName}.entity.${entityName};
+
+/**
+ * @auth generator
+ * @date ${date}
+ */
+public interface ${entityName}Service{
+
+    /**
+     * 创建
+     * @param ${firstLowerEntityName}
+     * @return
+     */
+    void create${entityName}(${entityName} ${firstLowerEntityName});
+
+    /**
+    * 获取
+    * @param id
+    * @return
+    */
+    ${entityName} queryById(long id);
+
+    /**
+     * 更新
+     * @param ${firstLowerEntityName}
+     * @return
+     */
+    boolean update${entityName}(${entityName} ${firstLowerEntityName});
+
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+     boolean del${entityName}(long id);
+
+
+    /**
+     * 列表
+     * @param ${firstLowerEntityName}
+     * @return
+     */
+    PageBean<${entityName}> list${entityName}ByPage(${entityName} ${firstLowerEntityName},PageRequest pageRequest);
+
+
+
+}

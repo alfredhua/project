@@ -1,0 +1,40 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.es'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    esVersion= '8.1.0'
+}
+
+dependencies {
+
+    compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
+    api project(':pro-common:common-util')
+
+    compile('mysql:mysql-connector-java:6.0.6')
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.es'
+            artifactId = 'common-es'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}

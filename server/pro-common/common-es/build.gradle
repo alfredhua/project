@@ -1,0 +1,38 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.es'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    esVersion= '8.1.0'
+}
+
+dependencies {
+    implementation "co.elastic.clients:elasticsearch-java:${esVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.12.3"
+    api project(':pro-common:common-util')
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.es'
+            artifactId = 'common-es'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}

@@ -1,0 +1,52 @@
+package ${packageName}.service.impl;
+
+import ${packageName}.entity.${entityName};
+import ${packageName}.mapper.${entityName}Mapper;
+import ${packageName}.service.${entityName}Service;
+import com.common.mybatis.entity.EntityWrapper;
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.util.IDGenerateUtil;
+import com.common.util.PageUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import java.time.LocalDateTime;
+
+/**
+ * @auth generator
+ * @date ${date}
+ */
+@Component
+public class ${entityName}ServiceImpl implements ${entityName}Service {
+
+    @Autowired
+    ${entityName}Mapper ${firstLowerEntityName}Mapper;
+
+    public void create${entityName}(${entityName} ${firstLowerEntityName}) {
+        ${firstLowerEntityName}.setId(IDGenerateUtil.generateId());
+        ${firstLowerEntityName}.setCreate_time(LocalDateTime.now());
+        ${firstLowerEntityName}Mapper.insert(${firstLowerEntityName});
+    }
+
+     public ${entityName} queryById(long id) {
+         return ${firstLowerEntityName}Mapper.queryById(id);
+     }
+
+    public boolean update${entityName}(${entityName} ${firstLowerEntityName}) {
+        return ${firstLowerEntityName}Mapper.updateById(${firstLowerEntityName});
+
+    }
+
+    public boolean del${entityName}(long id) {
+        return ${firstLowerEntityName}Mapper.deleteById(id);
+    }
+
+    public PageBean<${entityName}> list${entityName}ByPage(${entityName} ${firstLowerEntityName},PageRequest pageRequest) {
+        PageBean<${entityName}> pageBean = PageUtil.validatePage(pageRequest.getPage_num(),
+                pageRequest.getPage_size(),pageRequest.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(${firstLowerEntityName}Mapper.listByPage(pageRequest.getPage_num(),pageRequest.getPage_size(),entityWrapper));
+        pageBean.setTotal(${firstLowerEntityName}Mapper.listCount(entityWrapper));
+        return pageBean;
+    }
+}

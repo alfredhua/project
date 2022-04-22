@@ -1,0 +1,30 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.api'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+}
+
+dependencies {
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.api'
+            artifactId = 'common-api'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

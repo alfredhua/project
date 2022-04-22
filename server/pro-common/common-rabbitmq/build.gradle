@@ -1,0 +1,38 @@
+plugins {
+    id "java-library"
+    id 'maven-publish'
+}
+
+group 'com.common.rabbitmq'
+version '1.0.0'
+sourceCompatibility = 1.8
+
+ext{
+    rabbitVersion= '5.14.2'
+}
+
+dependencies {
+
+    compile "com.rabbitmq:amqp-client:${rabbitVersion}"
+    api project(':pro-common:common-util')
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.common.rabbitmq'
+            artifactId = 'common-rabbitmq'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
