@@ -33,6 +33,7 @@ public class SqlInterceptor implements Interceptor {
         map.put("deleteByIds",new DeleteByIdsAbstractBoundSql());
         map.put("listByPage",new ListByPageAbstractBoundSql());
         map.put("listAll",new ListAllAbstractBoundSql());
+        map.put("listCount",new ListCountAbstractBoundSql());
     }
     private static Map<String, Class> entityClassMap = new HashMap<>();
 

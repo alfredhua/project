@@ -3,9 +3,9 @@ package com.auth.entity;
 import com.common.mybatis.annotation.Table;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author hua
@@ -25,10 +25,5 @@ public class Admin implements Serializable {
     private String password;
     private short update_password;
     private short status;
-
-    /**
-     * 数据权限编码
-     */
-    private List<String> auth_code_list;
 
 }

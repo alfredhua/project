@@ -60,8 +60,8 @@ public class LoginService  {
         }
         String token = insertLoginLog(loginReqDTO.getIpAddress(), admin);
         LoginUserInfo loginUserInfo = loginUser(admin);
-        RedisClient.objectSet(RedisConstant.ADMIN_INFO.getKey() + token, RedisConstant.ADMIN_INFO.getTimeOut(), loginUserInfo);
         loginUserInfo.setToken(token);
+        RedisClient.objectSet(RedisConstant.ADMIN_INFO.getKey() + token, RedisConstant.ADMIN_INFO.getTimeOut(), loginUserInfo);
         return loginUserInfo;
     }
 

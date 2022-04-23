@@ -48,13 +48,19 @@ public class AdminController extends BaseController {
     @ApiOperation(value="管理员创建")
     @RequestMapping(value = AuthUrl.CREATE_ADMIN)
     public void createAdmin(@RequestBody @Valid AdminCreateReqVo adminCreateReqVo, BindingResult result)throws Exception{
-        adminService.createAdmin(BeanCopyUtil.copy(adminCreateReqVo, Admin.class));
+        adminService.createAdmin(
+                BeanCopyUtil.copy(adminCreateReqVo, Admin.class),
+                adminCreateReqVo.getAuth_code_list()
+        );
     }
 
     @ApiOperation(value="管理员修改")
     @RequestMapping(value = AuthUrl.UPDATE_ADMIN)
     public void updateAdmin (@RequestBody @Valid AdminUpdateReqVo adminUpdateReqVo, BindingResult result) throws Exception {
-        adminService.updateAdmin(BeanCopyUtil.copy(adminUpdateReqVo, Admin.class));
+        adminService.updateAdmin(
+                BeanCopyUtil.copy(adminUpdateReqVo, Admin.class),
+                adminUpdateReqVo.getAuth_code_list()
+        );
     }
 
     @ApiOperation(value="获取当前用户信息")

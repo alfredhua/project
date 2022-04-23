@@ -14,6 +14,8 @@ import com.common.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 /**
  * @author hua
@@ -28,12 +30,12 @@ public class AdminService {
     @Autowired
     AuthDataAdminService authDataAdminService;
 
-    public void createAdmin(Admin admin) throws Exception{
+    public void createAdmin(Admin admin, List<String> authDataCode) throws Exception{
         validate(admin);
         admin.setPassword(MessageDigestUtil.resetPassword());
         admin.setId(IDGenerateUtil.generateId());
         adminMapper.insert(admin);
-        authDataAdminService.save(admin.getAuth_code_list(),admin.getId());
+        authDataAdminService.save(authDataCode,admin.getId());
     }
 
     private void validate(Admin admin) throws ResultException{
@@ -48,10 +50,10 @@ public class AdminService {
         }
     }
 
-    public void updateAdmin(Admin admin) throws Exception {
+    public void updateAdmin(Admin admin,List<String> authDataCode) throws Exception {
         validate(admin);
         if(adminMapper.updateById(admin)){
-            authDataAdminService.save(admin.getAuth_code_list(),admin.getId());
+            authDataAdminService.save(authDataCode,admin.getId());
             return;
         }
         throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
@@ -61,7 +63,7 @@ public class AdminService {
     public  Admin getAdminById(long id) throws Exception {
         Admin adminRespDTO = adminMapper.queryById(id);
         if (adminRespDTO!=null){
-            adminRespDTO.setAuth_code_list(authDataAdminService.listByAdminId(id));
+//            adminRespDTO.setAuth_data_code(authDataAdminService.listByAdminId(id));
             return adminRespDTO;
         }
         throw ResultException.error(SysErrorCodeEnum.GET_ERROR);
