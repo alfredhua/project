@@ -86,10 +86,8 @@ public class AdminService {
     }
 
 
-    public void resetAdminPassword(long id) throws Exception {
-       if (!adminMapper.resetAdminPassword(id,MessageDigestUtil.resetPassword())){
-           throw ResultException.error(SysErrorCodeEnum.EMAIL_ERROR);
-       }
+    public boolean resetAdminPassword(long id) throws Exception {
+      return adminMapper.resetAdminPassword(id,MessageDigestUtil.resetPassword());
     }
 
 

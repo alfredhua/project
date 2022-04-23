@@ -3,27 +3,25 @@ package com.pro.controller.admin.auth;
 import com.auth.entity.Admin;
 import com.auth.service.AdminService;
 import com.common.api.constants.RedisConstant;
+import com.common.api.entity.LoginUserInfo;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
+import com.common.api.exception.ResultException;
 import com.common.redis.client.RedisClient;
 import com.common.util.BeanCopyUtil;
 import com.common.util.LoginUtil;
-import com.pro.controller.admin.auth.vo.admin.AdminCreateReqVo;
-import com.pro.controller.admin.auth.vo.admin.AdminListReqVo;
-import com.pro.controller.admin.auth.vo.admin.AdminRespVo;
-import com.pro.controller.admin.auth.vo.admin.AdminUpdateReqVo;
+import com.pro.controller.admin.auth.vo.admin.*;
 import com.pro.controller.common.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.common.api.constants.SysErrorCodeEnum.CONFIRM_PASSWORD_ERROR;
 
 /**
  * @author hua
@@ -69,50 +67,53 @@ public class AdminController extends BaseController {
         String token = LoginUtil.getLoginUser().getToken();
         return resultReturn(RedisClient.objectGet(RedisConstant.ADMIN_INFO.getKey()+token),AdminRespVo.class);
     }
-//
-//    @ApiOperation(value="更改密码")
-//    @RequestMapping(value = AuthUrl.UPDATE_PASSWORD)
-//    public void updatePassword(@RequestBody @Valid UpdatePasswordReqVo resetAdminPasswordReq, BindingResult result)throws Exception{
-//        if(!resetAdminPasswordReq.getNew_password().equals(resetAdminPasswordReq.getConfirm_password())){
-//            throw ResultException.error(CONFIRM_PASSWORD_ERROR);
-//        }
-//        adminService.updatePassword(LoginUtil.getLoginUser().getId(),resetAdminPasswordReq.getOld_password(),resetAdminPasswordReq.getConfirm_password());
-//    }
-//
-//    @ApiOperation(value="更改管理员自己信息")
-//    @RequestMapping(value = AuthUrl.UPDATE_ADMIN_INFO)
-//    public void updateAdminInfo(@RequestBody @Valid AdminInfoReqVo adminInfoReqVo, BindingResult result)throws Exception{
-//        UserInfo loginUser = LoginUtil.getLoginUser();
-//        LoginAdminRespDTO loginAdminResp = RedisUtil.objectGet(loginUser.getToken());
-//        adminService.updateAdminInfo(loginAdminResp.getId(), adminInfoReqVo.getPhone(), adminInfoReqVo.getEmail());
-//        loginAdminResp.setEmail( adminInfoReqVo.getEmail());
-//        loginAdminResp.setPhone( adminInfoReqVo.getPhone());
-//        RedisUtil.objectSet(AuthConstant.ADMIN_INFO.getKey()+loginUser.getToken(), AuthConstant.ADMIN_INFO.getTimeOut(), loginAdminResp);
-//    }
-//
-//    @ApiOperation(value="密码重置")
-//    @RequestMapping(value = AuthUrl.RESET_PASSWORD)
-//    public  void resetAdminPassword(@RequestBody @Valid ResetAdminPasswordReq resetAdminPasswordReq, BindingResult result)throws Exception{
-//        adminService.resetAdminPassword(resetAdminPasswordReq.getId());
-//    }
-//
-//    @ApiOperation(value="设置权限编码")
-//    @RequestMapping(value = AuthUrl.SET_AUTH_DATA)
-//    public void setAuthData(@RequestBody @Valid AdminSetAuthDataReq adminSetAuthDataReq, BindingResult result)throws Exception{
+
+    @ApiOperation(value="更改密码")
+    @RequestMapping(value = AuthUrl.UPDATE_PASSWORD)
+    public void updatePassword(@RequestBody @Valid UpdatePasswordReqVo resetAdminPasswordReq, BindingResult result)throws Exception{
+        if(!resetAdminPasswordReq.getNew_password().equals(resetAdminPasswordReq.getConfirm_password())){
+            throw ResultException.error(CONFIRM_PASSWORD_ERROR);
+        }
+        adminService.updatePassword(LoginUtil.getLoginUser().getId(),resetAdminPasswordReq.getOld_password(),resetAdminPasswordReq.getConfirm_password());
+    }
+
+    @ApiOperation(value="更改管理员自己信息")
+    @RequestMapping(value = AuthUrl.UPDATE_ADMIN_INFO)
+    public void updateAdminInfo(@RequestBody @Valid AdminInfoReqVo adminInfoReqVo, BindingResult result)throws Exception{
+        LoginUserInfo loginUser = LoginUtil.getLoginUser();
+        Admin admin=new Admin();
+        admin.setId(loginUser.getId());
+        admin.setEmail(adminInfoReqVo.getEmail());
+        admin.setPhone(adminInfoReqVo.getPhone());
+        adminService.updateAdminInfo(admin);
+        loginUser.setEmail( adminInfoReqVo.getEmail());
+        loginUser.setPhone( adminInfoReqVo.getPhone());
+        RedisClient.objectSet(RedisConstant.ADMIN_INFO.getKey()+loginUser.getToken(), RedisConstant.ADMIN_INFO.getTimeOut(), loginUser);
+    }
+
+    @ApiOperation(value="密码重置")
+    @RequestMapping(value = AuthUrl.RESET_PASSWORD)
+    public  void resetAdminPassword(@RequestBody @Valid ResetAdminPasswordReq resetAdminPasswordReq, BindingResult result)throws Exception{
+        adminService.resetAdminPassword(resetAdminPasswordReq.getId());
+    }
+
+    @ApiOperation(value="设置权限编码")
+    @RequestMapping(value = AuthUrl.SET_AUTH_DATA)
+    public void setAuthData(@RequestBody @Valid AdminSetAuthDataReq adminSetAuthDataReq, BindingResult result)throws Exception{
 //        adminService.setAuthData(adminSetAuthDataReq.getId(),adminSetAuthDataReq.getAuth_data_code());
-//    }
-//
-//    @ApiOperation(value="根据id获取用户")
-//    @RequestMapping(value=AuthUrl.GET_ADMIN_BY_ID)
-//    public AdminRespVo getAdminById(@PathVariable("id")long id) throws Exception {
-//        Admin admin = adminService.getAdminById(id);
-//        return resultReturn(admin, AdminRespVo.class);
-//    }
-//
-//    @ApiOperation(value="管理员冻结")
-//    @RequestMapping(value = AuthUrl.UPDATE_ACTIVE_ADMIN)
-//    public void updateActiveAdmin(@RequestBody @Valid AdminActiveReqVo adminActiveReqVO, BindingResult result) {
-//        adminService.updateActiveAdmin(adminActiveReqVO.getId(),adminActiveReqVO.getIsActive());
-//    }
+    }
+
+    @ApiOperation(value="根据id获取用户")
+    @RequestMapping(value=AuthUrl.GET_ADMIN_BY_ID)
+    public AdminRespVo getAdminById(@PathVariable("id")long id) throws Exception {
+        Admin admin = adminService.getAdminById(id);
+        return resultReturn(admin, AdminRespVo.class);
+    }
+
+    @ApiOperation(value="管理员冻结")
+    @RequestMapping(value = AuthUrl.UPDATE_ACTIVE_ADMIN)
+    public void updateActiveAdmin(@RequestBody @Valid AdminActiveReqVo adminActiveReqVO, BindingResult result) {
+        adminService.updateActiveAdmin(adminActiveReqVO.getId(),adminActiveReqVO.getIsActive());
+    }
 
 }
