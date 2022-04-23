@@ -3,6 +3,7 @@ package com.pro.controller.admin.website;
 import com.blog.entity.Type;
 import com.blog.service.TypeService;
 import com.common.api.entity.response.PageBean;
+import com.common.api.exception.ResultException;
 import com.common.util.BeanCopyUtil;
 import com.pro.api.blog.TypeListReqDto;
 import com.pro.controller.admin.website.vo.article.TypeUpdateStatusReqVO;
@@ -35,13 +36,16 @@ public class TypeController  extends BaseController {
 
     @ApiOperation(value = "文章类型创建")
     @RequestMapping(value = BlogUrl.CREATE_TYPE)
-    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest, BindingResult result){
+    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest, BindingResult result) throws ResultException {
+        if (result.hasErrors()){
+            throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
+        }
          typeService.createType(BeanCopyUtil.copy(typeCreateRequest, Type.class));
     }
 
     @ApiOperation(value = "文章类型更改状态")
     @RequestMapping(value = BlogUrl.UPDATE_TYPE_STATUS)
-    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest, BindingResult result) throws Exception {
+    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest, BindingResult result){
          typeService.updateTypeStatus(typeUpdateRequest.getId(),typeUpdateRequest.getStatus());
     }
 

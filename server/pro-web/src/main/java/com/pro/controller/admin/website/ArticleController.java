@@ -3,6 +3,7 @@ package com.pro.controller.admin.website;
 import com.blog.entity.Article;
 import com.blog.service.ArticleService;
 import com.common.api.entity.response.PageBean;
+import com.common.api.exception.ResultException;
 import com.common.util.BeanCopyUtil;
 import com.pro.api.blog.ArticleListReqDto;
 import com.pro.controller.admin.website.vo.article.*;
@@ -30,7 +31,10 @@ public class ArticleController  extends BaseController {
 
     @ApiOperation(value = "文章创建")
     @RequestMapping(value = BlogUrl.CREATE_ARTICLE)
-    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest, BindingResult result){
+    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest, BindingResult result) throws ResultException {
+        if (result.hasErrors()){
+            throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
+        }
         Article article = BeanCopyUtil.copy(articleCreateRequest, Article.class);
         articleService.createArticle(article);
     }
