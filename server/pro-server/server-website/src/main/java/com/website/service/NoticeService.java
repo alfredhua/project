@@ -1,12 +1,12 @@
 package com.website.service;
 
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.website.dto.NoticeListReqDTO;
-import com.pro.website.dto.entity.Notice;
 import com.website.dao.NoticeMapper;
+import com.website.entity.Notice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,8 +45,8 @@ public class NoticeService  {
         return noticeMapper.deleteById(id);
     }
 
-    public PageBean<Notice> listNoticeByPage(NoticeListReqDTO noticeListReqDTO) {
-        PageBean<Notice> pageBean = PageUtil.getPageBean(noticeListReqDTO.getPage_num(),noticeListReqDTO.getPage_size(), noticeListReqDTO.getOffset());
+    public PageBean<Notice> listNoticeByPage(PageRequest pageRequest) {
+        PageBean<Notice> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(), pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(noticeMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(noticeMapper.listCount(entityWrapper));

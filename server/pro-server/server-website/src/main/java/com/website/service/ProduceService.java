@@ -1,13 +1,12 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.ProduceMapper;
-import com.pro.website.dto.ProduceListReqDTO;
-import com.pro.website.dto.entity.Produce;
+import com.website.entity.Produce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,48 +25,44 @@ public class ProduceService{
 
     public void createProduce(Produce produceReqDTO) {
         produceReqDTO.setId(IDGenerateUtil.generateId());
-        produceMapper.createProduce(produceReqDTO);
-    }
-
-    
-    public Produce getById(String id) {
-        return produceMapper.getById(id);
-    }
-
-    
-    public void updateProduce(Produce produceReqDTO) throws Exception {
-        if(produceMapper.updateProduce(produceReqDTO)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+        produceMapper.insert(produceReqDTO);
     }
 
 
-    public void delProduce(String id) throws Exception {
-        if(produceMapper.delProduce(id)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public Produce getById(Long id) {
+        return produceMapper.queryById(id);
     }
 
 
-    
-    public PageBean<Produce> listProduceByPage(ProduceListReqDTO produceListReqDTO) {
-        PageBean<Produce> pageBean = PageUtil.validatePage(produceListReqDTO.getPage_num(),
-                produceListReqDTO.getPage_size(),produceListReqDTO.getOffset());
-        pageBean.setList(produceMapper.listProduceByPage(produceListReqDTO));
-        pageBean.setTotal(produceMapper.listProduceCount(produceListReqDTO));
+    public boolean updateProduce(Produce produceReqDTO) throws Exception {
+        return produceMapper.updateById(produceReqDTO);
+    }
+
+
+    public boolean delProduce(Long id) throws Exception {
+        return produceMapper.deleteById(id);
+    }
+
+
+
+    public PageBean<Produce> listProduceByPage(PageRequest pageRequest) {
+        PageBean<Produce> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(produceMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(produceMapper.listCount(entityWrapper));
         return pageBean;
     }
 
-    
+
     public List<Produce> listProduceHome() {
-       return produceMapper.listProduceHome();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return produceMapper.listAll(entityWrapper);
     }
 
 
     public List<Produce> listAllProduce() {
-        return produceMapper.listProduceHome();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return produceMapper.listAll(entityWrapper);
     }
 
 

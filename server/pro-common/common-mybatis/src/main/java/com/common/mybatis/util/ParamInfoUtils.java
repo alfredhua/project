@@ -1,5 +1,6 @@
 package com.common.mybatis.util;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.Configuration;
@@ -30,6 +31,9 @@ public class ParamInfoUtils {
             MapperMethod.ParamMap map = (MapperMethod.ParamMap) arg;
             Object idsObject = map.get("ids");
             String ids="";
+            if (ObjectUtils.isEmpty(idsObject)){
+                return null;
+            }
             if (idsObject instanceof HashSet){
                 HashSet idSet=(HashSet) idsObject;
                 if (idSet.isEmpty()){

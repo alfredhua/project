@@ -4,7 +4,7 @@ import com.common.util.LogUtil;
 import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
-import com.pro.develop.dto.entity.Deploy;
+import com.develop.entity.Deploy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.recipes.cache.CuratorCache;
@@ -29,7 +29,7 @@ public class DevelopNodeListener{
     DeployMapper deployMapper;
 
     @Bean
-    @DependsOn(value={"flywayInitializer"})
+    @DependsOn(value={ "zkConfig","flywayInitializer"})
     public void initDevelopNode(){
         NodePathEnum[] values = NodePathEnum.values();
         List<NodePathEnum> nodePathEnums = Arrays.asList(values);

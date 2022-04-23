@@ -1,13 +1,12 @@
 package com.develop.service;
 
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
-import com.common.api.exception.ResultException;
 import com.common.util.IDGenerateUtil;
 import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
-import com.pro.develop.dto.DeployListReqDTO;
-import com.pro.develop.dto.entity.Deploy;
+import com.develop.entity.Deploy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +25,10 @@ public class DeployService {
     @Autowired
     DeployMapper deployMapper;
 
-    public PageBean<Deploy> listDeploy(DeployListReqDTO deployListReqVo) {
+    public PageBean<Deploy> listDeploy(PageRequest pageRequest) {
         PageBean<Deploy> pageBean=new PageBean<>();
-        pageBean.setPage_num(deployListReqVo.getPage_num());
-        pageBean.setPage_size(deployListReqVo.getPage_size());
+        pageBean.setPage_num(pageRequest.getPage_num());
+        pageBean.setPage_size(pageRequest.getPage_size());
         pageBean.setTotal(NodePathEnum.values().length);
         List<NodePathEnum> nodePathEnums = Arrays.asList(NodePathEnum.values());
         List<Deploy> list = new ArrayList<>();

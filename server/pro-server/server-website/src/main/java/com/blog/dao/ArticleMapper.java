@@ -1,7 +1,8 @@
 package com.blog.dao;
 
+import com.blog.entity.Article;
 import com.common.mybatis.BaseMapper;
-import com.pro.blog.dto.entity.Article;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -12,6 +13,7 @@ import java.util.List;
  * @auth guozhenhua
  * @date 2019/08/29
  */
+@Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
     String sql=" `id`,`title`,`pic_url`,`reprint`,`type`,`introduce`,`content_type`,`click_count`,`context`,`status`,`create_time`,`update_time`,`del` ";

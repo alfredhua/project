@@ -9,6 +9,9 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+
+import javax.annotation.PostConstruct;
 
 @Getter
 @Setter
@@ -17,6 +20,8 @@ public class ZkConfig {
 
     private static final String ZK_URL="zk.config.url";
 
+    @PostConstruct
+    @DependsOn(value = {"commonCore"})
     public void init(){
         String zkUrl = EnvUtil.getEnvironment().getProperty(ZK_URL);
         CuratorFramework curatorFramework = getCuratorFramework(zkUrl);

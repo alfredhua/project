@@ -1,12 +1,12 @@
 package com.website.service;
 
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.website.dto.NewsListReqDTO;
-import com.pro.website.dto.entity.News;
 import com.website.dao.NewsMapper;
+import com.website.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,8 +42,8 @@ public class NewsService  {
     }
 
 
-    public PageBean<News> listNewsByPage(NewsListReqDTO newsListReqDTO) {
-        PageBean<News> pageBean = PageUtil.getPageBean(newsListReqDTO.getPage_num(),newsListReqDTO.getPage_size(),newsListReqDTO.getOffset());
+    public PageBean<News> listNewsByPage(PageRequest pageRequest) {
+        PageBean<News> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(newsMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(newsMapper.listCount(entityWrapper));

@@ -1,12 +1,12 @@
 package com.website.service;
 
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.website.dto.NavigateListReqDTO;
-import com.pro.website.dto.entity.Navigate;
 import com.website.dao.NavigateMapper;
+import com.website.entity.Navigate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,15 +42,15 @@ public class NavigateService {
         return navigateMapper.deleteById(id);
     }
 
-    public PageBean<Navigate> listNavigateByPage(NavigateListReqDTO navigateListReqDTO) {
-        PageBean<Navigate> pageBean = PageUtil.getPageBean(navigateListReqDTO.getPage_num(),navigateListReqDTO.getPage_size(),navigateListReqDTO.getOffset());
+    public PageBean<Navigate> listNavigateByPage(PageRequest pageRequest) {
+        PageBean<Navigate> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(navigateMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(navigateMapper.listCount(entityWrapper));
         return pageBean;
     }
 
-    public List<Navigate> listNavigateByType(NavigateListReqDTO navigateListReqDTO) {
+    public List<Navigate> listNavigateByType() {
         EntityWrapper entityWrapper=new EntityWrapper();
         return navigateMapper.listAll(entityWrapper);
     }

@@ -24,7 +24,7 @@ import static java.lang.Thread.currentThread;
  * RuntimeException 全局异常处理
  */
 @Slf4j
-@ControllerAdvice(basePackages = "com.pro.web.controller")
+@ControllerAdvice(basePackages = "com.pro.controller")
 public class ExceptionHandlerAdvice {
 
     @ResponseBody

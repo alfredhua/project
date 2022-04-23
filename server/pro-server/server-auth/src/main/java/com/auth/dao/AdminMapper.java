@@ -1,7 +1,8 @@
 package com.auth.dao;
 
+import com.auth.entity.Admin;
 import com.common.mybatis.BaseMapper;
-import com.pro.auth.dto.entity.Admin;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 /**
  * @author hua
  */
+@Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
 
     String sql=" id,user_name,role_id_list,phone,email,password,status,update_time,create_time,auth_data_code ";

@@ -1,10 +1,8 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
 import com.common.util.IDGenerateUtil;
 import com.website.dao.SettingDetailMapper;
-import com.pro.website.dto.entity.SettingDetail;
+import com.website.entity.SettingDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -19,24 +17,21 @@ public class SettingDetailService {
     @Autowired
     SettingDetailMapper settingDetailMapper;
 
-    
+
     public SettingDetail getByType(String type) {
         return settingDetailMapper.getByType(type);
     }
 
-    
+
     public void updateSettingDetail(SettingDetail settingDetailReqDTO) throws Exception {
         SettingDetail settingDetailRespDTO = settingDetailMapper.getByType(settingDetailReqDTO.getType());
         if(ObjectUtils.isEmpty(settingDetailRespDTO)){
             settingDetailReqDTO.setId(IDGenerateUtil.generateId());
-            settingDetailMapper.createSettingDetail(settingDetailReqDTO);
+            settingDetailMapper.insert(settingDetailReqDTO);
             return;
         }
         settingDetailReqDTO.setId(settingDetailRespDTO.getId());
-        if(settingDetailMapper.updateSettingDetail(settingDetailReqDTO)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+        settingDetailMapper.updateById(settingDetailReqDTO);
     }
 
 

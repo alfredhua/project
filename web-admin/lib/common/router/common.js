@@ -29,13 +29,14 @@ router.post('/upload', koaBody(),login_required,async(ctx,next)=>{
 /**
  * 验证码
  */
-router.post('/captcha',login_required, async(ctx,next)=>{
+router.post('/captcha',login_required, async(ctx)=>{
     var captcha = svgCaptcha.create({
      width: 120,  
      height: 50, 
    });
    const pic_verify=captcha.text;
-   const {code,data,msg}=await ctx.postJson('/admin/common/save-captcha',{pic_verify});
+   const {code}=await ctx.postJson('/admin/common/save-captcha',{pic_verify});
+	console.log(code)
    if(code=='SUCCESS'){
       ctx.body={
         svg: captcha.data,

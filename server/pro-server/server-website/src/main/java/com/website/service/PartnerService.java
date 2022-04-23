@@ -1,13 +1,12 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.PartnerMapper;
-import com.pro.website.dto.entity.Partner;
-import com.pro.website.dto.PartnerListReqDTO;
+import com.website.entity.Partner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,47 +26,40 @@ public class PartnerService {
     
     public void createPartner(Partner partnerReqDTO) {
         partnerReqDTO.setId(IDGenerateUtil.generateId());
-        partnerMapper.createPartner(partnerReqDTO);
+        partnerMapper.insert(partnerReqDTO);
     }
 
     
-    public Partner getById(String id) {
-        return partnerMapper.getById(id);
+    public Partner getById(Long id) {
+        return partnerMapper.queryById(id);
     }
 
     
-    public void updatePartner(Partner partnerReqDTO) throws Exception {
-        if(partnerMapper.updatePartner(partnerReqDTO)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public boolean updatePartner(Partner partnerReqDTO){
+       return partnerMapper.updateById(partnerReqDTO);
+    }
+
+    public void delPartner(Long id) throws Exception {
+        partnerMapper.deleteById(id);
     }
 
     
-    public void delPartner(String id) throws Exception {
-        if(partnerMapper.delPartner(id)){
-            return ;
-        }
-        throw ResultException.error(SysErrorCodeEnum.DEL_ERROR);
-    }
-
-    
-    public PageBean<Partner> listPartnerByPage(PartnerListReqDTO partnerListReqDTO) {
-        PageBean<Partner> pageBean = PageUtil.validatePage(partnerListReqDTO.getPage_num(),
-                partnerListReqDTO.getPage_size(),partnerListReqDTO.getOffset());
-        pageBean.setList(partnerMapper.listPartnerByPage(partnerListReqDTO.getOffset(),partnerListReqDTO.getPage_size()));
-        pageBean.setTotal(partnerMapper.listPartnerCount());
+    public PageBean<Partner> listPartnerByPage(PageRequest pageRequest) {
+        PageBean<Partner> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(partnerMapper.listByPage(pageRequest.getPage_num(),pageRequest.getPage_size(),entityWrapper));
+        pageBean.setTotal(partnerMapper.listCount(entityWrapper));
         return pageBean;
     }
 
     
     public List<List<Partner>> listAllPartner() {
         List<List<Partner>> list = new ArrayList<>();
-        int count = partnerMapper.listPartnerCount();
+        int count = partnerMapper.listCount(null);
         int page_size=6;
         int page= count/page_size+1;
         for (int i = 0; i <page; i++) {
-            list.add(partnerMapper.listPartnerByPage(i*page_size,page_size));
+            list.add(partnerMapper.listByPage(page,page_size,null));
         }
         return list;
     }

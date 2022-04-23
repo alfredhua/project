@@ -2,6 +2,7 @@ package com.auth.service;
 
 import com.auth.constants.admin.AdminStatusEnum;
 import com.auth.dao.AdminMapper;
+import com.auth.entity.Admin;
 import com.common.api.constants.SysErrorCodeEnum;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
@@ -10,8 +11,6 @@ import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.MessageDigestUtil;
 import com.common.util.PageUtil;
-import com.pro.auth.dto.AdminListReqDTO;
-import com.pro.auth.dto.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,7 @@ public class AdminService {
     @Autowired
     AuthDataAdminService authDataAdminService;
 
-    public void createAdmin(Admin admin)throws Exception{
+    public void createAdmin(Admin admin) throws Exception{
         validate(admin);
         admin.setPassword(MessageDigestUtil.resetPassword());
         admin.setId(IDGenerateUtil.generateId());
@@ -37,7 +36,7 @@ public class AdminService {
         authDataAdminService.save(admin.getAuth_code_list(),admin.getId());
     }
 
-    private void validate(Admin admin)throws ResultException{
+    private void validate(Admin admin) throws ResultException{
         if(adminMapper.validateEmail(admin.getEmail(),admin.getId())>0){
             throw ResultException.error(SysErrorCodeEnum.EMAIL_ERROR);
         }
@@ -49,7 +48,7 @@ public class AdminService {
         }
     }
 
-    public void updateAdmin(Admin admin)throws Exception {
+    public void updateAdmin(Admin admin) throws Exception {
         validate(admin);
         if(adminMapper.updateById(admin)){
             authDataAdminService.save(admin.getAuth_code_list(),admin.getId());
@@ -59,7 +58,7 @@ public class AdminService {
     }
 
 
-    public  Admin getAdminById(long id)throws Exception {
+    public  Admin getAdminById(long id) throws Exception {
         Admin adminRespDTO = adminMapper.queryById(id);
         if (adminRespDTO!=null){
             adminRespDTO.setAuth_code_list(authDataAdminService.listByAdminId(id));
@@ -68,7 +67,7 @@ public class AdminService {
         throw ResultException.error(SysErrorCodeEnum.GET_ERROR);
     }
 
-    public PageBean<Admin> listAdminByPage(AdminListReqDTO adminListReqDTO, PageRequest pageRequest) {
+    public PageBean<Admin> listAdminByPage(PageRequest pageRequest) {
         PageBean<Admin> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(adminMapper.listByPage(pageRequest.getPage_num(),pageRequest.getPage_size(), entityWrapper));

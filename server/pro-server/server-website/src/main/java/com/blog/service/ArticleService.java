@@ -2,17 +2,17 @@ package com.blog.service;
 
 import com.blog.constant.BlogRedisStaticKey;
 import com.blog.dao.ArticleMapper;
+import com.blog.entity.Article;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.redis.client.RedisClient;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.blog.dto.ArticleListReqDTO;
-import com.pro.blog.dto.entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class ArticleService {
         return articleMapper.updateById(article);
     }
 
-    public PageBean<Article> listArticleByPage(ArticleListReqDTO articleListReqDTO, PageRequest request) {
+    public PageBean<Article> listArticleByPage(PageRequest request) {
         PageBean<Article> pageBean = PageUtil.getPageBean(request.getPage_num(), request.getPage_size(),request.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(articleMapper.listByPage(request.getPage_num(),request.getPage_size(),entityWrapper));

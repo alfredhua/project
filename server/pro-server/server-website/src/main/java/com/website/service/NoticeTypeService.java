@@ -1,19 +1,15 @@
 package com.website.service;
 
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.api.exception.ResultException;
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.website.constant.NoticeTypeActiveEnum;
 import com.website.constant.NoticeTypeErrorEnum;
-import com.pro.website.dto.entity.NoticeType;
 import com.website.dao.NoticeTypeMapper;
-import com.pro.website.dto.NoticeTypeListReqDTO;
+import com.website.entity.NoticeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +29,8 @@ public class NoticeTypeService {
     @Autowired
     NoticeService noticeService;
 
-    public PageBean<NoticeType> listNoticeTypeByPage(NoticeTypeListReqDTO noticeTypeListReqDTO) {
-        PageBean<NoticeType> pageBean = PageUtil.getPageBean(noticeTypeListReqDTO.getPage_num(),noticeTypeListReqDTO.getPage_size(), noticeTypeListReqDTO.getOffset());
+    public PageBean<NoticeType> listNoticeTypeByPage(PageRequest pageRequest) {
+        PageBean<NoticeType> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(), pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(noticeTypeMapper.listByPage(pageBean.getOffset(), pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(noticeTypeMapper.listCount(entityWrapper));
@@ -53,9 +49,9 @@ public class NoticeTypeService {
     }
 
 
-    public void updateStatus(long id,short del) throws Exception {
+    public void updateStatus(long id,short del){
         NoticeType noticeType=new NoticeType();
-        noticeType.setType(del);
+        noticeType.setDel(del);
         noticeType.setId(id);
         noticeTypeMapper.updateById(noticeType);
     }

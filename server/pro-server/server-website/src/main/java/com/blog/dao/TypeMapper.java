@@ -1,16 +1,16 @@
 package com.blog.dao;
 
+import com.blog.entity.Type;
 import com.common.mybatis.BaseMapper;
-import com.pro.blog.dto.TypeListReqDTO;
-import com.pro.blog.dto.entity.Type;
-import org.apache.ibatis.annotations.*;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @auth guozhenhua
  * @date 2019/08/29
  */
+@Mapper
 public interface TypeMapper extends BaseMapper<Type> {
 
     String sql=" `id`,`type`,`name`,`status`,`introduce`,`create_time`,`update_time`,`del` ";

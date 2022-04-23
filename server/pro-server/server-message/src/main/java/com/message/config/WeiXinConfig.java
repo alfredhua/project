@@ -46,7 +46,7 @@ public class WeiXinConfig {
 
     @PostConstruct
     public void initWeChatPublicUtil(){
-        WeChatPublicUtil.initAppInfo(public_app_id,public_app_secret);
+//        WeChatPublicUtil.initAppInfo(public_app_id,public_app_secret);
     }
 
 

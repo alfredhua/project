@@ -51,7 +51,6 @@ public class RedisConfig {
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     objectMapper.registerModule(new JavaTimeModule());
     jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
-
     return jackson2JsonRedisSerializer;
   }
 

@@ -1,12 +1,12 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.PageUtil;
 import com.website.dao.SettingMapper;
-import com.pro.website.dto.SettingListReqDTO;
-import com.pro.website.dto.SettingRespDTO;
+import com.website.entity.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -24,59 +24,61 @@ public class SettingService{
     @Autowired
     SettingMapper settingMapper;
 
-    public PageBean<SettingRespDTO> listSettingByPage(SettingListReqDTO settingListReqDTO) {
-        PageBean<SettingRespDTO> pageBean = PageUtil.validatePage(settingListReqDTO.getPage_num(),
-                settingListReqDTO.getPage_size(),settingListReqDTO.getOffset());
-        List<SettingRespDTO> settingRespDTOS = settingMapper.listSettingByPage(settingListReqDTO);
+    public PageBean<Setting> listSettingByPage(PageRequest pageRequest) {
+        PageBean<Setting> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        List<Setting> settingRespDTOS = settingMapper.listAll(entityWrapper);
         if (ObjectUtils.isEmpty(settingRespDTOS)){
             pageBean.setTotal(0);
             return pageBean;
         }
-        for (SettingRespDTO settingRespDTO:settingRespDTOS) {
-            settingRespDTO.setChildren(listChildren(settingRespDTO.getId()));
-        }
-        pageBean.setList(settingRespDTOS);
-        pageBean.setTotal(settingMapper.listSettingCount(settingListReqDTO));
+//        for (Setting settingRespDTO:settingRespDTOS) {
+//            settingRespDTO.setChildren(listChildren(settingRespDTO.getId()));
+//        }
+//        pageBean.setList(settingRespDTOS);
+        pageBean.setTotal(settingMapper.listCount(entityWrapper));
         return pageBean;
     }
 
     
-    public void updateStatus(long id, short status) throws Exception {
-        if(settingMapper.updateStatus(id,status)){
-           return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public boolean updateStatus(long id, short status){
+        Setting setting=new Setting();
+        setting.setId(id);
+        setting.setStatus(status);
+        return settingMapper.updateById(setting);
     }
 
     
-    public List<SettingRespDTO> listSettingByPartnerId(long partnerId) {
-        return settingMapper.listSettingByPartnerId(partnerId);
+    public List<Setting> listSettingByPartnerId(long partnerId) {
+        EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("parent_id", ConditionEnum.eq,partnerId);
+        return settingMapper.listAll(entityWrapper);
     }
 
 
-    private List<SettingRespDTO> listChildren(long parent_id){
-        List<SettingRespDTO> settingRespDTOS = settingMapper.listChildren(parent_id);
+    private List<Setting> listChildren(long parent_id){
+        List<Setting> settingRespDTOS = listChildrenSetting(null);
         if (ObjectUtils.isEmpty(settingRespDTOS)){
             return null;
         }else{
-            for (SettingRespDTO settingRespDTO:settingRespDTOS) {
-               settingRespDTO.setChildren( listChildren(settingRespDTO.getId()));
+            for (Setting setting:settingRespDTOS) {
+//                setting.setChildren( listChildren(settingRespDTO.getId()));
             }
         }
         return settingRespDTOS;
     }
 
      
-     public SettingRespDTO getById(String id) {
-         return settingMapper.getById(id);
+     public Setting getById(Long id) {
+         return settingMapper.queryById(id);
      }
 
 
-    public List<SettingRespDTO> listChildrenSetting(String type) {
-        SettingRespDTO settingRespDTO=settingMapper.getByType(type);
-        if (ObjectUtils.isEmpty(settingRespDTO)){
+    public List<Setting> listChildrenSetting(String type) {
+//        SettingRespDTO settingRespDTO=settingMapper.(type);
+//        if (ObjectUtils.isEmpty(settingRespDTO)){
            return new ArrayList<>();
-        }
-        return settingMapper.listSettingByPartnerId(settingRespDTO.getId());
+//        }
+//        return settingMapper.listSettingByPartnerId(settingRespDTO.getId());
     }
 }

@@ -4,8 +4,11 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.java.Log;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GsonUtil {
 
@@ -58,4 +61,12 @@ public class GsonUtil {
         return gson.fromJson(paramsStr,clazz);
     }
 
+
+    public static Set<Long> toSetLong(String json){
+        return gson.fromJson(json,new TypeToken<Set<Long>>(){}.getType());
+    }
+
+    public static List<String> toListString(String json){
+        return gson.fromJson(json,new TypeToken<List<String>>(){}.getType());
+    }
 }

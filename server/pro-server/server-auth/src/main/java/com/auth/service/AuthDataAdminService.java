@@ -1,8 +1,8 @@
 package com.auth.service;
 
 import com.auth.dao.AuthDataAdminMapper;
+import com.auth.entity.AuthDataAdmin;
 import com.common.util.IDGenerateUtil;
-import com.pro.auth.dto.entity.AuthDataAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author guozhenhua
  * @date 2021/05/23
+ *  数据权限
  */
 
 @Component

@@ -1,7 +1,8 @@
 package com.develop.dao;
 
 import com.common.mybatis.BaseMapper;
-import com.pro.develop.dto.entity.Deploy;
+import com.develop.entity.Deploy;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
  * @auth guozhenhua
  * @date 2021/01/17
  */
+@Mapper
 public interface DeployMapper  extends BaseMapper<Deploy> {
 
     String sql=" id,name,name_value,description,operator,create_time,update_time,del ";

@@ -1,12 +1,12 @@
 package com.auth.service;
 
 import com.auth.dao.MenuRoleMapper;
+import com.auth.entity.MenuRole;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.auth.dto.entity.MenuRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

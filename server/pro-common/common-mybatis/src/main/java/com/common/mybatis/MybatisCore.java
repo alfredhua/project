@@ -1,28 +1,32 @@
 package com.common.mybatis;
 
 import com.common.CommonCore;
-import com.common.mybatis.config.MybatisConfig;
-import com.common.mybatis.config.TypeHandlerConfig;
+import com.common.mybatis.config.MybatisInitConfig;
 import com.common.mybatis.intercept.SqlInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 
 @Import(CommonCore.class)
+@DependsOn(value = {"commonCore"})
 public class MybatisCore {
 
     @Bean(initMethod = "init")
-    public MybatisConfig mybatisConfig(){
-        return new MybatisConfig();
-    }
-
-    @Bean
-    public TypeHandlerConfig typeHandlerConfig(){
-        return new TypeHandlerConfig();
+    public MybatisInitConfig mybatisInitConfig(){
+        return new MybatisInitConfig();
     }
 
     @Bean
     public SqlInterceptor sqlInterceptor(){
         return new SqlInterceptor();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration mybatisConfiguration() {
+        return new org.apache.ibatis.session.Configuration();
     }
 
 }

@@ -1,13 +1,11 @@
 package com.auth.service;
 
 import com.auth.dao.AuthDataMapper;
+import com.auth.entity.AuthData;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
-import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.auth.dto.AuthDataReqDTO;
-import com.pro.auth.dto.entity.AuthData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
