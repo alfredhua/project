@@ -1,10 +1,9 @@
 package com.develop.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
-import com.common.middle.zk.ZkUtil;
+import com.common.api.entity.response.PageBean;
+import com.common.api.exception.ResultException;
 import com.common.util.IDGenerateUtil;
+import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
 import com.pro.develop.dto.DeployListReqDTO;
@@ -59,7 +58,7 @@ public class DeployService {
     }
 
 
-    public void update(Deploy deployReqDTO) throws ResultException {
+    public void update(Deploy deployReqDTO){
         Deploy deploy = deployMapper.getByName(deployReqDTO.getName());
         if (deploy==null){
             deploy=new Deploy();
@@ -71,23 +70,19 @@ public class DeployService {
             deploy.setUpdate_time(LocalDateTime.now());
             deploy.setOperator(deployReqDTO.getOperator());
             deployMapper.insert(deploy);
-            ZkUtil.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
+            ZkClient.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
             return;
         }
         if (deployMapper.updateByName(deployReqDTO)>0){
-            ZkUtil.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
+            ZkClient.updateNode("/"+deployReqDTO.getName(),deployReqDTO.getName_value());
             return;
         }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
     }
 
 
-    public void delDevelop(String name,String operator) throws ResultException {
-        if (deployMapper.delDevelop(name, operator) > 0) {
-            ZkUtil.deleteNode("/" + name);
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public void delDevelop(String name,String operator){
+        deployMapper.deleteByName(name, operator);
+        ZkClient.deleteNode("/" + name);
     }
 
 }

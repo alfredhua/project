@@ -1,9 +1,9 @@
 package com.auth.service;
 
 import com.auth.dao.AuthDataMapper;
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.pro.auth.dto.AuthDataReqDTO;
@@ -25,28 +25,23 @@ public class AuthDataService {
     @Autowired
     AuthDataMapper dataMapper;
 
-    public PageBean<AuthData> listAuthDataByPage(AuthDataReqDTO authDataReqDTO) {
-        PageBean<AuthData> pageBean = PageUtil.validatePage(authDataReqDTO.getPage_num(),
-                authDataReqDTO.getPage_size(),authDataReqDTO.getOffset());
-        pageBean.setList(dataMapper.listAuthDataByPage(pageBean.getOffset(), pageBean.getPage_size()));
-        pageBean.setTotal(dataMapper.listAuthDataCount());
+    public PageBean<AuthData> listAuthDataByPage(PageRequest pageRequest) {
+        PageBean<AuthData> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+        pageBean.setList(dataMapper.listByPage(pageBean.getPage_num(), pageBean.getPage_size(),null));
+        pageBean.setTotal(dataMapper.listCount(null));
         return pageBean;
     }
 
-    public void saveAuthData(AuthData authData) throws Exception{
-        try {
-            if (ObjectUtils.isEmpty(authData.getId())) {
-                authData.setId(IDGenerateUtil.generateId());
-                dataMapper.saveAuthData(authData);
-                return;
-            }
-            dataMapper.updateAuthData(authData);
-        }catch (Exception e){
-            throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public void saveAuthData(AuthData authData){
+        if (ObjectUtils.isEmpty(authData.getId())) {
+            authData.setId(IDGenerateUtil.generateId());
+            dataMapper.insert(authData);
+            return;
         }
+        dataMapper.updateById(authData);
     }
 
     public List<AuthData> listAuthDataAll() {
-        return dataMapper.listAuthDataAll();
+        return dataMapper.listAll(null);
     }
 }

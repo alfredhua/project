@@ -1,8 +1,10 @@
 package com.blog.dao;
 
-import com.pro.blog.dto.ArticleListReqDTO;
+import com.common.mybatis.BaseMapper;
 import com.pro.blog.dto.entity.Article;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -10,27 +12,12 @@ import java.util.List;
  * @auth guozhenhua
  * @date 2019/08/29
  */
-public interface ArticleMapper {
+public interface ArticleMapper extends BaseMapper<Article> {
 
     String sql=" `id`,`title`,`pic_url`,`reprint`,`type`,`introduce`,`content_type`,`click_count`,`context`,`status`,`create_time`,`update_time`,`del` ";
 
     @Select("select "+sql+" from m_website.blog_article where id=#{id} and `del`=0 ")
     Article getById(@Param("id") long id);
-
-    @Update("update m_website.blog_article set `del`=1 where id=#{id} and `del`=0 ")
-    boolean delArticle(@Param("id") long id);
-
-    @UpdateProvider(type = ArticleProvider.class, method = "createArticle")
-    void createArticle(Article article);
-
-    @UpdateProvider(type = ArticleProvider.class, method = "updateArticle")
-    boolean updateArticle(Article articleReqDTO);
-
-    @SelectProvider(type = ArticleProvider.class, method = "listArticleByPage")
-    List<Article> listArticleByPage(ArticleListReqDTO articleListReqDTO);
-
-    @SelectProvider(type = ArticleProvider.class, method = "listArticleCount")
-    Integer listArticleCount(ArticleListReqDTO articleListReqDTO);
 
     @Select("<script>" +
             "select "+sql+" from m_website.blog_article where status=1 and `del`=0 " +

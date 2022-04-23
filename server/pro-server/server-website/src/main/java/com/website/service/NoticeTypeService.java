@@ -1,8 +1,12 @@
 package com.website.service;
 
+import com.common.api.entity.response.PageBean;
+import com.common.api.exception.ResultException;
 import com.common.domain.constants.SysErrorCodeEnum;
 import com.common.domain.exception.ResultException;
 import com.common.domain.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.constant.NoticeTypeActiveEnum;
@@ -28,49 +32,45 @@ public class NoticeTypeService {
 
     @Autowired
     NoticeService noticeService;
-    
+
     public PageBean<NoticeType> listNoticeTypeByPage(NoticeTypeListReqDTO noticeTypeListReqDTO) {
-        PageBean<NoticeType> pageBean = PageUtil.validatePage(noticeTypeListReqDTO.getPage_num(),
-                noticeTypeListReqDTO.getPage_size(), noticeTypeListReqDTO.getOffset());
-        pageBean.setList(noticeTypeMapper.listNoticeTypeByPage(pageBean.getOffset(), pageBean.getPage_size()));
-        pageBean.setTotal(noticeTypeMapper.listNoticeTypeByPageCount());
+        PageBean<NoticeType> pageBean = PageUtil.getPageBean(noticeTypeListReqDTO.getPage_num(),noticeTypeListReqDTO.getPage_size(), noticeTypeListReqDTO.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(noticeTypeMapper.listByPage(pageBean.getOffset(), pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(noticeTypeMapper.listCount(entityWrapper));
         return pageBean;
     }
 
-    
+
     public void createNoticeType(NoticeType noticeTypeReqDTO) throws Exception {
-        if (noticeTypeMapper.getByType(noticeTypeReqDTO.getType())>0){
+        EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("type", ConditionEnum.eq,noticeTypeReqDTO.getType());
+        if (noticeTypeMapper.listCount(entityWrapper)>0){
             throw ResultException.error(NoticeTypeErrorEnum.EXIST.getCode(),NoticeTypeErrorEnum.EXIST.getMsg());
         }
         noticeTypeReqDTO.setId(IDGenerateUtil.generateId());
-        noticeTypeMapper.createNoticeType(noticeTypeReqDTO);
+        noticeTypeMapper.insert(noticeTypeReqDTO);
     }
 
-    
+
     public void updateStatus(long id,short del) throws Exception {
-        if (NoticeTypeActiveEnum.ACTIVE.getCode()==del){
-            if (noticeTypeMapper.updateStatus(id,NoticeTypeActiveEnum.ACTIVE.getCode())>0){
-                return;
-            }
-        }else{
-            if (noticeTypeMapper.updateStatus(id,NoticeTypeActiveEnum.NOT_ACTIVE.getCode())>0){
-                return;
-            }
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+        NoticeType noticeType=new NoticeType();
+        noticeType.setType(del);
+        noticeType.setId(id);
+        noticeTypeMapper.updateById()
     }
 
-    
+
     public List<NoticeType> listAllActive() {
         return noticeTypeMapper.listAllActive();
     }
 
-    
+
     public List<NoticeType> listAll() {
         return noticeTypeMapper.listAll();
     }
 
-    
+
     public void updateNoticeTypeName(NoticeType noticeTypeReqDTO) throws Exception {
         if (noticeTypeMapper.updateNoticeTypeName(noticeTypeReqDTO)>0){
             return;

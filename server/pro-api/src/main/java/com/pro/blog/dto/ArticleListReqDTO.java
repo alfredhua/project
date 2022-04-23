@@ -1,6 +1,5 @@
 package com.pro.blog.dto;
 
-import com.common.domain.request.PageRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ArticleListReqDTO extends PageRequest {
+public class ArticleListReqDTO{
 
     String type;
 

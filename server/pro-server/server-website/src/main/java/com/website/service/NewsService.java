@@ -1,13 +1,12 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.website.dao.NewsMapper;
-import com.pro.website.dto.entity.News;
 import com.pro.website.dto.NewsListReqDTO;
+import com.pro.website.dto.entity.News;
+import com.website.dao.NewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,56 +25,42 @@ public class NewsService  {
 
     public void createNews(News newsReqDTO) {
         newsReqDTO.setId(IDGenerateUtil.generateId());
-        newsMapper.createNews(newsReqDTO);
+        newsMapper.insert(newsReqDTO);
     }
 
-    public News getById(String id) {
-        return newsMapper.getById(id);
+    public News getById(Long id) {
+        return newsMapper.queryById(id);
     }
 
-    public void updateNews(News newsReqDTO)throws Exception {
-        if(newsMapper.updateNews(newsReqDTO)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public boolean updateNews(News newsReqDTO){
+        return newsMapper.updateById(newsReqDTO);
     }
 
 
-    public void delNews(String id) throws ResultException {
-        if(newsMapper.delNews(id)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.DEL_ERROR);
+    public boolean delNews(Long id)  {
+        return newsMapper.deleteById(id);
     }
 
 
     public PageBean<News> listNewsByPage(NewsListReqDTO newsListReqDTO) {
-        PageBean<News> pageBean = PageUtil.validatePage(newsListReqDTO.getPage_num(),
-                newsListReqDTO.getPage_size(),newsListReqDTO.getOffset());
-        pageBean.setList(newsMapper.listNewsByPage(newsListReqDTO));
-        pageBean.setTotal(newsMapper.listNewsCount(newsListReqDTO));
+        PageBean<News> pageBean = PageUtil.getPageBean(newsListReqDTO.getPage_num(),newsListReqDTO.getPage_size(),newsListReqDTO.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(newsMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(newsMapper.listCount(entityWrapper));
         return pageBean;
     }
 
 
-    public void updateNewsPublish(long id, short publish) throws Exception {
-        if(publish==1?newsMapper.updateNewsPublish(id,publish):newsMapper.updateNewsPublish0(id,publish)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public boolean updateNewsPublish(long id, short publish){
+        News news=new News();
+        news.setId(id);
+        news.setPublish(publish);
+        return newsMapper.updateById(news);
     }
-
 
     public List<News> listNewsHome() {
-        return newsMapper.listNewsHome();
-    }
-
-    public PageBean<News> listNewsByPageForSite(NewsListReqDTO newsListReqDTO) {
-        PageBean<News> pageBean = PageUtil.validatePage(newsListReqDTO.getPage_num(),
-                newsListReqDTO.getPage_size(),newsListReqDTO.getOffset());
-        pageBean.setList(newsMapper.listNewsByPageForSite(newsListReqDTO));
-        pageBean.setTotal(newsMapper.listNewsCountForSite(newsListReqDTO));
-        return pageBean;
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return newsMapper.listAll(entityWrapper);
     }
 
 }

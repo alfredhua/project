@@ -1,8 +1,7 @@
 package com.develop.listener;
 
-import com.common.middle.zk.ZkUtil;
-import com.common.util.CaffeineCacheUtil;
 import com.common.util.LogUtil;
+import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
 import com.pro.develop.dto.entity.Deploy;
@@ -47,11 +46,11 @@ public class DevelopNodeListener{
     }
 
     private void createNode(String path,String value){
-        if (!ZkUtil.exist(path)) {
-            ZkUtil.create(path,value);
+        if (!ZkClient.exist(path)) {
+            ZkClient.create(path,value);
             return;
         }
-        ZkUtil.updateNode(path,value);
+        ZkClient.updateNode(path,value);
     }
 
     public CuratorCacheListener listenerNode(){
@@ -60,14 +59,14 @@ public class DevelopNodeListener{
                 return;
             }
             String path = data.getPath();
-            CaffeineCacheUtil.put(path.substring(1),new String(data.getData()));
+//            CaffeineCacheUtil.put(path.substring(1),new String(data.getData()));
         };
     }
 
     public  void addListenerWithNode(String path) {
         try {
 
-            CuratorCache curatorCache = CuratorCache.builder(ZkUtil.getCuratorFramework(), "/"+path).build();
+            CuratorCache curatorCache = CuratorCache.builder(ZkClient.getCuratorFramework(), "/"+path).build();
             curatorCache.listenable().addListener(listenerNode());
             curatorCache.start();
         }catch (Exception e){

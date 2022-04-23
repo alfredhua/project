@@ -1,19 +1,18 @@
 package com.message.service.channel;
 
 import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.common.domain.response.JSONResult;
+import com.common.api.entity.response.ResultResponse;
 import com.message.config.SmsAliConfig;
+import com.message.service.template.RegisterTemplate;
+import com.message.service.template.Template;
 import com.pro.message.constants.SmsChannelEnum;
 import com.pro.message.constants.SmsTemplateEnum;
 import com.pro.message.dto.SmsInfo;
-import com.message.service.template.RegisterTemplate;
-import com.message.service.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -51,21 +50,20 @@ public class AliChannel extends BaseChannel {
     }
 
     @Override
-    public JSONResult<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception {
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsAliConfig.getAccess_key_id(), smsAliConfig.getAccess_key_secret());
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", smsAliConfig.getProduct(), smsAliConfig.getUrl());
-        IAcsClient acsClient = new DefaultAcsClient(profile);
+    public ResultResponse<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception {
+        IClientProfile profile = DefaultProfile.getProfile(smsAliConfig.getRegion_id(), smsAliConfig.getAccess_key_id(), smsAliConfig.getAccess_key_secret());
+        DefaultProfile.addEndpoint(smsAliConfig.getEnd_point_name(), smsAliConfig.getRegion_id(), smsAliConfig.getProduct(), smsAliConfig.getUrl());
         SendSmsRequest request = new SendSmsRequest();
         request.setPhoneNumbers(phone);
         request.setMethod(MethodType.POST);
         request.setSignName(smsAliConfig.getPrefix());
         request.setTemplateCode(smsInfo.getCode());
         request.setTemplateParam(params);
-        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        SendSmsResponse sendSmsResponse = new DefaultAcsClient(profile).getAcsResponse(request);
         if (!ObjectUtils.isEmpty(sendSmsResponse) && "OK".equals(sendSmsResponse.getCode())) {
-            return JSONResult.success();
+            return ResultResponse.success();
         }
-        return JSONResult.error(sendSmsResponse.getCode(),sendSmsResponse.getMessage());
+        return ResultResponse.error(sendSmsResponse.getCode(),sendSmsResponse.getMessage());
     }
 
 

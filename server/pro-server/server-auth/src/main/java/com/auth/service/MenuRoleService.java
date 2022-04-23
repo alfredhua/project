@@ -1,12 +1,11 @@
 package com.auth.service;
 
 import com.auth.dao.MenuRoleMapper;
+import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.auth.dto.MenuRoleListReqDTO;
 import com.pro.auth.dto.entity.MenuRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,41 +23,34 @@ public class MenuRoleService {
 
     public void createRole(MenuRole menuRole) {
         menuRole.setId(IDGenerateUtil.generateId());
-        menuRoleMapper.createRole(menuRole);
+        menuRoleMapper.insert(menuRole);
     }
 
-    public void updateRole(MenuRole menuRoleReqDTO) throws Exception{
-        if(menuRoleMapper.updateRole(menuRoleReqDTO)){
-           return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public void updateRole(MenuRole menuRoleReqDTO){
+        menuRoleMapper.updateById(menuRoleReqDTO);
     }
 
-    public PageBean<MenuRole> listRole(MenuRoleListReqDTO menuRoleListReqDTO) {
-        PageBean<MenuRole> pageBean = PageUtil.validatePage(menuRoleListReqDTO.getPage_num(),
-                menuRoleListReqDTO.getPage_size(), menuRoleListReqDTO.getOffset());
-        pageBean.setList(menuRoleMapper.listRole(pageBean.getOffset(),pageBean.getPage_size()));
-        pageBean.setTotal(menuRoleMapper.listRoleCount());
+    public PageBean<MenuRole> listRole(PageRequest pageRequest) {
+        PageBean<MenuRole> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(), pageRequest.getOffset());
+        pageBean.setList(menuRoleMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),null));
+        pageBean.setTotal(menuRoleMapper.listCount(null));
         return pageBean;
     }
 
     public  List<MenuRole>  listAllUseRole() {
-        return menuRoleMapper.listAllUseRole();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return menuRoleMapper.listAll(entityWrapper);
     }
 
     public MenuRole getRoleById(long id) {
-        return menuRoleMapper.getRoleById(id);
+        return menuRoleMapper.queryById(id);
     }
 
-    public void updateRoleStatus(long id, boolean status) throws ResultException {
-        //禁用
-        if(status && menuRoleMapper.updateActiveStatus(id)){
-            return;
-        }
-        if ( menuRoleMapper.updateUnActiveStatus(id)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public void updateRoleStatus(long id, boolean status){
+        MenuRole menuRole=new MenuRole();
+        menuRole.setId(id);
+        menuRole.setStatus(status);
+        menuRoleMapper.updateById(menuRole);
     }
 
 }

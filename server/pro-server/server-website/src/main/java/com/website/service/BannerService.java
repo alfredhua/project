@@ -1,14 +1,13 @@
 package com.website.service;
 
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.website.dao.BannerMapper;
-import com.pro.website.dto.entity.Banner;
 import com.pro.website.dto.BannerListReqDTO;
+import com.pro.website.dto.entity.Banner;
+import com.website.dao.BannerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,37 +25,34 @@ public class BannerService {
 
     public void createBanner(Banner bannerReqDTO) {
         bannerReqDTO.setId(IDGenerateUtil.generateId());
-        bannerMapper.createBanner(bannerReqDTO);
+        bannerMapper.insert(bannerReqDTO);
     }
 
-    public void updateBanner(Banner bannerReqDTO) throws Exception {
-        if(!bannerMapper.updateBanner(bannerReqDTO)){
-            throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
-        }
+    public boolean updateBanner(Banner bannerReqDTO){
+        return bannerMapper.updateById(bannerReqDTO);
     }
 
-    public void delBanner(long id) throws Exception {
-        if(!bannerMapper.delBanner(id)){
-            throw ResultException.error(SysErrorCodeEnum.DEL_ERROR);
-        }
+    public boolean delBanner(long id){
+        return bannerMapper.deleteById(id);
     }
 
     public PageBean<Banner> listBanners(BannerListReqDTO bannerListReqDTO) {
-        PageBean<Banner> pageBean = PageUtil.validatePage(bannerListReqDTO.getPage_num(),
-                bannerListReqDTO.getPage_size(),bannerListReqDTO.getOffset());
-        pageBean.setList(bannerMapper.listBanners(pageBean.getOffset(),pageBean.getPage_size()));
-        pageBean.setTotal(bannerMapper.listBannerCount());
+        PageBean<Banner> pageBean = PageUtil.getPageBean(bannerListReqDTO.getPage_num(),bannerListReqDTO.getPage_size(),bannerListReqDTO.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(bannerMapper.listByPage(pageBean.getOffset(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(bannerMapper.listCount(entityWrapper));
         return pageBean;
     }
 
     
     public Banner getBannerById(long id) {
-        return bannerMapper.getBannerById(id);
+        return bannerMapper.queryById(id);
     }
 
 
     public List<Banner> listBannersByType(Banner bannerReqDTO) {
-        return bannerMapper.listBannersByType(bannerReqDTO.getType());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return bannerMapper.listAll(entityWrapper);
     }
 
 }

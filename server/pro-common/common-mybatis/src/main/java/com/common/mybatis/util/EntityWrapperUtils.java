@@ -49,6 +49,9 @@ public class EntityWrapperUtils {
      * @param list
      */
     public static void splicingConditionSql(SQL sql,String mapperClassName, EntityWrapper entityWrapper,  List<ParameterMapping> list,Object[] args){
+        if (ObjectUtils.isEmpty(entityWrapper)){
+            return;
+        }
         TableInfo tableInfo = MapperEntityInfoUtils.getTableInfo(mapperClassName);
         MapperMethod.ParamMap<Object> map = (MapperMethod.ParamMap) args[1];
         //条件拼接

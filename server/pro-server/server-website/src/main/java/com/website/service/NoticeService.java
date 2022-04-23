@@ -1,13 +1,12 @@
 package com.website.service;
 
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.website.dao.NoticeMapper;
-import com.pro.website.dto.entity.Notice;
 import com.pro.website.dto.NoticeListReqDTO;
+import com.pro.website.dto.entity.Notice;
+import com.website.dao.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,45 +23,39 @@ public class NoticeService  {
 
     public void createNotice(Notice noticeReqDTO) {
         noticeReqDTO.setId(IDGenerateUtil.generateId());
-        noticeMapper.createNotice(noticeReqDTO);
+        noticeMapper.insert(noticeReqDTO);
     }
 
-    public void updateNotice(Notice noticeReqDTO) throws Exception {
-        if(!noticeMapper.updateNotice(noticeReqDTO)){
-            throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
-        }
+    public boolean updateNotice(Notice noticeReqDTO){
+        return noticeMapper.updateById(noticeReqDTO);
     }
 
-    public void updateNoticePublish(long id) throws Exception {
-        if(!noticeMapper.updateNoticePublish(id)){
-            throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
-        }
+    public boolean updateNoticePublish(long id){
+        Notice notice=new Notice();
+        notice.setId(id);
+        notice.setPublish(0);
+        return noticeMapper.updateById(notice);
     }
 
-    public Notice getById(long id) throws ResultException {
-         Notice notice = noticeMapper.getById(id);
-        if (notice==null){
-            throw  ResultException.error(SysErrorCodeEnum.EMPTY);
-        }
-        return notice;
+    public Notice getById(long id){
+         return noticeMapper.queryById(id);
     }
 
-    public void delNotice(long id) throws Exception {
-        if(!noticeMapper.delNotice(id)){
-            throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
-        }
+    public boolean delNotice(long id) {
+        return noticeMapper.deleteById(id);
     }
 
     public PageBean<Notice> listNoticeByPage(NoticeListReqDTO noticeListReqDTO) {
-        PageBean<Notice> pageBean = PageUtil.validatePage(noticeListReqDTO.getPage_num(),
-                noticeListReqDTO.getPage_size(), noticeListReqDTO.getOffset());
-        pageBean.setList(noticeMapper.listNoticeByPage(noticeListReqDTO));
-        pageBean.setTotal(noticeMapper.listNoticeCount(noticeListReqDTO));
+        PageBean<Notice> pageBean = PageUtil.getPageBean(noticeListReqDTO.getPage_num(),noticeListReqDTO.getPage_size(), noticeListReqDTO.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(noticeMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(noticeMapper.listCount(entityWrapper));
         return pageBean;
     }
 
     
     public Integer getCountByType(String type) {
-        return noticeMapper.getCountByType(type);
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return noticeMapper.listCount(entityWrapper);
     }
 }

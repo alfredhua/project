@@ -4,6 +4,7 @@ import com.common.mybatis.entity.EntityWrapper;
 import com.common.mybatis.entity.SqlParamInfo;
 import com.common.mybatis.util.EntityWrapperUtils;
 import com.common.mybatis.util.MapperEntityInfoUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -20,8 +21,11 @@ public class ListByPageAbstractBoundSql extends AbstractBoundSql{
             MapperMethod.ParamMap<Object> map=(MapperMethod.ParamMap) object;
             Object page = map.get("page");
             Object pageSize = map.get("pageSize");
-            EntityWrapper entityWrapper =(EntityWrapper) map.get("entityWrapper");
-
+            Object entityWrapperObject = map.get("entityWrapper");
+            EntityWrapper entityWrapper=null;
+            if (!ObjectUtils.isEmpty(entityWrapperObject)){
+                entityWrapper=(EntityWrapper)entityWrapperObject ;
+            }
             List<ParameterMapping> list=new ArrayList<>();
             SQL sql = MapperEntityInfoUtils.getSelectSql(mapperClassName);
 //            // 增加分页

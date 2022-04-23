@@ -53,7 +53,7 @@ public class NewsController  extends AdminBaseController {
 
     @ApiOperation(value = "新闻获取")
     @RequestMapping(value = WebsiteUrl.GET_NEWS)
-    public NewsRespVO getById(@PathVariable("id") String id){
+    public NewsRespVO getById(@PathVariable("id") Long id){
         return resultReturn(newsService.getById(id),NewsRespVO.class);
     }
 

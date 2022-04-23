@@ -1,10 +1,8 @@
 package com.blog.service;
 
 import com.blog.dao.TypeMapper;
-import com.common.domain.constants.SysErrorCodeEnum;
-import com.common.domain.exception.ResultException;
-import com.common.domain.response.JSONResult;
-import com.common.domain.response.PageBean;
+import com.common.api.entity.response.PageBean;
+import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.pro.blog.dto.TypeListReqDTO;
@@ -25,61 +23,53 @@ public class TypeService {
     @Autowired
     TypeMapper typeMapper;
 
-    
+
     public void createType(Type typeReqDTO) {
         typeReqDTO.setId(IDGenerateUtil.generateId());
         typeReqDTO.setCreate_time(LocalDateTime.now());
-        typeMapper.createType(typeReqDTO);
+        typeMapper.insert(typeReqDTO);
     }
 
-     
-     public Type getById(long id) {
-         return typeMapper.getById(id);
-     }
 
-    
-    public JSONResult updateType(Type typeReqDTO) {
-        if(typeMapper.updateType(typeReqDTO)){
-            return JSONResult.success();
-        }else{
-            return JSONResult.error(SysErrorCodeEnum.UPDATE_ERROR.getCode(), SysErrorCodeEnum.UPDATE_ERROR.getMsg());
-        }
+    public Type getById(long id) {
+        return typeMapper.queryById(id);
     }
 
-    
-    public void delType(long id) throws Exception {
-        if(typeMapper.delType(id)){
-            return ;
-        }
-        throw ResultException.error(SysErrorCodeEnum.DEL_ERROR);
+    public boolean updateType(Type typeReqDTO) {
+        return typeMapper.updateById(typeReqDTO);
     }
 
-    
+
+    public boolean delType(long id) {
+        return typeMapper.deleteById(id);
+    }
+
+
     public PageBean<Type> listTypeByPage(TypeListReqDTO typeListReqDTO) {
-        PageBean<Type> pageBean = PageUtil.validatePage(typeListReqDTO.getPage_num(),
-                typeListReqDTO.getPage_size(),typeListReqDTO.getOffset());
-        pageBean.setList(typeMapper.listTypeByPage(typeListReqDTO));
-        pageBean.setTotal(typeMapper.listTypeCount(typeListReqDTO));
+        PageBean<Type> pageBean = PageUtil.getPageBean(typeListReqDTO.getPage_num(),typeListReqDTO.getPage_size(),typeListReqDTO.getOffset());
+        EntityWrapper entityWrapper=new EntityWrapper();
+        pageBean.setList(typeMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setTotal(typeMapper.listCount(entityWrapper));
         return pageBean;
     }
 
-    
+
     public List<Type> listAll() {
-        return typeMapper.listAll();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return typeMapper.listAll(entityWrapper);
     }
 
-    
+
     public List<Type> listAllActive() {
-        return typeMapper.listAllActive();
-
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return typeMapper.listAll(entityWrapper);
     }
 
-    public void updateTypeStatus(long id, int status) throws Exception {
-        if (typeMapper.updateTypeStatus(id,status)){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
-
+    public boolean updateTypeStatus(long id, int status){
+        Type type=new Type();
+        type.setId(id);
+        type.setStatus((short)status);
+        return typeMapper.updateById(type);
     }
 
     public Type getByType(String type) {

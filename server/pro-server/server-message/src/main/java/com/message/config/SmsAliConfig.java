@@ -14,6 +14,8 @@ public class SmsAliConfig {
     private String url;
     private String product;
     private String prefix;
+    private String region_id;
+    private String end_point_name;
     private String access_key_id;
     private String access_key_secret;
 

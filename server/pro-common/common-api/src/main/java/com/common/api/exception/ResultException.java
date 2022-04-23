@@ -19,4 +19,7 @@ public class ResultException extends Exception{
         return new ResultException(sysErrorCodeEnum.getCode(),sysErrorCodeEnum.getMsg());
     }
 
+    public static Exception error(String code, String msg) {
+        return new ResultException(code,msg);
+    }
 }

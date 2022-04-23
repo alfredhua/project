@@ -1,6 +1,6 @@
 package com.pro.develop.dto;
 
-import com.common.domain.request.PageRequest;
+import com.common.api.entity.request.PageRequest;
 
 /**
  * @author guozhenhua
