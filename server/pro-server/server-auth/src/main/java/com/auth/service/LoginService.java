@@ -16,8 +16,7 @@ import com.common.util.BeanCopyUtil;
 import com.common.util.GsonUtil;
 import com.common.util.IDGenerateUtil;
 import com.common.util.MessageDigestUtil;
-import com.google.gson.reflect.TypeToken;
-import com.pro.api.auth.login.LoginReqDTO;
+import com.pro.api.auth.LoginReqDto;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,7 +43,7 @@ public class LoginService  {
     @Autowired
     AuthDataAdminService authDataAdminService;
 
-    public LoginUserInfo login(LoginReqDTO loginReqDTO) throws Exception{
+    public LoginUserInfo login(LoginReqDto loginReqDTO) throws Exception{
         Admin admin = adminMapper.getAdminByUserName(loginReqDTO.getUser_name());
         if (ObjectUtils.isEmpty(admin)) {
             admin = adminMapper.getAdminByPhone(loginReqDTO.getUser_name());

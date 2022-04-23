@@ -6,9 +6,11 @@ import com.blog.entity.Article;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.redis.client.RedisClient;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.api.blog.ArticleListReqDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -45,27 +47,26 @@ public class ArticleService {
         return articleMapper.updateById(article);
     }
 
-
-    public boolean delArticle(long id) throws Exception  {
+    public boolean delArticle(long id) {
         Article article=new Article();
         article.setId(id);
         article.setDel((short)1);
         return articleMapper.updateById(article);
     }
 
-    public PageBean<Article> listArticleByPage(PageRequest request) {
-        PageBean<Article> pageBean = PageUtil.getPageBean(request.getPage_num(), request.getPage_size(),request.getOffset());
+    public PageBean<Article> listArticleByPage(ArticleListReqDto articleListReqDto) {
+        PageBean<Article> pageBean = PageUtil.getPageBean(articleListReqDto.getPage_num(), articleListReqDto.getPage_size(),articleListReqDto.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
-        pageBean.setList(articleMapper.listByPage(request.getPage_num(),request.getPage_size(),entityWrapper));
+        entityWrapper.addCondition("del", ConditionEnum.eq,(short)0);
+        pageBean.setList(articleMapper.listByPage(articleListReqDto.getPage_num(),articleListReqDto.getPage_size(),entityWrapper));
         pageBean.setTotal(articleMapper.listCount(entityWrapper));
         return pageBean;
     }
 
 
-    public List<Article> listArticleByCharts(String type) {
+    public List<Article> listArticleForCharts(String type) {
         return articleMapper.listArticleByCharts(type);
     }
-
 
     public List<Article> listArticleHome() {
         List<Article> list=new ArrayList<>();
@@ -74,7 +75,6 @@ public class ArticleService {
         }
         return list;
     }
-
 
     public void updateArticleStatus(Long id, short status){
         RedisClient.del(BlogRedisStaticKey.blog_home_list);

@@ -7,6 +7,7 @@ import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.api.blog.TypeListReqDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,8 +46,8 @@ public class TypeService {
     }
 
 
-    public PageBean<Type> listTypeByPage(PageRequest pageRequest) {
-        PageBean<Type> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+    public PageBean<Type> listTypeByPage(TypeListReqDto typeListReqDto) {
+        PageBean<Type> pageBean = PageUtil.getPageBean(typeListReqDto.getPage_num(),typeListReqDto.getPage_size(),typeListReqDto.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(typeMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(typeMapper.listCount(entityWrapper));

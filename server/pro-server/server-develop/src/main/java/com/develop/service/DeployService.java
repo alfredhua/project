@@ -1,12 +1,13 @@
 package com.develop.service;
 
-import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.IDGenerateUtil;
 import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
 import com.develop.entity.Deploy;
+import com.pro.api.auth.DeployListReqDto;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +26,24 @@ public class DeployService {
     @Autowired
     DeployMapper deployMapper;
 
-    public PageBean<Deploy> listDeploy(PageRequest pageRequest) {
+    public PageBean<Deploy> listDeploy(DeployListReqDto deployListReqDto) {
         PageBean<Deploy> pageBean=new PageBean<>();
-        pageBean.setPage_num(pageRequest.getPage_num());
-        pageBean.setPage_size(pageRequest.getPage_size());
-        pageBean.setTotal(NodePathEnum.values().length);
-        List<NodePathEnum> nodePathEnums = Arrays.asList(NodePathEnum.values());
+        pageBean.setPage_num(deployListReqDto.getPage_num());
+        pageBean.setPage_size(deployListReqDto.getPage_size());
+        List<NodePathEnum> nodePathEnums=new ArrayList<>();
+        if (!ObjectUtils.isEmpty(deployListReqDto.getName())){
+            NodePathEnum nodePathEnum = NodePathEnum.getNodePathByName(deployListReqDto.getName());
+            if (nodePathEnum==null){
+                pageBean.setTotal(0);
+                pageBean.setList(new ArrayList<>());
+                return pageBean;
+            }
+            pageBean.setTotal(1);
+            nodePathEnums.add(nodePathEnum);
+        }else{
+            nodePathEnums= Arrays.asList(NodePathEnum.values());
+            pageBean.setTotal(NodePathEnum.values().length);
+        }
         List<Deploy> list = new ArrayList<>();
         int index=0;
         for (NodePathEnum nodePathEnum:nodePathEnums){

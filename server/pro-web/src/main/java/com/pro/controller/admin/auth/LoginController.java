@@ -8,7 +8,7 @@ import com.common.redis.client.RedisClient;
 import com.common.util.BeanCopyUtil;
 import com.common.util.IPUtil;
 import com.common.util.LoginUtil;
-import com.pro.api.auth.login.LoginReqDTO;
+import com.pro.api.auth.LoginReqDto;
 import com.pro.controller.admin.auth.vo.login.LoginReqVo;
 import com.pro.controller.admin.auth.vo.login.LoginRespVo;
 import com.pro.controller.common.BaseController;
@@ -39,7 +39,7 @@ public class LoginController extends BaseController {
         if (!loginRequestVo.getVerify().equalsIgnoreCase(s)){
             throw ResultException.error(SysErrorCodeEnum.VERIFY_ERROR);
         }
-        LoginReqDTO loginReqDTO = BeanCopyUtil.copy(loginRequestVo, LoginReqDTO.class);
+        LoginReqDto loginReqDTO = BeanCopyUtil.copy(loginRequestVo, LoginReqDto.class);
         loginReqDTO.setIpAddress(IPUtil.getIpAddress());
         return resultReturn(loginService.login(loginReqDTO), LoginRespVo.class);
     }

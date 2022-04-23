@@ -1,9 +1,9 @@
-package com.pro.api.auth.login;
+package com.pro.api.auth;
 
 import lombok.Data;
 
 @Data
-public class LoginReqDTO {
+public class LoginReqDto {
 
     private String user_name;
 

@@ -1,4 +1,4 @@
-package com.pro.api.auth.admin;
+package com.pro.api.auth;
 
 public class AdminCreateReqDto {
 }

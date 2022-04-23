@@ -28,4 +28,14 @@ public enum NodePathEnum {
         this.default_value = default_value;
         this.desc = desc;
     }
+
+    public static NodePathEnum getNodePathByName(String name){
+        NodePathEnum[] values = values();
+        for (NodePathEnum nodePath:values) {
+            if (nodePath.getName().equals(name)){
+                return nodePath;
+            }
+        }
+        return null;
+    }
 }
