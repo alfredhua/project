@@ -57,26 +57,23 @@ public class NoticeTypeService {
         NoticeType noticeType=new NoticeType();
         noticeType.setType(del);
         noticeType.setId(id);
-        noticeTypeMapper.updateById()
+        noticeTypeMapper.updateById(noticeType);
     }
 
 
     public List<NoticeType> listAllActive() {
-        return noticeTypeMapper.listAllActive();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return noticeTypeMapper.listAll(entityWrapper);
     }
 
 
     public List<NoticeType> listAll() {
-        return noticeTypeMapper.listAll();
+        EntityWrapper entityWrapper=new EntityWrapper();
+        return noticeTypeMapper.listAll(entityWrapper);
     }
 
-
-    public void updateNoticeTypeName(NoticeType noticeTypeReqDTO) throws Exception {
-        if (noticeTypeMapper.updateNoticeTypeName(noticeTypeReqDTO)>0){
-            return;
-        }
-        throw ResultException.error(SysErrorCodeEnum.SAVE_ERROR);
+    public boolean updateNoticeTypeName(NoticeType noticeTypeReqDTO) {
+        return noticeTypeMapper.updateById(noticeTypeReqDTO);
     }
-
 
 }
