@@ -20,7 +20,7 @@ router.post('/list-admin',login_required,async(ctx,next)=>{
 router.post('/get-admin-by-token',login_required,async(ctx,next)=>{
     const token=ctx.cookies.get("sessionId");
     if(token){
-        ctx.body=await ctx.postJson(auth+'/get-admin-by-token',{}); 
+        ctx.body=await ctx.postJson(auth+'/get-admin-by-token',{token}); 
     }else{
         ctx.body={code:"FAIL",msg:"token不存在"};
     }

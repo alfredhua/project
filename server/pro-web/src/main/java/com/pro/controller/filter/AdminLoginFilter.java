@@ -1,6 +1,5 @@
 package com.pro.controller.filter;
 
-import com.auth.service.LoginService;
 import com.common.api.constants.RedisConstant;
 import com.common.api.constants.SysErrorCodeEnum;
 import com.common.api.entity.LoginUserInfo;
@@ -8,8 +7,6 @@ import com.common.api.entity.response.ResultResponse;
 import com.common.redis.client.RedisClient;
 import com.common.util.LogUtil;
 import com.common.util.LoginUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
@@ -22,12 +19,8 @@ import java.io.IOException;
 /**
  * 验证是否登录
  */
-@Component
-@WebFilter(urlPatterns = "/admin/*", filterName = "adminLoginFilter")
+@WebFilter(urlPatterns = {"/admin/","/logout"}, filterName = "adminLoginFilter")
 public class AdminLoginFilter implements Filter {
-
-    @Autowired
-    LoginService loginService;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {

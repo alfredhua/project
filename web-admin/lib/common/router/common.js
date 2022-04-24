@@ -35,7 +35,7 @@ router.post('/captcha',login_required, async(ctx)=>{
      height: 50, 
    });
    const pic_verify=captcha.text;
-   const {code}=await ctx.postJson('/admin/common/save-captcha',{pic_verify});
+   const {code}=await ctx.postJson('/common/captcha/save',{pic_verify});
 	console.log(code)
    if(code=='SUCCESS'){
       ctx.body={

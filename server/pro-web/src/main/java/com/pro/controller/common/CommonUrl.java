@@ -7,11 +7,11 @@ package com.pro.controller.common;
 public class CommonUrl {
 
 
-    static final String BASE_URL = "/admin/common";
+    static final String BASE_URL = "/common/captcha";
     /**
      * 验证码保存
      */
-    static final String SAVE_CAPTCHA = "/save-captcha";
+    static final String SAVE_CAPTCHA = "/save";
 
 
 }

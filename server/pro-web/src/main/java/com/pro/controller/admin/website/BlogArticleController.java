@@ -32,9 +32,6 @@ public class BlogArticleController extends BaseController {
     @ApiOperation(value = "文章创建")
     @RequestMapping(value = WebsiteUrl.CREATE_ARTICLE)
     public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest ) throws ResultException {
-        if (result.hasErrors()){
-            throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
-        }
         Article article = BeanCopyUtil.copy(articleCreateRequest, Article.class);
         articleService.createArticle(article);
     }

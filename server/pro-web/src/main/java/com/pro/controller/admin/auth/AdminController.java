@@ -3,6 +3,7 @@ package com.pro.controller.admin.auth;
 import com.auth.entity.Admin;
 import com.auth.service.AdminService;
 import com.common.api.constants.RedisConstant;
+import com.common.api.constants.SysErrorCodeEnum;
 import com.common.api.entity.LoginUserInfo;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
@@ -14,6 +15,7 @@ import com.pro.controller.admin.auth.vo.admin.*;
 import com.pro.controller.common.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
@@ -63,9 +65,12 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="获取当前用户信息")
     @RequestMapping(value = AuthUrl.GET_ADMIN_TOKEN)
-    public AdminRespVo getAdminInfo(){
-        String token = LoginUtil.getLoginUser().getToken();
-        return resultReturn(RedisClient.objectGet(RedisConstant.ADMIN_INFO.getKey()+token),AdminRespVo.class);
+    public AdminRespVo getAdminInfo(@RequestBody AdminTokenReqVo adminTokenReqVo) throws ResultException {
+        //首次登录的时候不能走filter，所以loginUtil没有信息
+        if (ObjectUtils.isEmpty(adminTokenReqVo.getToken())){
+            throw ResultException.error(SysErrorCodeEnum.TOKEN_INVALID);
+        }
+        return resultReturn(RedisClient.objectGet(RedisConstant.ADMIN_INFO.getKey()+adminTokenReqVo.getToken()),AdminRespVo.class);
     }
 
     @ApiOperation(value="更改密码")
