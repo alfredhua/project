@@ -5,7 +5,7 @@ import com.blog.service.ArticleService;
 import com.common.api.entity.response.PageBean;
 import com.common.api.exception.ResultException;
 import com.common.util.BeanCopyUtil;
-import com.pro.api.blog.ArticleListReqDto;
+import com.pro.api.entity.blog.ArticleListReqDto;
 import com.pro.controller.admin.website.vo.article.*;
 import com.pro.controller.common.BaseController;
 import io.swagger.annotations.Api;
@@ -23,14 +23,14 @@ import javax.validation.Valid;
  */
 @Api(tags="文章管理")
 @RestController
-@RequestMapping(value = BlogUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-public class ArticleController  extends BaseController {
+@RequestMapping(value = WebsiteUrl.BLOG_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+public class BlogArticleController extends BaseController {
 
     @Autowired
     ArticleService articleService;
 
     @ApiOperation(value = "文章创建")
-    @RequestMapping(value = BlogUrl.CREATE_ARTICLE)
+    @RequestMapping(value = WebsiteUrl.CREATE_ARTICLE)
     public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest, BindingResult result) throws ResultException {
         if (result.hasErrors()){
             throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
@@ -40,32 +40,32 @@ public class ArticleController  extends BaseController {
     }
 
     @ApiOperation(value = "文章更新")
-    @RequestMapping(value = BlogUrl.UPDATE_ARTICLE)
+    @RequestMapping(value = WebsiteUrl.UPDATE_ARTICLE)
     public void updateArticle(@RequestBody @Valid ArticleUpdateReqVO articleUpdateRequest, BindingResult result) throws Exception {
         Article article = BeanCopyUtil.copy(articleUpdateRequest, Article.class);
         articleService.updateArticle(article);
     }
 
     @ApiOperation(value = "获取文章")
-    @RequestMapping(value = BlogUrl.GET_ARTICLE)
+    @RequestMapping(value = WebsiteUrl.GET_ARTICLE)
     public ArticleRespVO getById(@PathVariable("id") long id){
         return resultReturn(articleService.getById(id), ArticleRespVO.class);
     }
 
     @ApiOperation(value = "删除文章")
-    @RequestMapping(value = BlogUrl.DEL_ARTICLE)
+    @RequestMapping(value = WebsiteUrl.DEL_ARTICLE)
     public void delArticle(@PathVariable("id") long id) throws Exception {
          articleService.delArticle(id);
     }
 
     @ApiOperation(value = "更新文章状态")
-    @RequestMapping(value = BlogUrl.UPDATE_ARTICLE_STATUS)
+    @RequestMapping(value = WebsiteUrl.UPDATE_ARTICLE_STATUS)
     public void updateArticleStatus(@RequestBody @Valid ArticleStatusReqVO articleStatusReqVO) throws Exception {
          articleService.updateArticleStatus(articleStatusReqVO.getId(),articleStatusReqVO.getStatus());
     }
 
     @ApiOperation(value = "更新文章列表")
-    @RequestMapping(value = BlogUrl.LIST_ARTICLE)
+    @RequestMapping(value = WebsiteUrl.LIST_ARTICLE)
     public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq, BindingResult result){
         ArticleListReqDto articleListReqDTO = BeanCopyUtil.copy(articleListReq, ArticleListReqDto.class);
         return pageResultReturn(articleService.listArticleByPage(articleListReqDTO),ArticleRespVO.class);

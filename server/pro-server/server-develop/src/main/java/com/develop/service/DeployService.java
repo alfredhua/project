@@ -6,7 +6,7 @@ import com.common.zk.client.ZkClient;
 import com.develop.constants.NodePathEnum;
 import com.develop.dao.DeployMapper;
 import com.develop.entity.Deploy;
-import com.pro.api.auth.DeployListReqDto;
+import com.pro.api.entity.auth.DeployListReqDto;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

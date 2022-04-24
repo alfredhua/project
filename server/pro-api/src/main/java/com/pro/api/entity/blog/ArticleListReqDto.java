@@ -1,4 +1,4 @@
-package com.pro.api.blog;
+package com.pro.api.entity.blog;
 
 import com.common.api.entity.request.PageRequest;
 

@@ -8,7 +8,7 @@ import com.common.redis.client.RedisClient;
 import com.common.util.BeanCopyUtil;
 import com.common.util.IPUtil;
 import com.common.util.LoginUtil;
-import com.pro.api.auth.LoginReqDto;
+import com.pro.api.entity.auth.LoginReqDto;
 import com.pro.controller.admin.auth.vo.login.LoginReqVo;
 import com.pro.controller.admin.auth.vo.login.LoginRespVo;
 import com.pro.controller.common.BaseController;

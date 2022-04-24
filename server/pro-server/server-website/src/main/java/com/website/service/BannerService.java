@@ -1,11 +1,11 @@
 package com.website.service;
 
 
-import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.api.entity.website.BannerListReqDto;
 import com.website.dao.BannerMapper;
 import com.website.entity.Banner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,8 @@ public class BannerService {
         return bannerMapper.deleteById(id);
     }
 
-    public PageBean<Banner> listBanners(PageRequest pageRequest) {
-        PageBean<Banner> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
+    public PageBean<Banner> listBanners(BannerListReqDto bannerListReqDTO) {
+        PageBean<Banner> pageBean = PageUtil.getPageBean(bannerListReqDTO.getPage_num(),bannerListReqDTO.getPage_size(),bannerListReqDTO.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         pageBean.setList(bannerMapper.listByPage(pageBean.getOffset(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(bannerMapper.listCount(entityWrapper));

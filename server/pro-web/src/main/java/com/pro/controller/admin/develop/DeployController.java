@@ -5,7 +5,7 @@ import com.common.util.BeanCopyUtil;
 import com.common.util.LoginUtil;
 import com.develop.entity.Deploy;
 import com.develop.service.DeployService;
-import com.pro.api.auth.DeployListReqDto;
+import com.pro.api.entity.auth.DeployListReqDto;
 import com.pro.controller.admin.develop.vo.DeployListReqVo;
 import com.pro.controller.admin.develop.vo.DeployListRespVo;
 import com.pro.controller.admin.develop.vo.DevelopUpdateReqVO;

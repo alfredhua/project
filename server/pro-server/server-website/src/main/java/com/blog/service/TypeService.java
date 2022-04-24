@@ -2,12 +2,11 @@ package com.blog.service;
 
 import com.blog.dao.TypeMapper;
 import com.blog.entity.Type;
-import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
-import com.pro.api.blog.TypeListReqDto;
+import com.pro.api.entity.blog.TypeListReqDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

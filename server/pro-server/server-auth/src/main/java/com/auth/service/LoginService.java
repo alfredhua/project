@@ -16,7 +16,7 @@ import com.common.util.BeanCopyUtil;
 import com.common.util.GsonUtil;
 import com.common.util.IDGenerateUtil;
 import com.common.util.MessageDigestUtil;
-import com.pro.api.auth.LoginReqDto;
+import com.pro.api.entity.auth.LoginReqDto;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

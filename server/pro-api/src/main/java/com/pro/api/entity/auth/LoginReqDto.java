@@ -1,4 +1,4 @@
-package com.pro.api.auth;
+package com.pro.api.entity.auth;
 
 import lombok.Data;
 
