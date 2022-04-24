@@ -34,7 +34,7 @@ public class DeployController extends AdminBaseController {
 
     @ApiOperation(value = "配置更新")
     @RequestMapping(value = DevelopUrl.UPDATE_DEPLOY)
-    public void updateDevelop(@RequestBody @Valid DevelopUpdateReqVO developUpdateReqVO, BindingResult result) throws Exception {
+    public void updateDevelop(@RequestBody @Valid DevelopUpdateReqVO developUpdateReqVO ) throws Exception {
         Deploy deployReqDTO = BeanCopyUtil.copy(developUpdateReqVO, Deploy.class);
         UserInfo admin = LoginUtil.getLoginUser();
         deployReqDTO.setOperator(admin.getUser_name());
@@ -49,7 +49,7 @@ public class DeployController extends AdminBaseController {
 
     @ApiOperation(value = "配置列表")
     @RequestMapping(value = DevelopUrl.LIST_DEPLOY)
-    public PageBean<DeployListRespVo>listDeploy(@RequestBody @Valid DeployListReqVo deployListReqVo, BindingResult result){
+    public PageBean<DeployListRespVo>listDeploy(@RequestBody @Valid DeployListReqVo deployListReqVo ){
         DeployListReqDTO deployListReqDTO = BeanCopyUtil.copy(deployListReqVo, DeployListReqDTO.class);
         return pageResultReturn(deployService.listDeploy(deployListReqDTO), DeployListRespVo.class);
     }

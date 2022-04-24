@@ -36,14 +36,14 @@ public class ProduceController  extends AdminBaseController {
 
     @ApiOperation(value = "产品创建")
     @RequestMapping(value = WebsiteUrl.CREATE_PRODUCE)
-    public void createProduce(@RequestBody @Valid ProduceCreateReqVO produceCreateReqVO, BindingResult result){
+    public void createProduce(@RequestBody @Valid ProduceCreateReqVO produceCreateReqVO ){
         Produce produceReqDTO = BeanCopyUtil.copy(produceCreateReqVO, Produce.class);
         produceService.createProduce(produceReqDTO);
     }
 
     @ApiOperation(value = "产品更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_PRODUCE)
-    public void updateProduce(@RequestBody @Valid ProduceUpdateReqVO produceUpdateReqVO, BindingResult result) throws Exception {
+    public void updateProduce(@RequestBody @Valid ProduceUpdateReqVO produceUpdateReqVO ) throws Exception {
         Produce produceReqDTO = BeanCopyUtil.copy(produceUpdateReqVO, Produce.class);
         produceService.updateProduce(produceReqDTO);
     }
@@ -56,7 +56,7 @@ public class ProduceController  extends AdminBaseController {
 
     @ApiOperation(value = "产品详情更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_PRODUCE_DETAIL)
-    public void updateProduceDetail(@RequestBody @Valid ProduceDetailUpdateReqVO produceDetailUpdateReqVO, BindingResult result) throws Exception {
+    public void updateProduceDetail(@RequestBody @Valid ProduceDetailUpdateReqVO produceDetailUpdateReqVO ) throws Exception {
         Produce produce = BeanCopyUtil.copy(produceDetailUpdateReqVO, Produce.class);
         produce.setUpdate_time(LocalDateTime.now());
         produceService.updateProduce(produce);
@@ -72,7 +72,7 @@ public class ProduceController  extends AdminBaseController {
 
     @ApiOperation(value = "产品列表")
     @RequestMapping(value = WebsiteUrl.LIST_PRODUCE)
-    public PageBean<ProduceRespVO> listProduceByPage(@RequestBody @Valid ProduceListReqVO produceListReqVO, BindingResult result){
+    public PageBean<ProduceRespVO> listProduceByPage(@RequestBody @Valid ProduceListReqVO produceListReqVO ){
         ProduceListReqDTO produceListReqDTO = BeanCopyUtil.copy(produceListReqVO, ProduceListReqDTO.class);
         PageBean<Produce> pageBean = produceService.listProduceByPage(produceListReqDTO);
         return pageResultReturn(pageBean,ProduceRespVO.class);

@@ -33,7 +33,7 @@ public class LoginController extends AdminBaseController {
 
     @ApiOperation(value="登录")
     @RequestMapping(value = AuthUrl.LOGIN,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-    public LoginRespVo login(@RequestBody @Valid LoginReqVo loginRequestVo, BindingResult result)throws Exception{
+    public LoginRespVo login(@RequestBody @Valid LoginReqVo loginRequestVo )throws Exception{
         String s = RedisUtil.objectGet(AuthConstant.ADMIN_CAPTCHA.getKey() + loginRequestVo.getVerify().toLowerCase());
         if (!loginRequestVo.getVerify().equalsIgnoreCase(s)){
             throw ResultException.error(SysErrorCodeEnum.VERIFY_ERROR);

@@ -32,7 +32,7 @@ public class NavigateController extends AdminBaseController {
      * 创建
      */
     @RequestMapping(value = "/create")
-    public void createNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO, BindingResult result){
+    public void createNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO ){
         Navigate navigate = BeanCopyUtil.copy(navigateReqVO, Navigate.class);
         navigateService.createNavigate(navigate);
     }
@@ -41,7 +41,7 @@ public class NavigateController extends AdminBaseController {
      * 更新
      */
     @RequestMapping(value = "/update")
-    public void updateNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO, BindingResult result){
+    public void updateNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO ){
         Navigate navigate = BeanCopyUtil.copy(navigateReqVO, NavigateReqDTO.class);
          navigateService.updateNavigate(navigate);
     }
@@ -66,7 +66,7 @@ public class NavigateController extends AdminBaseController {
      * 列表
      */
     @RequestMapping(value = "/list")
-    public PageBean<NavigateRespVO> listNavigateByPage(@RequestBody @Valid NavigateListReqVO navigateListReq, BindingResult result){
+    public PageBean<NavigateRespVO> listNavigateByPage(@RequestBody @Valid NavigateListReqVO navigateListReq ){
         NavigateListReqDTO navigateListReqDTO = BeanCopyUtil.copy(navigateListReq, NavigateListReqDTO.class);
         PageBean<Navigate> pageBean= navigateService.listNavigateByPage(navigateListReqDTO);
         return pageResultReturn(pageBean,NavigateRespVO.class);

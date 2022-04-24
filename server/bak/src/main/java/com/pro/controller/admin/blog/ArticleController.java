@@ -33,14 +33,14 @@ public class ArticleController  extends AdminBaseController {
 
     @ApiOperation(value = "文章创建")
     @RequestMapping(value = BlogUrl.CREATE_ARTICLE)
-    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest, BindingResult result){
+    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest ){
         Article article = BeanCopyUtil.copy(articleCreateRequest, Article.class);
         articleService.createArticle(article);
     }
 
     @ApiOperation(value = "文章更新")
     @RequestMapping(value = BlogUrl.UPDATE_ARTICLE)
-    public void updateArticle(@RequestBody @Valid ArticleUpdateReqVO articleUpdateRequest, BindingResult result) throws Exception {
+    public void updateArticle(@RequestBody @Valid ArticleUpdateReqVO articleUpdateRequest ) throws Exception {
         Article article = BeanCopyUtil.copy(articleUpdateRequest, Article.class);
         articleService.updateArticle(article);
     }
@@ -65,7 +65,7 @@ public class ArticleController  extends AdminBaseController {
 
     @ApiOperation(value = "更新文章列表")
     @RequestMapping(value = BlogUrl.LIST_ARTICLE)
-    public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq, BindingResult result){
+    public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq ){
         ArticleListReqDTO articleListReqDTO = BeanCopyUtil.copy(articleListReq, ArticleListReqDTO.class);
         return pageResultReturn(articleService.listArticleByPage(articleListReqDTO),ArticleRespVO.class);
     }

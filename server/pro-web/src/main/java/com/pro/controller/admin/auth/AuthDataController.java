@@ -45,7 +45,7 @@ public class AuthDataController extends BaseController {
 
     @ApiOperation(value ="数据权限创建")
     @RequestMapping(value=AuthUrl.SAVE_AUTH_DATA)
-    public void saveAuthData(@RequestBody @Valid AuthDataReqVo authDataReqVo,BindingResult result) throws Exception {
+    public void saveAuthData(@RequestBody @Valid AuthDataReqVo authDataReqVo) throws Exception {
         AuthData authData = BeanCopyUtil.copy(authDataReqVo, AuthData.class);
         dataService.saveAuthData(authData);
     }

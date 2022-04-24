@@ -31,7 +31,7 @@ public class SettingDetailController  extends AdminBaseController {
 
     @ApiOperation(value = "设置更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_SETTING_DETAIL)
-    public void updateSettingDetail(@RequestBody @Valid SettingDetailUpdateReqVO settingDetailUpdateReqVO, BindingResult result) throws Exception {
+    public void updateSettingDetail(@RequestBody @Valid SettingDetailUpdateReqVO settingDetailUpdateReqVO ) throws Exception {
         SettingDetail settingDetailReqDTO = BeanCopyUtil.copy(settingDetailUpdateReqVO, SettingDetail.class);
         settingDetailService.updateSettingDetail(settingDetailReqDTO);
     }

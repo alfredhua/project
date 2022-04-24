@@ -31,7 +31,7 @@ public class BlogArticleController extends BaseController {
 
     @ApiOperation(value = "文章创建")
     @RequestMapping(value = WebsiteUrl.CREATE_ARTICLE)
-    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest, BindingResult result) throws ResultException {
+    public void createArticle(@RequestBody @Valid ArticleCreateReqVO articleCreateRequest ) throws ResultException {
         if (result.hasErrors()){
             throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
         }
@@ -41,7 +41,7 @@ public class BlogArticleController extends BaseController {
 
     @ApiOperation(value = "文章更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_ARTICLE)
-    public void updateArticle(@RequestBody @Valid ArticleUpdateReqVO articleUpdateRequest, BindingResult result) throws Exception {
+    public void updateArticle(@RequestBody @Valid ArticleUpdateReqVO articleUpdateRequest ) throws Exception {
         Article article = BeanCopyUtil.copy(articleUpdateRequest, Article.class);
         articleService.updateArticle(article);
     }
@@ -66,7 +66,7 @@ public class BlogArticleController extends BaseController {
 
     @ApiOperation(value = "更新文章列表")
     @RequestMapping(value = WebsiteUrl.LIST_ARTICLE)
-    public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq, BindingResult result){
+    public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq ){
         ArticleListReqDto articleListReqDTO = BeanCopyUtil.copy(articleListReq, ArticleListReqDto.class);
         return pageResultReturn(articleService.listArticleByPage(articleListReqDTO),ArticleRespVO.class);
     }

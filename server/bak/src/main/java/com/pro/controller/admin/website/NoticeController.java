@@ -33,14 +33,14 @@ public class NoticeController  extends AdminBaseController {
 
     @ApiOperation(value = "文章创建")
     @RequestMapping(value = WebsiteUrl.CREATE_NOTICE)
-    public void createNotice(@RequestBody @Valid ArticleCreateRequest articleCreateRequest, BindingResult result){
+    public void createNotice(@RequestBody @Valid ArticleCreateRequest articleCreateRequest ){
         Notice noticeReqDTO = BeanCopyUtil.copy(articleCreateRequest, Notice.class);
         noticeService.createNotice(noticeReqDTO);
     }
 
     @ApiOperation(value = "文章更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_NOTICE)
-    public void  updateNotice(@RequestBody @Valid ArticleUpdateRequest articleUpdateRequest, BindingResult result) throws Exception {
+    public void  updateNotice(@RequestBody @Valid ArticleUpdateRequest articleUpdateRequest ) throws Exception {
         Notice noticeReqDTO = BeanCopyUtil.copy(articleUpdateRequest, Notice.class);
         noticeService.updateNotice(noticeReqDTO);
     }
@@ -65,7 +65,7 @@ public class NoticeController  extends AdminBaseController {
 
     @ApiOperation(value = "文章列表")
     @RequestMapping(value = WebsiteUrl.LIST_NOTICE)
-    public PageBean<ArticleRespVo> listArticleByPage(@RequestBody @Valid ArticleListReqVo articleListReqVo, BindingResult result){
+    public PageBean<ArticleRespVo> listArticleByPage(@RequestBody @Valid ArticleListReqVo articleListReqVo ){
         NoticeListReqDTO noticeListReqDTO = BeanCopyUtil.copy(articleListReqVo, NoticeListReqDTO.class);
         PageBean<Notice> pageBean = noticeService.listNoticeByPage(noticeListReqDTO);
         return pageResultReturn(pageBean,ArticleRespVo.class);

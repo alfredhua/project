@@ -36,7 +36,7 @@ public class SettingController  extends AdminBaseController {
 
     @ApiOperation(value = "网站设置列表")
     @RequestMapping(value = WebsiteUrl.LIST_SETTING)
-    public PageBean<SettingRespVO> listSettingByPage(@RequestBody @Valid SettingListReqVO settingListReqVO, BindingResult result){
+    public PageBean<SettingRespVO> listSettingByPage(@RequestBody @Valid SettingListReqVO settingListReqVO ){
         SettingListReqDTO settingListReqDTO = BeanCopyUtil.copy(settingListReqVO, SettingListReqDTO.class);
         PageBean<SettingRespDTO> pageBean = settingService.listSettingByPage(settingListReqDTO);
         return pageResultReturn(pageBean,SettingRespVO.class);
@@ -63,7 +63,7 @@ public class SettingController  extends AdminBaseController {
 
     @ApiOperation(value = "更新设置状态")
     @RequestMapping(value = WebsiteUrl.UPDATE_SETTING_STATUS)
-    public void updateStatus(@RequestBody @Valid UpdateStatusRequestVO updateStatusRequestVO, BindingResult result) throws Exception {
+    public void updateStatus(@RequestBody @Valid UpdateStatusRequestVO updateStatusRequestVO ) throws Exception {
         settingService.updateStatus(updateStatusRequestVO.getId(),updateStatusRequestVO.getStatus());
     }
 

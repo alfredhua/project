@@ -35,19 +35,19 @@ public class TypeController  extends AdminBaseController {
 
     @ApiOperation(value = "文章类型创建")
     @RequestMapping(value = BlogUrl.CREATE_TYPE)
-    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest, BindingResult result){
+    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest ){
          typeService.createType(BeanCopyUtil.copy(typeCreateRequest, Type.class));
     }
 
     @ApiOperation(value = "文章类型更改状态")
     @RequestMapping(value = BlogUrl.UPDATE_TYPE_STATUS)
-    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest, BindingResult result) throws Exception {
+    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest ) throws Exception {
          typeService.updateTypeStatus(typeUpdateRequest.getId(),typeUpdateRequest.getStatus());
     }
 
     @ApiOperation(value = "文章类型更新")
     @RequestMapping(value = BlogUrl.UPDATE_TYPE)
-    public void updateType(@RequestBody @Valid TypeUpdateReqVO typeUpdateRequest, BindingResult result){
+    public void updateType(@RequestBody @Valid TypeUpdateReqVO typeUpdateRequest ){
         Type typeReqDTO = BeanCopyUtil.copy(typeUpdateRequest, Type.class);
         typeService.updateType(typeReqDTO);
     }
@@ -66,7 +66,7 @@ public class TypeController  extends AdminBaseController {
 
     @ApiOperation(value = "文章类型列表")
     @RequestMapping(value = BlogUrl.LIST_TYPE)
-    public PageBean<TypeRespVO> listTypeByPage(@RequestBody @Valid TypeListReqVO typeListReq, BindingResult result){
+    public PageBean<TypeRespVO> listTypeByPage(@RequestBody @Valid TypeListReqVO typeListReq ){
         TypeListReqDTO typeListReqDTO = BeanCopyUtil.copy(typeListReq, TypeListReqDTO.class);
        PageBean<Type> jsonResult = typeService.listTypeByPage(typeListReqDTO);
         return pageResultReturn(jsonResult,TypeRespVO.class);

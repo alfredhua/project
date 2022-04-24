@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -36,22 +37,19 @@ public class BlogTypeController extends BaseController {
 
     @ApiOperation(value = "文章类型创建")
     @RequestMapping(value = WebsiteUrl.CREATE_TYPE)
-    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest, BindingResult result) throws ResultException {
-        if (result.hasErrors()){
-            throw  ResultException.error(result.getAllErrors().get(0).getCode(),"-----");
-        }
+    public void createType(@RequestBody @Valid TypeCreateReqVO typeCreateRequest ){
          typeService.createType(BeanCopyUtil.copy(typeCreateRequest, Type.class));
     }
 
     @ApiOperation(value = "文章类型更改状态")
     @RequestMapping(value = WebsiteUrl.UPDATE_TYPE_STATUS)
-    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest, BindingResult result){
+    public void updateTypeStatus(@RequestBody @Valid TypeUpdateStatusReqVO typeUpdateRequest ){
          typeService.updateTypeStatus(typeUpdateRequest.getId(),typeUpdateRequest.getStatus());
     }
 
     @ApiOperation(value = "文章类型更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_TYPE)
-    public void updateType(@RequestBody @Valid TypeUpdateReqVO typeUpdateRequest, BindingResult result){
+    public void updateType(@RequestBody @Valid TypeUpdateReqVO typeUpdateRequest ){
         Type typeReqDTO = BeanCopyUtil.copy(typeUpdateRequest, Type.class);
         typeService.updateType(typeReqDTO);
     }
@@ -64,13 +62,13 @@ public class BlogTypeController extends BaseController {
 
     @ApiOperation(value = "文章类型删除")
     @RequestMapping(value = WebsiteUrl.DEL_TYPE)
-    public void delType(@PathVariable("id") long id) throws Exception {
+    public void delType(@PathVariable("id") @NotNull long id) {
          typeService.delType(id);
     }
 
     @ApiOperation(value = "文章类型列表")
     @RequestMapping(value = WebsiteUrl.LIST_TYPE)
-    public PageBean<TypeRespVO> listTypeByPage(@RequestBody @Valid TypeListReqVO typeListReq, BindingResult result){
+    public PageBean<TypeRespVO> listTypeByPage(@RequestBody @Valid TypeListReqVO typeListReq ){
         TypeListReqDto typeListReqDTO = BeanCopyUtil.copy(typeListReq, TypeListReqDto.class);
         PageBean<Type> jsonResult = typeService.listTypeByPage(typeListReqDTO);
         return pageResultReturn(jsonResult,TypeRespVO.class);

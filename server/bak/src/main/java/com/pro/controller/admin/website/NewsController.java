@@ -34,21 +34,21 @@ public class NewsController  extends AdminBaseController {
 
     @ApiOperation(value = "新闻创建")
     @RequestMapping(value = WebsiteUrl.CREATE_NEWS)
-    public void createNews(@RequestBody @Valid NewsCreateReqVO newsCreateReqVO, BindingResult result){
+    public void createNews(@RequestBody @Valid NewsCreateReqVO newsCreateReqVO ){
         News newsReqDTO = BeanCopyUtil.copy(newsCreateReqVO, News.class);
         newsService.createNews(newsReqDTO);
     }
 
     @ApiOperation(value = "新闻更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_NEWS)
-    public void updateNews(@RequestBody @Valid NewsUpdateReqVO newsUpdateReqVO, BindingResult result) throws Exception {
+    public void updateNews(@RequestBody @Valid NewsUpdateReqVO newsUpdateReqVO ) throws Exception {
         News newsReqDTO = BeanCopyUtil.copy(newsUpdateReqVO, News.class);
         newsService.updateNews(newsReqDTO);
     }
 
     @ApiOperation(value = "新闻发布撤回")
     @RequestMapping(value = WebsiteUrl.UPDATE_NEWS_PUBLISH)
-    public void updateNewsPublish(@RequestBody @Valid NewsUpdatePublishReqVO reqVO, BindingResult result) throws Exception {
+    public void updateNewsPublish(@RequestBody @Valid NewsUpdatePublishReqVO reqVO ) throws Exception {
         newsService.updateNewsPublish(reqVO.getId(),reqVO.getPublish());
     }
 
@@ -67,7 +67,7 @@ public class NewsController  extends AdminBaseController {
 
     @ApiOperation(value = "新闻列表")
     @RequestMapping(value = WebsiteUrl.LIST_NEWS)
-    public PageBean<NewsRespVO> listNewsByPage(@RequestBody @Valid NewsListReqVO newsListReqVO, BindingResult result){
+    public PageBean<NewsRespVO> listNewsByPage(@RequestBody @Valid NewsListReqVO newsListReqVO ){
         NewsListReqDTO newsListReqDTO = BeanCopyUtil.copy(newsListReqVO, NewsListReqDTO.class);
         return pageResultReturn(newsService.listNewsByPage(newsListReqDTO),NewsRespVO.class);
     }

@@ -35,19 +35,19 @@ public class MenuRoleController extends AdminBaseController {
 
     @ApiOperation(value="角色保存")
     @RequestMapping(value = AuthUrl.CREATE_ROLE)
-    public void createRole(@RequestBody @Valid RoleReqVO roleReqVO, BindingResult result){
+    public void createRole(@RequestBody @Valid RoleReqVO roleReqVO ){
         menuRoleService.createRole(BeanCopyUtil.copy(roleReqVO, MenuRole.class));
     }
 
     @ApiOperation(value="角色列表")
     @RequestMapping(value = AuthUrl.LIST_ROLE)
-    public PageBean<RoleRespVo> listRole(@RequestBody @Valid RoleListReqVo roleListReqVo, BindingResult result){
+    public PageBean<RoleRespVo> listRole(@RequestBody @Valid RoleListReqVo roleListReqVo ){
         return pageResultReturn(menuRoleService.listRole(BeanCopyUtil.copy(roleListReqVo, MenuRoleListReqDTO.class)), RoleRespVo.class);
     }
 
     @ApiOperation(value="根据id更新角色信息")
     @RequestMapping(value=AuthUrl.UPDATE_ROLE)
-    public void updateRole(@RequestBody @Valid RoleUpdateReqVO roleUpdateReqVO, BindingResult result) throws Exception {
+    public void updateRole(@RequestBody @Valid RoleUpdateReqVO roleUpdateReqVO ) throws Exception {
         menuRoleService.updateRole(BeanCopyUtil.copy(roleUpdateReqVO, MenuRole.class));
     }
 
@@ -66,7 +66,7 @@ public class MenuRoleController extends AdminBaseController {
     @ApiOperation(value="更新用户角色状态")
     @RequestMapping(value = AuthUrl.UPDATE_ROLE_STATUS)
     @LimitTime
-    public void updateRoleStatus(@RequestBody @Valid RoleStatusReqVo roleStatusReqVo, BindingResult result) throws ResultException {
+    public void updateRoleStatus(@RequestBody @Valid RoleStatusReqVo roleStatusReqVo ) throws ResultException {
         menuRoleService.updateRoleStatus(roleStatusReqVo.getId(),roleStatusReqVo.isStatus());
     }
 

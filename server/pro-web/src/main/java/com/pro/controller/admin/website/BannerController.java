@@ -34,14 +34,14 @@ public class BannerController extends BaseController {
 
     @ApiOperation(value = "banner创建")
     @RequestMapping(value = WebsiteUrl.CREATE_BANNER)
-    public void createBanner(@RequestBody @Validated BannerCreateReqVo bannerCreateReqVo, BindingResult result){
+    public void createBanner(@RequestBody @Validated BannerCreateReqVo bannerCreateReqVo){
         Banner bannerReqDTO = BeanCopyUtil.copy(bannerCreateReqVo, Banner.class);
         bannerService.createBanner(bannerReqDTO);
     }
 
     @ApiOperation(value = "banner编辑")
     @RequestMapping(value = WebsiteUrl.UPDATE_BANNER)
-    public void updateBanner(@RequestBody @Valid BannerUpdateReqVo bannerUpdateReqVo, BindingResult result)  throws Exception {
+    public void updateBanner(@RequestBody @Valid BannerUpdateReqVo bannerUpdateReqVo )  throws Exception {
         Banner bannerReqDTO = BeanCopyUtil.copy(bannerUpdateReqVo, Banner.class);
         bannerService.updateBanner(bannerReqDTO);
     }
@@ -63,7 +63,7 @@ public class BannerController extends BaseController {
 
     @ApiOperation(value = "banner列表")
     @RequestMapping(value = WebsiteUrl.LIST_BANNER)
-    public PageBean<BannerListRespVo> listBanners(@RequestBody @Valid BannerListReqVo bannerListReqVo, BindingResult result){
+    public PageBean<BannerListRespVo> listBanners(@RequestBody @Valid BannerListReqVo bannerListReqVo ){
         BannerListReqDto bannerListReqDTO = BeanCopyUtil.copy(bannerListReqVo, BannerListReqDto.class);
         PageBean<Banner> pageBean= bannerService.listBanners(bannerListReqDTO);
         return pageResultReturn(pageBean,BannerListRespVo.class);

@@ -37,7 +37,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="管理员列表")
     @RequestMapping(value=AuthUrl.LIST_ADMIN)
-    public PageBean<AdminRespVo> listAdmin(@RequestBody @Valid AdminListReqVo adminListReqVO, BindingResult result)throws Exception{
+    public PageBean<AdminRespVo> listAdmin(@RequestBody @Valid AdminListReqVo adminListReqVO )throws Exception{
         return pageResultReturn(adminService.listAdminByPage(new PageRequest(adminListReqVO.getPage_num(),adminListReqVO.getPage_size())
                 ),AdminRespVo.class);
     }
@@ -45,7 +45,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="管理员创建")
     @RequestMapping(value = AuthUrl.CREATE_ADMIN)
-    public void createAdmin(@RequestBody @Valid AdminCreateReqVo adminCreateReqVo, BindingResult result)throws Exception{
+    public void createAdmin(@RequestBody @Valid AdminCreateReqVo adminCreateReqVo )throws Exception{
         adminService.createAdmin(
                 BeanCopyUtil.copy(adminCreateReqVo, Admin.class),
                 adminCreateReqVo.getAuth_code_list()
@@ -54,7 +54,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="管理员修改")
     @RequestMapping(value = AuthUrl.UPDATE_ADMIN)
-    public void updateAdmin (@RequestBody @Valid AdminUpdateReqVo adminUpdateReqVo, BindingResult result) throws Exception {
+    public void updateAdmin (@RequestBody @Valid AdminUpdateReqVo adminUpdateReqVo ) throws Exception {
         adminService.updateAdmin(
                 BeanCopyUtil.copy(adminUpdateReqVo, Admin.class),
                 adminUpdateReqVo.getAuth_code_list()
@@ -70,7 +70,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="更改密码")
     @RequestMapping(value = AuthUrl.UPDATE_PASSWORD)
-    public void updatePassword(@RequestBody @Valid UpdatePasswordReqVo resetAdminPasswordReq, BindingResult result)throws Exception{
+    public void updatePassword(@RequestBody @Valid UpdatePasswordReqVo resetAdminPasswordReq )throws Exception{
         if(!resetAdminPasswordReq.getNew_password().equals(resetAdminPasswordReq.getConfirm_password())){
             throw ResultException.error(CONFIRM_PASSWORD_ERROR);
         }
@@ -79,7 +79,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="更改管理员自己信息")
     @RequestMapping(value = AuthUrl.UPDATE_ADMIN_INFO)
-    public void updateAdminInfo(@RequestBody @Valid AdminInfoReqVo adminInfoReqVo, BindingResult result)throws Exception{
+    public void updateAdminInfo(@RequestBody @Valid AdminInfoReqVo adminInfoReqVo )throws Exception{
         LoginUserInfo loginUser = LoginUtil.getLoginUser();
         Admin admin=new Admin();
         admin.setId(loginUser.getId());
@@ -93,13 +93,13 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="密码重置")
     @RequestMapping(value = AuthUrl.RESET_PASSWORD)
-    public  void resetAdminPassword(@RequestBody @Valid ResetAdminPasswordReq resetAdminPasswordReq, BindingResult result)throws Exception{
+    public  void resetAdminPassword(@RequestBody @Valid ResetAdminPasswordReq resetAdminPasswordReq )throws Exception{
         adminService.resetAdminPassword(resetAdminPasswordReq.getId());
     }
 
     @ApiOperation(value="设置权限编码")
     @RequestMapping(value = AuthUrl.SET_AUTH_DATA)
-    public void setAuthData(@RequestBody @Valid AdminSetAuthDataReq adminSetAuthDataReq, BindingResult result)throws Exception{
+    public void setAuthData(@RequestBody @Valid AdminSetAuthDataReq adminSetAuthDataReq )throws Exception{
 //        adminService.setAuthData(adminSetAuthDataReq.getId(),adminSetAuthDataReq.getAuth_data_code());
     }
 
@@ -112,7 +112,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value="管理员冻结")
     @RequestMapping(value = AuthUrl.UPDATE_ACTIVE_ADMIN)
-    public void updateActiveAdmin(@RequestBody @Valid AdminActiveReqVo adminActiveReqVO, BindingResult result) {
+    public void updateActiveAdmin(@RequestBody @Valid AdminActiveReqVo adminActiveReqVO ) {
         adminService.updateActiveAdmin(adminActiveReqVO.getId(),adminActiveReqVO.getIsActive());
     }
 

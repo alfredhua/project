@@ -34,14 +34,14 @@ public class PartnerController  extends AdminBaseController {
 
     @ApiOperation(value  ="合作伙伴创建")
     @RequestMapping(value = WebsiteUrl.CREATE_PARTNER)
-    public void createPartner(@RequestBody @Valid PartnerCreateReqVO partnerCreateReqVO, BindingResult result){
+    public void createPartner(@RequestBody @Valid PartnerCreateReqVO partnerCreateReqVO ){
         Partner partnerReqDTO = BeanCopyUtil.copy(partnerCreateReqVO, Partner.class);
         partnerService.createPartner(partnerReqDTO);
     }
 
     @ApiOperation(value  ="合作伙伴更新")
     @RequestMapping(value = WebsiteUrl.UPDATE_PARTNER)
-    public void updatePartner(@RequestBody @Valid PartnerUpdateReqVO partnerUpdateReqVO, BindingResult result) throws Exception {
+    public void updatePartner(@RequestBody @Valid PartnerUpdateReqVO partnerUpdateReqVO ) throws Exception {
         Partner partnerReqDTO = BeanCopyUtil.copy(partnerUpdateReqVO, Partner.class);
         partnerService.updatePartner(partnerReqDTO);
     }
@@ -60,7 +60,7 @@ public class PartnerController  extends AdminBaseController {
 
     @ApiOperation(value  ="合作伙伴列表")
     @RequestMapping(value = WebsiteUrl.LIST_PARTNER)
-    public PageBean<PartnerRespVO> listPartnerByPage(@RequestBody @Valid PartnerListReqVO partnerListReqVO, BindingResult result){
+    public PageBean<PartnerRespVO> listPartnerByPage(@RequestBody @Valid PartnerListReqVO partnerListReqVO ){
         PartnerListReqDTO partnerListReqDTO = BeanCopyUtil.copy(partnerListReqVO, PartnerListReqDTO.class);
         PageBean<Partner>  pageBean = partnerService.listPartnerByPage(partnerListReqDTO);
         return pageResultReturn(pageBean,PartnerRespVO.class);

@@ -38,7 +38,7 @@ public class NoticeTypeController extends AdminBaseController {
 
     @ApiOperation(value = "公告字典列表")
     @RequestMapping(value =WebsiteUrl.LIST_NOTICE_TYPE_BY_PAGE)
-    public PageBean<NoticeTypeRespVO> listNoticeTypeByPage(@RequestBody @Valid NoticeTypeListReqVO noticeTypeListReqVO, BindingResult result)throws Exception {
+    public PageBean<NoticeTypeRespVO> listNoticeTypeByPage(@RequestBody @Valid NoticeTypeListReqVO noticeTypeListReqVO )throws Exception {
         NoticeTypeListReqDTO noticeTypeListReqDTO = copy(noticeTypeListReqVO, NoticeTypeListReqDTO.class);
         PageBean<NoticeType> pageBean = noticeTypeService.listNoticeTypeByPage(noticeTypeListReqDTO);
         return pageResultReturn(pageBean, NoticeTypeRespVO.class);
@@ -46,21 +46,21 @@ public class NoticeTypeController extends AdminBaseController {
 
     @ApiOperation(value = "文章类型创建")
     @RequestMapping(value =WebsiteUrl.CREATE_NOTICE_TYPE)
-    public void createNoticeType(@RequestBody @Valid NoticeTypeCreateReqVO noticeTypeCreateReqVO, BindingResult result) throws Exception {
+    public void createNoticeType(@RequestBody @Valid NoticeTypeCreateReqVO noticeTypeCreateReqVO ) throws Exception {
         NoticeType noticeTypeReqDTO = copy(noticeTypeCreateReqVO, NoticeType.class);
         noticeTypeService.createNoticeType(noticeTypeReqDTO);
     }
 
     @ApiOperation(value = "文章类型更新")
     @RequestMapping(value =WebsiteUrl.UPDATE_NOTICE_TYPE)
-    public void updateNoticeTypeName(@RequestBody @Valid NoticeTypeUpdateReqVO noticeTypeUpdateReqVO, BindingResult result) throws Exception {
+    public void updateNoticeTypeName(@RequestBody @Valid NoticeTypeUpdateReqVO noticeTypeUpdateReqVO ) throws Exception {
         NoticeType noticeTypeReqDTO = copy(noticeTypeUpdateReqVO, NoticeType.class);
         noticeTypeService.updateNoticeTypeName(noticeTypeReqDTO);
     }
 
     @ApiOperation(value = "文章类型激活，关闭")
     @RequestMapping(value =WebsiteUrl.UPDATE_NOTICE_TYPE_STATUS)
-    public void updateStatus(@RequestBody @Valid NoticeTypeActiveRequest noticeTypeActiveRequest, BindingResult result) throws Exception {
+    public void updateStatus(@RequestBody @Valid NoticeTypeActiveRequest noticeTypeActiveRequest ) throws Exception {
         noticeTypeService.updateStatus(noticeTypeActiveRequest.getId(),noticeTypeActiveRequest.getStatus());
     }
 
