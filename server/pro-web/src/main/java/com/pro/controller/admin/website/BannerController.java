@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +34,7 @@ public class BannerController extends BaseController {
 
     @ApiOperation(value = "banner创建")
     @RequestMapping(value = WebsiteUrl.CREATE_BANNER)
-    public void createBanner(@RequestBody @Valid BannerCreateReqVo bannerCreateReqVo, BindingResult result){
+    public void createBanner(@RequestBody @Validated BannerCreateReqVo bannerCreateReqVo, BindingResult result){
         Banner bannerReqDTO = BeanCopyUtil.copy(bannerCreateReqVo, Banner.class);
         bannerService.createBanner(bannerReqDTO);
     }
