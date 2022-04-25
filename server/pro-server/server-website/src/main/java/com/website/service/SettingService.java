@@ -29,6 +29,7 @@ public class SettingService{
     public PageBean<SettingRespDto> listSettingByPage(PageRequest pageRequest) {
         PageBean<SettingRespDto> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(),pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("partner_id",ConditionEnum.eq,0L);
         List<Setting> settingList = settingMapper.listAll(entityWrapper);
         if (ObjectUtils.isEmpty(settingList)){
             pageBean.setTotal(0);
@@ -36,12 +37,20 @@ public class SettingService{
         }
         List<SettingRespDto> list = BeanCopyUtil.copyList(settingList, SettingRespDto.class);
         for (SettingRespDto SettingRespDto:list) {
-            SettingRespDto.setChildren(listChildren(SettingRespDto.getId()));
+            SettingRespDto.setChildren(listSettingByPartnerId(SettingRespDto.getId()));
         }
         pageBean.setList(list);
         pageBean.setTotal(settingMapper.listCount(entityWrapper));
         return pageBean;
     }
+
+    public List<SettingRespDto> listSettingByPartnerId(long partnerId) {
+        EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("partner_id", ConditionEnum.eq,partnerId);
+        List<Setting> settingList = settingMapper.listAll(entityWrapper);
+        return BeanCopyUtil.copyList(settingList, SettingRespDto.class);
+    }
+
 
     private List<SettingRespDto> listChildren(long parent_id){
         List<SettingRespDto> settingRespDTOS = listChildrenSetting(null);
@@ -63,19 +72,8 @@ public class SettingService{
         return settingMapper.updateById(setting);
     }
 
-    
-    public List<Setting> listSettingByPartnerId(long partnerId) {
-        EntityWrapper entityWrapper=new EntityWrapper();
-        entityWrapper.addCondition("parent_id", ConditionEnum.eq,partnerId);
-        return settingMapper.listAll(entityWrapper);
-    }
-
-
-
-
-     
-     public Setting getById(Long id) {
-         return settingMapper.queryById(id);
+    public Setting getById(Long id) {
+        return settingMapper.queryById(id);
      }
 
 

@@ -63,8 +63,6 @@ public class Produce extends BaseDomain {
    private Integer ordering;
 
 
-   private String context;
-      
    private String introduce;
       
 }

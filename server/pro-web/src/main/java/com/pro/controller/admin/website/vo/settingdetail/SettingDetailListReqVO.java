@@ -1,6 +1,6 @@
 package com.pro.controller.admin.website.vo.settingdetail;
 
-import com.common.domain.request.PageRequest;
+import com.common.api.entity.request.PageRequest;
 import lombok.Getter;
 import lombok.Setter;
 

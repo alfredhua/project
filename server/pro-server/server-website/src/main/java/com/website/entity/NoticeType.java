@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Table(value = "m_website.site_type")
+@Table(value = "m_website.dic_notice_type")
 public class NoticeType extends BaseDomain {
 
     /**

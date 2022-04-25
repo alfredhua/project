@@ -32,7 +32,7 @@ public class NoticeTypeService {
     public PageBean<NoticeType> listNoticeTypeByPage(PageRequest pageRequest) {
         PageBean<NoticeType> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(), pageRequest.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
-        pageBean.setList(noticeTypeMapper.listByPage(pageBean.getOffset(), pageBean.getPage_size(),entityWrapper));
+        pageBean.setList(noticeTypeMapper.listByPage(pageBean.getPage_num(), pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(noticeTypeMapper.listCount(entityWrapper));
         return pageBean;
     }
