@@ -15,7 +15,7 @@ export default class BannerEditForm extends React.Component{
     previewVisible: false,
     previewImage: '',
     enable:1,
-    order:0,
+    order:null,
     auth_data:[],
     auth_data_code:null
   }
@@ -151,7 +151,7 @@ export default class BannerEditForm extends React.Component{
             </RadioGroup>
           </div>
 
-          <DefaultInputNumber label='排序' min={1} max={100}  value={this.state.order} onChange={(value)=>{this.setState({order:value})}}></DefaultInputNumber>
+          <DefaultInputNumber label='排序' min={0} max={100}  value={this.state.order} onChange={(value)=>{this.setState({order:value})}}></DefaultInputNumber>
 
            <div style={{marginTop:20}}>
                 <div style={{float:'left',width:'200px',height:'20px',textAlign:'right'}}> <label>图片：</label></div>
