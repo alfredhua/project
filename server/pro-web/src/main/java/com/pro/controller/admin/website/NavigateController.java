@@ -1,18 +1,16 @@
 package com.pro.controller.admin.website;
 
+import com.common.api.entity.request.PageRequest;
+import com.common.api.entity.response.PageBean;
+import com.common.util.BeanCopyUtil;
 import com.pro.controller.admin.website.vo.navigate.NavigateListReqVO;
 import com.pro.controller.admin.website.vo.navigate.NavigateReqVO;
 import com.pro.controller.admin.website.vo.navigate.NavigateRespVO;
-import com.pro.controller.common.AdminBaseController;
-import com.common.domain.response.PageBean;
-import com.common.util.BeanCopyUtil;
-import com.pro.website.dto.NavigateListReqDTO;
-import com.pro.website.dto.NavigateReqDTO;
-import com.pro.website.dto.entity.Navigate;
+import com.pro.controller.common.BaseController;
+import com.website.entity.Navigate;
 import com.website.service.NavigateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,7 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(value = "/admin/navigate",method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-public class NavigateController extends AdminBaseController {
+public class NavigateController extends BaseController {
 
     @Autowired
     NavigateService navigateService;
@@ -42,7 +40,7 @@ public class NavigateController extends AdminBaseController {
      */
     @RequestMapping(value = "/update")
     public void updateNavigate(@RequestBody @Valid NavigateReqVO navigateReqVO ){
-        Navigate navigate = BeanCopyUtil.copy(navigateReqVO, NavigateReqDTO.class);
+        Navigate navigate = BeanCopyUtil.copy(navigateReqVO, Navigate.class);
          navigateService.updateNavigate(navigate);
     }
 
@@ -67,9 +65,9 @@ public class NavigateController extends AdminBaseController {
      */
     @RequestMapping(value = "/list")
     public PageBean<NavigateRespVO> listNavigateByPage(@RequestBody @Valid NavigateListReqVO navigateListReq ){
-        NavigateListReqDTO navigateListReqDTO = BeanCopyUtil.copy(navigateListReq, NavigateListReqDTO.class);
-        PageBean<Navigate> pageBean= navigateService.listNavigateByPage(navigateListReqDTO);
-        return pageResultReturn(pageBean,NavigateRespVO.class);
+        return pageResultReturn(
+                navigateService.listNavigateByPage(new PageRequest(navigateListReq.getPage_num(),navigateListReq.getPage_size()))
+                ,NavigateRespVO.class);
     }
 
 }

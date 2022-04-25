@@ -39,7 +39,7 @@ public class BannerService {
     public PageBean<Banner> listBanners(BannerListReqDto bannerListReqDTO) {
         PageBean<Banner> pageBean = PageUtil.getPageBean(bannerListReqDTO.getPage_num(),bannerListReqDTO.getPage_size(),bannerListReqDTO.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
-        pageBean.setList(bannerMapper.listByPage(pageBean.getOffset(),pageBean.getPage_size(),entityWrapper));
+        pageBean.setList(bannerMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(bannerMapper.listCount(entityWrapper));
         return pageBean;
     }

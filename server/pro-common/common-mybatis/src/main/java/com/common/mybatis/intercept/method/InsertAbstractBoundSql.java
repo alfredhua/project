@@ -24,7 +24,7 @@ public class InsertAbstractBoundSql  extends AbstractBoundSql {
                 INSERT_INTO(tableInfo.getTableName());
                 tableInfo.getFieldInfoList().forEach(fieldInfo -> {
                     if (!ObjectUtils.isEmpty(map.get(fieldInfo.getFiledName()))) {
-                        VALUES(fieldInfo.getColumnName(), "?");
+                        VALUES("`"+fieldInfo.getColumnName()+"`", "?");
                         list.add(new ParameterMapping.Builder(ParamInfoUtils.getConfiguration(args), fieldInfo.getFiledName(), fieldInfo.getClazz()).build());
                     }
                 });

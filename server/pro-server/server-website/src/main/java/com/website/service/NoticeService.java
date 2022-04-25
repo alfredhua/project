@@ -3,8 +3,10 @@ package com.website.service;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
+import com.pro.api.entity.website.NoticeListReqDto;
 import com.website.dao.NoticeMapper;
 import com.website.entity.Notice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +47,10 @@ public class NoticeService  {
         return noticeMapper.deleteById(id);
     }
 
-    public PageBean<Notice> listNoticeByPage(PageRequest pageRequest) {
-        PageBean<Notice> pageBean = PageUtil.getPageBean(pageRequest.getPage_num(),pageRequest.getPage_size(), pageRequest.getOffset());
+    public PageBean<Notice> listNoticeByPage(NoticeListReqDto noticeListReqDto) {
+        PageBean<Notice> pageBean = PageUtil.getPageBean(noticeListReqDto.getPage_num(),noticeListReqDto.getPage_size(), noticeListReqDto.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("type", ConditionEnum.eq,noticeListReqDto.getType());
         pageBean.setList(noticeMapper.listByPage(pageBean.getPage_num(),pageBean.getPage_size(),entityWrapper));
         pageBean.setTotal(noticeMapper.listCount(entityWrapper));
         return pageBean;

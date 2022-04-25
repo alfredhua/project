@@ -33,10 +33,10 @@ public class EntityWrapperUtils {
 
     public static SQL getWhereSql(Condition condition, SQL sql){
         if (map.containsKey(condition.getCondition())){
-            return sql.WHERE(condition.getColumn()+" "+map.get(condition.getCondition())+" ? ");
+            return sql.WHERE("`"+condition.getColumn()+"` "+map.get(condition.getCondition())+" ? ");
         }
         if (condition.getCondition().equals(ConditionEnum.like)){
-            return sql.WHERE(condition.getColumn()+" like CONCAT('%',?,'%') ");
+            return sql.WHERE("`"+condition.getColumn()+"`"+" like CONCAT('%',?,'%') ");
         }
         return sql;
     }

@@ -34,7 +34,7 @@ public class MapperEntityInfoUtils {
     public static String getQueryColumns(TableInfo tableInfo){
         StringJoiner stringJoiner=new StringJoiner(",");
         tableInfo.getFieldInfoList().forEach(fieldInfo -> {
-            stringJoiner.add(fieldInfo.getColumnName() + " as "+ fieldInfo.getFiledName());
+            stringJoiner.add("`"+fieldInfo.getColumnName()+"`" + " as `"+ fieldInfo.getFiledName()+"`");
         });
         return stringJoiner.toString();
     }
