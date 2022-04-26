@@ -1,4 +1,4 @@
-package com.pro.controller.filter;
+package com.pro.filter;
 
 import com.common.api.constants.RedisConstant;
 import com.common.api.constants.SysErrorCodeEnum;
