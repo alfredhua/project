@@ -3,6 +3,7 @@ package com.website.service;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.website.dao.NavigateMapper;
@@ -50,8 +51,9 @@ public class NavigateService {
         return pageBean;
     }
 
-    public List<Navigate> listNavigateByType() {
+    public List<Navigate> listNavigateByType(String type) {
         EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("type", ConditionEnum.eq,type);
         return navigateMapper.listAll(entityWrapper);
     }
 }

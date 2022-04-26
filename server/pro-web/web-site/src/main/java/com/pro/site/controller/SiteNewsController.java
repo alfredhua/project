@@ -1,5 +1,6 @@
 package com.pro.site.controller;
 
+import com.common.api.entity.response.PageBean;
 import com.common.aspect.annotation.LimitTime;
 import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
