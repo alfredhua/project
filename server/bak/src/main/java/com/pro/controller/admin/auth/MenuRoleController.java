@@ -1,7 +1,6 @@
 package com.pro.controller.admin.auth;
 
 import com.pro.admin.auth.vo.role.*;
-import com.pro.controller.admin.auth.vo.role.*;
 import com.pro.controller.common.AdminBaseController;
 import com.auth.service.MenuRoleService;
 import com.common.aspect.annotation.LimitTime;

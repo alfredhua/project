@@ -1,6 +1,5 @@
 package com.pro.controller.admin.website;
 
-import com.pro.controller.admin.website.vo.noticetype.*;
 import com.pro.controller.common.AdminBaseController;
 import com.admin.web.controller.website.vo.noticetype.*;
 import com.common.domain.response.PageBean;

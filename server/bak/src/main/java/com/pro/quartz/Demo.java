@@ -1,4 +1,4 @@
-package com.pro.quartz;
+package com.pro.job;
 
 import com.common.util.LogUtil;
 import org.springframework.stereotype.Component;

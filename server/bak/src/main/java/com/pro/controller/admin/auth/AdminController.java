@@ -7,7 +7,6 @@ import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.redis.client.RedisClient;
 import com.common.util.BeanCopyUtil;
-import com.pro.controller.admin.auth.vo.admin.*;
 import com.pro.controller.common.AdminBaseController;
 import com.pro.auth.dto.AdminListReqDTO;
 import io.swagger.annotations.Api;

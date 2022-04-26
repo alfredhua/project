@@ -32,5 +32,15 @@ include ':pro-common:common-generator'
 project(':pro-common:common-generator').projectDir = file('pro-common/common-generator')
 
 // web
-include ':pro-web'
-project(':pro-web').projectDir = file('pro-web')
+include ':pro-web:web-admin'
+project(':pro-web:web-admin').projectDir = file('pro-web/web-admin')
+include ':pro-web:web-site'
+project(':pro-web:web-site').projectDir = file('pro-web/web-site')
+include ':pro-web:web-mq'
+project(':pro-web:web-mq').projectDir = file('pro-web/web-mq')
+include ':pro-web:web-job'
+project(':pro-web:web-job').projectDir = file('pro-web/web-job')
+include ':pro-web:web-common'
+project(':pro-web:web-common').projectDir = file('pro-web/web-common')
+include ':pro-web:web-start'
+project(':pro-web:web-start').projectDir = file('pro-web/web-start')
