@@ -1,11 +1,9 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.util.BeanCopyUtil;
 import com.pro.controller.common.BaseController;
 import com.pro.site.controller.vo.banner.BannerListRespVo;
 import com.pro.site.controller.vo.banner.BannerTypeReqVo;
-import com.website.entity.Banner;
 import com.website.service.BannerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +30,7 @@ public class SiteBannerController extends BaseController {
     @RequestMapping(value = SiteWebsiteUrl.LIST_BANNER_BY_TYPE)
     @LimitTime
     public List<BannerListRespVo> listBannersByType(@RequestBody @Valid BannerTypeReqVo bannerTypeReqVo){
-            List<Banner> banners = bannerService.listBannersByType(BeanCopyUtil.copy(bannerTypeReqVo, Banner.class));
-            return listReturn(banners,BannerListRespVo.class);
+        return listReturn( bannerService.listBannersByType(bannerTypeReqVo.getType()), BannerListRespVo.class);
     }
 
 }

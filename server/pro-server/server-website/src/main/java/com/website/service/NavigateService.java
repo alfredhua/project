@@ -53,7 +53,7 @@ public class NavigateService {
 
     public List<Navigate> listNavigateByType(String type) {
         EntityWrapper entityWrapper=new EntityWrapper();
-        entityWrapper.addCondition("type", ConditionEnum.eq,type);
+        entityWrapper.addCondition("one_type", ConditionEnum.eq,type);
         return navigateMapper.listAll(entityWrapper);
     }
 }

@@ -41,10 +41,10 @@ public class SiteArticleController extends BaseController {
     @RequestMapping(value = SiteWebsiteUrl.LIST_ARTICLE)
     @LimitTime
     public PageBean<ArticleRespVO> listArticleByPage(@RequestBody @Valid ArticleListReqVO articleListReq, BindingResult result){
-        ArticleListReqDto articleListReqDTO = BeanCopyUtil.copy(articleListReq, ArticleListReqDto.class);
-//        articleListReqDTO.setStatus((short)1);
+        ArticleListReqDto articleListReqDto = BeanCopyUtil.copy(articleListReq, ArticleListReqDto.class);
+        articleListReqDto.setStatus((short)1);
         return pageResultReturn(
-                articleService.listArticleByPage(articleListReqDTO),
+                articleService.listArticleByPage(articleListReqDto),
                 ArticleRespVO.class);
     }
 

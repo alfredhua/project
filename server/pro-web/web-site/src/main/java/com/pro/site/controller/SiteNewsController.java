@@ -2,19 +2,14 @@ package com.pro.site.controller;
 
 import com.common.api.entity.response.PageBean;
 import com.common.aspect.annotation.LimitTime;
-import com.common.domain.response.PageBean;
 import com.common.util.BeanCopyUtil;
+import com.pro.api.entity.news.NewsListReqDto;
 import com.pro.controller.common.BaseController;
+import com.pro.site.controller.vo.news.NewsListReqVO;
 import com.pro.site.controller.vo.news.NewsResponseVO;
-import com.site.controller.common.BaseController;
-import com.site.controller.website.vo.news.NewsListReqVO;
-import com.site.controller.website.vo.news.NewsResponseVO;
-import com.website.dto.entity.News;
-import com.website.dto.NewsListReqDTO;
 import com.website.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,10 +34,10 @@ public class SiteNewsController extends BaseController {
 
     @RequestMapping(value = SiteWebsiteUrl.LIST_NEWS_PAGE)
     @LimitTime
-    public PageBean<NewsResponseVO> listNewsPage(@RequestBody @Valid NewsListReqVO newsListReqVO, BindingResult result){
-        NewsListReqDTO newsListReqDTO = BeanCopyUtil.copy(newsListReqVO, NewsListReqDTO.class);
-        PageBean<News> pageBean = newsService.listNewsByPageForSite(newsListReqDTO);
-        return pageResultReturn(pageBean,NewsResponseVO.class);
+    public PageBean<NewsResponseVO> listNewsPage(@RequestBody @Valid NewsListReqVO newsListReqVO ){
+        return pageResultReturn(
+                newsService.listNewsByPage(BeanCopyUtil.copy(newsListReqVO, NewsListReqDto.class)),
+                NewsResponseVO.class);
     }
 
     @RequestMapping(value = SiteWebsiteUrl.GET_NEWS_BY_ID)

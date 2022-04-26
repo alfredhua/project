@@ -3,6 +3,7 @@ package com.website.service;
 
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.pro.api.entity.website.BannerListReqDto;
@@ -10,6 +11,7 @@ import com.website.dao.BannerMapper;
 import com.website.entity.Banner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -50,8 +52,9 @@ public class BannerService {
     }
 
 
-    public List<Banner> listBannersByType(Banner bannerReqDTO) {
+    public List<Banner> listBannersByType(String type) {
         EntityWrapper entityWrapper=new EntityWrapper();
+         entityWrapper.addCondition("type", ConditionEnum.eq,type);
         return bannerMapper.listAll(entityWrapper);
     }
 

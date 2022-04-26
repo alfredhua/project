@@ -2,10 +2,9 @@ package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
 import com.pro.controller.common.BaseController;
-import com.site.controller.common.BaseController;
-import com.site.controller.website.vo.setting.SettingDetailRespVO;
-import com.site.controller.website.vo.setting.SettingResponseVO;
-import com.website.dto.entity.SettingDetail;
+import com.pro.site.controller.vo.setting.SettingDetailRespVO;
+import com.pro.site.controller.vo.setting.SettingResponseVO;
+import com.website.entity.SettingDetail;
 import com.website.service.SettingDetailService;
 import com.website.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.List;
  * @date 2019/07/13
  */
 @RestController
-@RequestMapping(value = SiteWebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SiteSettingController extends BaseController {
 
     @Autowired

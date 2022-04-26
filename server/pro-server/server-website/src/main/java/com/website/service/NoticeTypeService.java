@@ -59,6 +59,7 @@ public class NoticeTypeService {
 
     public List<NoticeType> listAllActive() {
         EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("status",ConditionEnum.eq,(short)1);
         return noticeTypeMapper.listAll(entityWrapper);
     }
 

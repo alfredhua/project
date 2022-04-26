@@ -2,12 +2,9 @@ package com.pro.site.controller;
 
 import com.blog.service.TypeService;
 import com.common.aspect.annotation.LimitTime;
-import com.common.domain.response.JSONResult;
 import com.pro.controller.common.BaseController;
-import com.pro.controller.site.blog.SiteBlogUrl;
-import com.site.controller.blog.vo.type.TypeReqVO;
-import com.site.controller.blog.vo.type.TypeRespVO;
-import com.site.controller.common.BaseController;
+import com.pro.site.controller.vo.type.TypeReqVO;
+import com.pro.site.controller.vo.type.TypeRespVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +19,7 @@ import java.util.List;
  * @date 2019/08/29
  */
 @RestController
-@RequestMapping(value = SiteBlogUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SiteTypeController extends BaseController {
 
 
@@ -32,17 +29,17 @@ public class SiteTypeController extends BaseController {
     /**
      * 获取全部
      */
-    @RequestMapping(value = SiteBlogUrl.LIST_ALL_TYPE)
+    @RequestMapping(value = SiteWebsiteUrl.LIST_ALL_TYPE)
     @LimitTime
     public List<TypeRespVO> listAllActive(){
-        return listReturn(typeService.listAllActive(),TypeRespVO.class);
+        return listReturn(typeService.listAllActive(), TypeRespVO.class);
     }
 
 
     /**
      * 获取
      */
-    @RequestMapping(value = SiteBlogUrl.GET_TYPE)
+    @RequestMapping(value = SiteWebsiteUrl.GET_TYPE)
     @LimitTime
     public TypeRespVO getById(@RequestBody TypeReqVO typeReqVO){
         return resultReturn(typeService.getByType(typeReqVO.getType()),TypeRespVO.class);

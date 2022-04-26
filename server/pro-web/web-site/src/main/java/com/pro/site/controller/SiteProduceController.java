@@ -1,9 +1,8 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.domain.response.JSONResult;
-import com.site.controller.common.BaseController;
-import com.site.controller.website.vo.produce.ProduceResponseVO;
+import com.pro.controller.common.BaseController;
+import com.pro.site.controller.vo.produce.ProduceResponseVO;
 import com.website.service.ProduceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,7 +18,7 @@ import java.util.List;
  * @date 2019/07/14
  */
 @RestController
-@RequestMapping(value = SiteWebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SiteProduceController extends BaseController {
 
     @Autowired
@@ -39,7 +38,7 @@ public class SiteProduceController extends BaseController {
 
     @RequestMapping(value = SiteWebsiteUrl.GET_PRODUCE)
     @LimitTime
-    public ProduceResponseVO getById(@PathVariable("id") String id){
+    public ProduceResponseVO getById(@PathVariable("id") long id){
         return resultReturn(produceService.getById(id),ProduceResponseVO.class);
     }
 

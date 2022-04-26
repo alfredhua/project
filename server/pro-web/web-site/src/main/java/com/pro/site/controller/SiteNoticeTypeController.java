@@ -1,9 +1,8 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.common.domain.response.JSONResult;
-import com.site.controller.common.BaseController;
-import com.site.controller.website.vo.noticetype.NoticeTypeRespVO;
+import com.pro.controller.common.BaseController;
+import com.pro.site.controller.vo.noticetype.NoticeTypeRespVO;
 import com.website.service.NoticeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,7 +16,7 @@ import java.util.List;
  * @auth guozhenhua
  */
 @RestController
-@RequestMapping(value = SiteWebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SiteNoticeTypeController extends BaseController {
 
     @Autowired

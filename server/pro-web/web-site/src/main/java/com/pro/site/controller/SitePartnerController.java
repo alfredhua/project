@@ -2,9 +2,9 @@ package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.util.BeanCopyUtil;
-import com.site.controller.common.BaseController;
-import com.site.controller.website.vo.partner.PartnerResponseVO;
-import com.website.dto.entity.Partner;
+import com.pro.controller.common.BaseController;
+import com.pro.site.controller.vo.partner.PartnerResponseVO;
+import com.website.entity.Partner;
 import com.website.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2019/07/20
  */
 @RestController
-@RequestMapping(value = SiteWebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
 public class SitePartnerController extends BaseController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class SitePartnerController extends BaseController {
         List<List<Partner>> listPartner = partnerService.listAllPartner();
         List<List<PartnerResponseVO>> list = new ArrayList<>();
         for (List<Partner> list1:listPartner) {
-            list.add( BeanCopyUtil.copyList(list1, PartnerResponseVO.class));
+            list.add(BeanCopyUtil.copyList(list1, PartnerResponseVO.class));
         }
         return list;
     }

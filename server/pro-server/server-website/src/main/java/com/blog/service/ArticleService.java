@@ -57,6 +57,9 @@ public class ArticleService {
         PageBean<Article> pageBean = PageUtil.getPageBean(articleListReqDto.getPage_num(), articleListReqDto.getPage_size(),articleListReqDto.getOffset());
         EntityWrapper entityWrapper=new EntityWrapper();
         entityWrapper.addCondition("del", ConditionEnum.eq,(short)0);
+        if (articleListReqDto.getStatus()==1){
+            entityWrapper.addCondition("status", ConditionEnum.eq,(short)1);
+        }
         pageBean.setList(articleMapper.listByPage(articleListReqDto.getPage_num(),articleListReqDto.getPage_size(),entityWrapper));
         pageBean.setTotal(articleMapper.listCount(entityWrapper));
         return pageBean;
