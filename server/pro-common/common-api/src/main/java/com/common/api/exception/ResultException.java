@@ -2,8 +2,11 @@ package com.common.api.exception;
 
 import com.common.api.constants.SysErrorCodeEnum;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ResultException extends Exception{
 
     String code;

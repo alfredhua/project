@@ -6,7 +6,6 @@ import com.common.api.exception.ResultException;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.banner.*;
 import com.pro.api.entity.website.BannerListReqDto;
-import com.pro.controller.admin.website.vo.banner.*;
 import com.pro.controller.common.BaseController;
 import com.website.entity.Banner;
 import com.website.service.BannerService;

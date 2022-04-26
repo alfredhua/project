@@ -6,7 +6,6 @@ import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.auth.vo.role.*;
-import com.pro.controller.admin.auth.vo.role.*;
 import com.pro.controller.common.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -4,7 +4,7 @@ import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.news.*;
-import com.pro.controller.admin.website.vo.news.*;
+import com.pro.api.entity.news.NewsListReqDto;
 import com.pro.controller.common.BaseController;
 import com.website.entity.News;
 import com.website.service.NewsService;
@@ -66,7 +66,7 @@ public class NewsController  extends BaseController {
     @RequestMapping(value = WebsiteUrl.LIST_NEWS)
     public PageBean<NewsRespVO> listNewsByPage(@RequestBody @Valid NewsListReqVO newsListReqVO ){
         return pageResultReturn(
-                newsService.listNewsByPage(new PageRequest(newsListReqVO.getPage_num(),newsListReqVO.getPage_size()))
+                newsService.listNewsByPage(BeanCopyUtil.copy(newsListReqVO, NewsListReqDto.class))
                 ,NewsRespVO.class);
     }
 
