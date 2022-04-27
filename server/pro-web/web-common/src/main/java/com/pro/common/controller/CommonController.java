@@ -1,8 +1,8 @@
-package com.pro.controller;
+package com.pro.common.controller;
 
 import com.common.api.constants.RedisConstant;
 import com.common.redis.client.RedisClient;
-import com.pro.controller.vo.UserCaptchaReqVo;
+import com.pro.common.controller.vo.UserCaptchaReqVo;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

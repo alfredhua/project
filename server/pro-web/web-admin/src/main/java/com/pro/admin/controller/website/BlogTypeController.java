@@ -10,7 +10,7 @@ import com.pro.admin.controller.website.vo.type.TypeListReqVO;
 import com.pro.admin.controller.website.vo.type.TypeRespVO;
 import com.pro.admin.controller.website.vo.type.TypeUpdateReqVO;
 import com.pro.api.entity.blog.TypeListReqDto;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

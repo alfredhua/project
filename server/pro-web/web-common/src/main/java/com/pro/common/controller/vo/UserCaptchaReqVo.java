@@ -1,4 +1,4 @@
-package com.pro.controller.vo;
+package com.pro.common.controller.vo;
 
 import lombok.Getter;
 import lombok.Setter;

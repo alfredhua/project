@@ -2,7 +2,7 @@ package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.util.BeanCopyUtil;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.pro.site.controller.vo.partner.PartnerResponseVO;
 import com.website.entity.Partner;
 import com.website.service.PartnerService;

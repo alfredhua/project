@@ -1,4 +1,4 @@
-package com.pro.config;
+package com.pro.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

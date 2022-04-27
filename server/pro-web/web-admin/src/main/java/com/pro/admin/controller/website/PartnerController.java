@@ -7,7 +7,7 @@ import com.pro.admin.controller.website.vo.partner.PartnerCreateReqVO;
 import com.pro.admin.controller.website.vo.partner.PartnerListReqVO;
 import com.pro.admin.controller.website.vo.partner.PartnerRespVO;
 import com.pro.admin.controller.website.vo.partner.PartnerUpdateReqVO;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.website.entity.Partner;
 import com.website.service.PartnerService;
 import io.swagger.annotations.Api;

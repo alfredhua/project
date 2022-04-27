@@ -9,7 +9,7 @@ import com.pro.admin.controller.develop.vo.DevelopUpdateReqVO;
 import com.pro.api.entity.auth.DeployListReqDto;
 import com.pro.admin.controller.develop.vo.DeployListReqVo;
 import com.pro.admin.controller.develop.vo.DeployListRespVo;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

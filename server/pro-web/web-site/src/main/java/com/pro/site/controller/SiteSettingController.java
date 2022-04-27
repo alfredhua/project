@@ -1,7 +1,7 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.pro.site.controller.vo.setting.SettingDetailRespVO;
 import com.pro.site.controller.vo.setting.SettingResponseVO;
 import com.website.entity.SettingDetail;

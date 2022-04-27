@@ -1,7 +1,7 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.pro.site.controller.vo.banner.BannerListRespVo;
 import com.pro.site.controller.vo.banner.BannerTypeReqVo;
 import com.website.service.BannerService;

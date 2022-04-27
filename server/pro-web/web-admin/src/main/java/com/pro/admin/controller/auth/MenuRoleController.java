@@ -6,7 +6,7 @@ import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.auth.vo.role.*;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

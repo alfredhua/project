@@ -3,7 +3,7 @@ package com.pro.admin.controller.website;
 import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.pro.admin.controller.website.vo.noticetype.*;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.website.entity.NoticeType;
 import com.website.service.NoticeTypeService;
 import io.swagger.annotations.Api;

@@ -1,4 +1,4 @@
-package com.pro.advice;
+package com.pro.common.advice;
 
 import com.common.api.entity.response.ResultResponse;
 import org.springframework.core.MethodParameter;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 返回统一的 JSONResult 格式
  */
-@ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller","com.pro.controller"})
+@ControllerAdvice(basePackages = {"com.pro"})
 public class ResultResponseAdvice implements ResponseBodyAdvice {
 
     @Override

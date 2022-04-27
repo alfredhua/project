@@ -4,7 +4,7 @@ import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.news.*;
 import com.pro.api.entity.news.NewsListReqDto;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.website.entity.News;
 import com.website.service.NewsService;
 import io.swagger.annotations.Api;

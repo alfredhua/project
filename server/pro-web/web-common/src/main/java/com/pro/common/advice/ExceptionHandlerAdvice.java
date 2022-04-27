@@ -1,4 +1,4 @@
-package com.pro.advice;
+package com.pro.common.advice;
 
 import com.common.api.constants.SysErrorCodeEnum;
 import com.common.api.entity.response.ResultResponse;

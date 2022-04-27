@@ -11,7 +11,7 @@ import com.common.util.LoginUtil;
 import com.pro.admin.controller.auth.vo.login.LoginReqVo;
 import com.pro.admin.controller.auth.vo.login.LoginRespVo;
 import com.pro.api.entity.auth.LoginReqDto;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

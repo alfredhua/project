@@ -2,7 +2,7 @@ package com.pro.site.controller;
 
 import com.blog.service.TypeService;
 import com.common.aspect.annotation.LimitTime;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.pro.site.controller.vo.type.TypeReqVO;
 import com.pro.site.controller.vo.type.TypeRespVO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.pro.controller;
+package com.pro.common.controller;
 
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;

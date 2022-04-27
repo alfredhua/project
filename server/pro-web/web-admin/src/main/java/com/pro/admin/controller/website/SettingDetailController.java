@@ -3,7 +3,7 @@ package com.pro.admin.controller.website;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.settingdetail.SettingDetailRespVO;
 import com.pro.admin.controller.website.vo.settingdetail.SettingDetailUpdateReqVO;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.website.entity.SettingDetail;
 import com.website.service.SettingDetailService;
 import io.swagger.annotations.Api;

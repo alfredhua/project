@@ -1,7 +1,7 @@
 package com.pro.site.controller;
 
 import com.common.aspect.annotation.LimitTime;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.pro.site.controller.vo.noticetype.NoticeTypeRespVO;
 import com.website.service.NoticeTypeService;
 import org.springframework.beans.factory.annotation.Autowired;

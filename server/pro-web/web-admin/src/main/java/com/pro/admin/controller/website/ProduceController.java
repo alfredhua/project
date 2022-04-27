@@ -4,7 +4,7 @@ import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.produce.*;
-import com.pro.controller.BaseController;
+import com.pro.common.controller.BaseController;
 import com.website.entity.Produce;
 import com.website.service.ProduceService;
 import io.swagger.annotations.Api;
