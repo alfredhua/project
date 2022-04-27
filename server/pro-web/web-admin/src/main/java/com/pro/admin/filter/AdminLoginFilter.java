@@ -1,4 +1,4 @@
-package com.pro.filter;
+package com.pro.admin.filter;
 
 import com.common.api.constants.RedisConstant;
 import com.common.api.constants.SysErrorCodeEnum;
@@ -19,7 +19,8 @@ import java.io.IOException;
 /**
  * 验证是否登录
  */
-@WebFilter(urlPatterns = {"/admin/","/logout"}, filterName = "adminLoginFilter")
+@WebFilter(urlPatterns = {"/admin/","/logout"})
+@Component
 public class AdminLoginFilter implements Filter {
 
     @Override
