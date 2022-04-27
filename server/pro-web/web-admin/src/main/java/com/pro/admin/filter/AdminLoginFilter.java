@@ -19,8 +19,7 @@ import java.io.IOException;
 /**
  * 验证是否登录
  */
-@WebFilter(urlPatterns = {"/admin/","/logout"})
-@Component
+@WebFilter(urlPatterns = {"/admin/*","/logout"})
 public class AdminLoginFilter implements Filter {
 
     @Override

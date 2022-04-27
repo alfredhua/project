@@ -5,15 +5,11 @@ import com.auth.AuthCore;
 import com.common.mybatis.MybatisCore;
 import com.common.rabbitmq.RabbitMqCore;
 import com.common.redis.RedisCore;
-import com.common.util.LogUtil;
 import com.common.zk.ZkCore;
 import com.develop.DevelopCore;
 import com.message.MessageCore;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author hua

@@ -11,16 +11,13 @@ import com.develop.DevelopCore;
 import com.message.MessageCore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author hua
  */
-@EnableScheduling
 @SpringBootApplication
-@ServletComponentScan
 @Import({ZkCore.class, MybatisCore.class, RedisCore.class,ZkCore.class, RabbitMqCore.class,
         AuthCore.class, MessageCore.class, DevelopCore.class, WebsiteCore.class})
 public class WebSiteCore {

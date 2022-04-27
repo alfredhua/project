@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 返回统一的 JSONResult 格式
  */
-@ControllerAdvice(basePackages = {"com.pro"})
+@ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller","com.pro.common.controller"})
 public class ResultResponseAdvice implements ResponseBodyAdvice {
 
     @Override
