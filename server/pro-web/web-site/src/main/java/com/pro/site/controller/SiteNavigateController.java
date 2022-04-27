@@ -31,7 +31,7 @@ public class SiteNavigateController extends BaseController {
      */
     @RequestMapping(value = "/list")
     public List<NavigateRespVO> listNavigateByType(@RequestBody @Valid NavigateListReqVO navigateListReq){
-        List<Navigate> list= navigateService.listNavigateByType(navigateListReq.getOne_type());
+        List<Navigate> list= navigateService.listNavigateByType(navigateListReq.getOne_type(),navigateListReq.getTwo_type());
         return listReturn(list,NavigateRespVO.class);
     }
 

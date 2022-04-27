@@ -51,9 +51,10 @@ public class NavigateService {
         return pageBean;
     }
 
-    public List<Navigate> listNavigateByType(String type) {
+    public List<Navigate> listNavigateByType(String oneType,String twoType) {
         EntityWrapper entityWrapper=new EntityWrapper();
-        entityWrapper.addCondition("one_type", ConditionEnum.eq,type);
+        entityWrapper.addCondition("one_type", ConditionEnum.eq,oneType);
+        entityWrapper.addCondition("two_type", ConditionEnum.eq,twoType);
         return navigateMapper.listAll(entityWrapper);
     }
 }
