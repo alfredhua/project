@@ -4,7 +4,7 @@ import com.common.api.entity.response.PageBean;
 import com.common.aspect.annotation.LimitTime;
 import com.common.util.BeanCopyUtil;
 import com.pro.api.entity.website.NoticeListReqDto;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.pro.site.controller.vo.notice.NoticeListReqVo;
 import com.pro.site.controller.vo.notice.NoticeRespVo;
 import com.website.service.NoticeService;

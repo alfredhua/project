@@ -7,7 +7,7 @@ import com.pro.admin.controller.website.vo.setting.SettingListReqVO;
 import com.pro.admin.controller.website.vo.setting.SettingRespVO;
 import com.pro.admin.controller.website.vo.setting.UpdateStatusRequestVO;
 import com.pro.api.entity.setting.SettingRespDto;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.website.service.SettingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

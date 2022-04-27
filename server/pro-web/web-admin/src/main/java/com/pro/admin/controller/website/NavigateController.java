@@ -6,7 +6,7 @@ import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.navigate.NavigateListReqVO;
 import com.pro.admin.controller.website.vo.navigate.NavigateReqVO;
 import com.pro.admin.controller.website.vo.navigate.NavigateRespVO;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.website.entity.Navigate;
 import com.website.service.NavigateService;
 import org.springframework.beans.factory.annotation.Autowired;

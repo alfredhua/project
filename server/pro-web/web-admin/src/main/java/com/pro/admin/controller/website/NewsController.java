@@ -1,11 +1,10 @@
 package com.pro.admin.controller.website;
 
-import com.common.api.entity.request.PageRequest;
 import com.common.api.entity.response.PageBean;
 import com.common.util.BeanCopyUtil;
 import com.pro.admin.controller.website.vo.news.*;
 import com.pro.api.entity.news.NewsListReqDto;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.website.entity.News;
 import com.website.service.NewsService;
 import io.swagger.annotations.Api;

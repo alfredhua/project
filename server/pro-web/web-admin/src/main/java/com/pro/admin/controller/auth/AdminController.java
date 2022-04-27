@@ -12,7 +12,7 @@ import com.common.redis.client.RedisClient;
 import com.common.util.BeanCopyUtil;
 import com.common.util.LoginUtil;
 import com.pro.admin.controller.auth.vo.admin.*;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ObjectUtils;

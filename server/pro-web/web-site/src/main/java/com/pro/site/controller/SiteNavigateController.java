@@ -1,6 +1,6 @@
 package com.pro.site.controller;
 
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.pro.site.controller.vo.Navigate.NavigateListReqVO;
 import com.pro.site.controller.vo.Navigate.NavigateRespVO;
 import com.website.entity.Navigate;

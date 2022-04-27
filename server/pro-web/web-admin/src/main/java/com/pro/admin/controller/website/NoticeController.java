@@ -7,7 +7,7 @@ import com.pro.admin.controller.website.vo.notice.NoticeListReqVo;
 import com.pro.admin.controller.website.vo.notice.NoticeRespVo;
 import com.pro.admin.controller.website.vo.notice.NoticeUpdateRequest;
 import com.pro.api.entity.website.NoticeListReqDto;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import com.website.entity.Notice;
 import com.website.service.NoticeService;
 import io.swagger.annotations.Api;

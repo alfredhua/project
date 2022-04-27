@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Demo {
 
-    @Scheduled(cron="0/1 * * * * ?")
+    @Scheduled(cron="0 0/10 * * * ?")
     public void cronJob(){
         LogUtil.info(" >>cron执行....");
     }

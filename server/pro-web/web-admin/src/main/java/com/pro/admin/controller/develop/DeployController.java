@@ -9,7 +9,7 @@ import com.pro.admin.controller.develop.vo.DevelopUpdateReqVO;
 import com.pro.api.entity.auth.DeployListReqDto;
 import com.pro.admin.controller.develop.vo.DeployListReqVo;
 import com.pro.admin.controller.develop.vo.DeployListRespVo;
-import com.pro.controller.common.BaseController;
+import com.pro.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class DeployController extends BaseController {
 
     @ApiOperation(value = "配置更新")
     @RequestMapping(value = DevelopUrl.UPDATE_DEPLOY)
-    public void updateDevelop(@RequestBody @Valid DevelopUpdateReqVO developUpdateReqVO ) throws Exception {
+    public void updateDevelop(@RequestBody @Valid DevelopUpdateReqVO developUpdateReqVO ){
         Deploy deployReqDTO = BeanCopyUtil.copy(developUpdateReqVO, Deploy.class);
         deployReqDTO.setOperator(LoginUtil.getLoginUser().getUser_name());
         deployService.update(deployReqDTO);

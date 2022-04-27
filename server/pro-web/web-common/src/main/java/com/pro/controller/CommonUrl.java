@@ -1,4 +1,4 @@
-package com.pro.controller.common;
+package com.pro.controller;
 
 /**
  * @auth guozhenhua
