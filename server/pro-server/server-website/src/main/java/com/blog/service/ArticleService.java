@@ -60,6 +60,9 @@ public class ArticleService {
         if (articleListReqDto.getStatus()==1){
             entityWrapper.addCondition("status", ConditionEnum.eq,(short)1);
         }
+        if (!"all".equalsIgnoreCase(articleListReqDto.getType())&&!ObjectUtils.isEmpty(articleListReqDto.getType())){
+            entityWrapper.addCondition("type",ConditionEnum.eq,articleListReqDto.getType());
+        }
         pageBean.setList(articleMapper.listByPage(articleListReqDto.getPage_num(),articleListReqDto.getPage_size(),entityWrapper));
         pageBean.setTotal(articleMapper.listCount(entityWrapper));
         return pageBean;

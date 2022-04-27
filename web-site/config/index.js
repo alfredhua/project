@@ -1,7 +1,6 @@
 var data={};
 
 function load_config(){
-  console.log(process.env.NODE_ENV,"------------")
   if( process.env.NODE_ENV==='development'){
     data=require(`./config.dev.json`);
   }else{

@@ -19,8 +19,8 @@ import java.util.List;
  * @date 2019/08/29
  */
 @RestController
-@RequestMapping(value = SiteWebsiteUrl.WEBSITE_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-public class SiteTypeController extends BaseController {
+@RequestMapping(value = SiteWebsiteUrl.BLOG_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+public class SiteBlogTypeController extends BaseController {
 
 
     @Autowired

@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = SiteWebsiteUrl.BLOG_BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
-public class SiteArticleController extends BaseController {
+public class SiteBlogArticleController extends BaseController {
 
     @Autowired
     ArticleService articleService;

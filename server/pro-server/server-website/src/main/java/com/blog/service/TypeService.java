@@ -4,6 +4,7 @@ import com.blog.dao.TypeMapper;
 import com.blog.entity.Type;
 import com.common.api.entity.response.PageBean;
 import com.common.mybatis.entity.EntityWrapper;
+import com.common.mybatis.enums.ConditionEnum;
 import com.common.util.IDGenerateUtil;
 import com.common.util.PageUtil;
 import com.pro.api.entity.blog.TypeListReqDto;
@@ -62,6 +63,7 @@ public class TypeService {
 
     public List<Type> listAllActive() {
         EntityWrapper entityWrapper=new EntityWrapper();
+        entityWrapper.addCondition("status", ConditionEnum.eq,(short)1);
         return typeMapper.listAll(entityWrapper);
     }
 

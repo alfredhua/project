@@ -10,4 +10,7 @@ public class ArticleListReqDto extends PageRequest {
     private short status;
 
 
+    private String type;
+
+
 }

@@ -73,7 +73,6 @@ Other.getInitialProps = async (res) => {
     return Promise.all([
            list_article(type_enum[type],page,page_size),click_charts(),get_type(type)
            ]).then((result) => {
-             console.log(result[0])
          return {type:type,article:result[0].data,click_list:result[1].data,info:result[2].data}
     });
   }

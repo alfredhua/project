@@ -1,6 +1,5 @@
 package com.message.config;
 
-import com.message.util.WeChatPublicUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

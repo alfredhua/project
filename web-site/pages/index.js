@@ -84,7 +84,6 @@ Index.getInitialProps = async (res) => Promise.all([
   list_ngvigate('INDEX','top_video'),
   list_ngvigate('INDEX','top_web')
 ]).then((result) => {
-  console.log(result[0].data)
   return {
     tools: result[0].data,
     techs: result[1].data,
