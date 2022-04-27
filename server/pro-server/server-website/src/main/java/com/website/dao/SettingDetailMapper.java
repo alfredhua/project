@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface SettingDetailMapper extends BaseMapper<SettingDetail> {
 
-    @Select("select * from m_site.si")
+    @Select("select * from m_website.site_setting_detail where type=#{type}")
     SettingDetail getByType(String type);
 }

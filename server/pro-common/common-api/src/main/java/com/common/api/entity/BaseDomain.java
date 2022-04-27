@@ -29,8 +29,8 @@ public class BaseDomain implements Serializable{
      */
     private LocalDateTime update_time;
 
-    /**
-     * 权限码
-     */
-    private String auth_data_code;
+//    /**
+//     * 权限码
+//     */
+//    private String auth_data_code;
 }
