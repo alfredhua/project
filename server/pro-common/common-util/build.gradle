@@ -14,6 +14,7 @@ ext{
     gsonVersion= '2.9.0'
     lang3Version= '3.12.0'
     junitVersion= '4.13.2'
+    poiVersion='5.2.2'
 }
 
 dependencies {
@@ -21,9 +22,8 @@ dependencies {
     api project(':pro-common:common-api')
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-aop:$springBootVersion")
-
     compile("org.apache.httpcomponents:httpclient:$httpclientVersion")
-
+    compile("org.apache.poi:poi:$poiVersion")
     compile("com.google.code.gson:gson:$gsonVersion")
     compile("org.apache.commons:commons-lang3:$lang3Version")
 
