@@ -1,0 +1,13 @@
+spring:
+  config:
+    import:
+      - classpath:/config/dev/redis.properties
+      - classpath:/config/dev/zk.properties
+      - classpath:/config/dev/rabbitmq.properties
+      - classpath:/config/dev/db.properties
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true

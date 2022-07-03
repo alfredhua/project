@@ -3,12 +3,13 @@ package com.pro;
 import com.common.util.LogUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
  * @author hua
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @Import({WebCommonCore.class,WebAdminCore.class, WebSiteInfoCore.class,WebMqCore.class,WebCommonCore.class,WebJobCore.class, WebSiteInfoCore.class})
 public class StartApplication {
 
