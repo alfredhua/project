@@ -13,7 +13,7 @@ ext{
 
 dependencies {
 
-    compile "com.rabbitmq:amqp-client:${rabbitVersion}"
+    api "com.rabbitmq:amqp-client:${rabbitVersion}"
     api project(':pro-common:common-util')
 
 }

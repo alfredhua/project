@@ -13,10 +13,10 @@ ext{
 
 dependencies {
 
-    compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
+    api group: 'org.apache.velocity', name: 'velocity', version: '1.7'
     api project(':pro-common:common-util')
 
-    compile('mysql:mysql-connector-java:6.0.6')
+    api('mysql:mysql-connector-java:6.0.6')
 
 }
 

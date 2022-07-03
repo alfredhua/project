@@ -41,9 +41,8 @@ subprojects{
     }
 
     dependencies {
-        compileOnly("org.projectlombok:lombok:$lombokVersion")
+        compileOnly("org.projectlombokmbok:lombok:$lombokVersion")
         annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-
     }
 
 }

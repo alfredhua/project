@@ -8,10 +8,10 @@ version "$projectVersion"
 dependencies {
 
     implementation project(":pro-api")
-    compile project(':pro-common:common-redis')
-    compile project(':pro-common:common-zk')
-    compile project(':pro-common:common-rabbitmq')
-    compile project(':pro-common:common-mybatis')
-    compile project(':pro-common:common-es')
+    api project(':pro-common:common-redis')
+    api project(':pro-common:common-zk')
+    api project(':pro-common:common-rabbitmq')
+    api project(':pro-common:common-mybatis')
+    api project(':pro-common:common-es')
 
 }

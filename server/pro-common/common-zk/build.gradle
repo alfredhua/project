@@ -13,8 +13,8 @@ ext{
 }
 
 dependencies {
-    compile ("org.apache.curator:curator-recipes:$curatorVersion")
-    compile ("org.apache.zookeeper:zookeeper:$zookeeperVersion"){
+    api ("org.apache.curator:curator-recipes:$curatorVersion")
+    api ("org.apache.zookeeper:zookeeper:$zookeeperVersion"){
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
         exclude group: 'log4j', module: 'log4j'
     }
