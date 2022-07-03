@@ -6,6 +6,9 @@ import com.common.api.exception.ResultException;
 import com.common.util.EnvUtil;
 import com.common.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
@@ -22,16 +25,17 @@ import static java.lang.Thread.currentThread;
  * RuntimeException 全局异常处理
  */
 @Slf4j
-//@ControllerAdvice(basePackages = "com.pro.controller")
+@ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller"})
 public class ExceptionHandlerAdvice {
 
-    //    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public String MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-//        // 从异常对象中拿到ObjectError对象
-//        ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
-//        // 然后提取错误提示信息进行返回
-//        return objectError.getDefaultMessage();
-//    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public String MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        // 从异常对象中拿到ObjectError对象
+        ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
+        // 然后提取错误提示信息进行返回
+        return objectError.getDefaultMessage();
+    }
+
     @ResponseBody
     @ExceptionHandler(value = ResultException.class)
     public ResultResponse<Object> resultException(HttpServletRequest httpServletRequest, Exception ex){
