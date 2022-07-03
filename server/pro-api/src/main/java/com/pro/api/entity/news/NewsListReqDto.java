@@ -1,12 +1,14 @@
 package com.pro.api.entity.news;
 
 import com.common.api.entity.request.PageRequest;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author guozhenhua
  * @date 2022/4/26
  */
-@Data
+@Getter
+@Setter
 public class NewsListReqDto extends PageRequest {
 }
