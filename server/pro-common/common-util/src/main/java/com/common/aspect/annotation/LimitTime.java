@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @auth guozhenhua
+ * @author hua
  * @date 2018/11/05
  */
 @Documented

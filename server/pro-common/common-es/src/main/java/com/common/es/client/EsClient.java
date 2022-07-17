@@ -12,7 +12,7 @@ import co.elastic.clients.elasticsearch.indices.IndexSettings;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
 import com.common.api.entity.request.PageRequest;
 import com.common.es.anno.Document;
-import com.common.es.entity.EEntity;
+import com.common.es.entity.EsBaseEntity;
 import com.common.es.entity.EsPageResponse;
 import com.common.es.entity.EsScrollResponse;
 import com.common.util.GsonUtil;
@@ -52,7 +52,7 @@ public class EsClient {
     }
 
 
-    public static <T extends EEntity> T save(T t) {
+    public static <T extends EsBaseEntity> T save(T t) {
         Document document = t.getClass().getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -80,7 +80,7 @@ public class EsClient {
         }
     }
 
-    public static  <T extends EEntity> void delete(Class<T> clazz, String id) {
+    public static  <T extends EsBaseEntity> void delete(Class<T> clazz, String id) {
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -104,7 +104,7 @@ public class EsClient {
         }
     }
 
-    public static  <T extends EEntity, ID extends Serializable> T findById(Class<T> clazz, ID id) {
+    public static  <T extends EsBaseEntity, ID extends Serializable> T findById(Class<T> clazz, ID id) {
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -126,7 +126,7 @@ public class EsClient {
         }
     }
 
-    public static <T extends EEntity> List<T> findByQuery(Class<T> clazz, Query query, List<SortOptions> sortList) {
+    public static <T extends EsBaseEntity> List<T> findByQuery(Class<T> clazz, Query query, List<SortOptions> sortList) {
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -153,7 +153,7 @@ public class EsClient {
         return new ArrayList<>();
     }
 
-    public static <T extends EEntity> EsPageResponse<T> findPageByQuery(Class<T> clazz, Query query, List<SortOptions> sortOptionsList, PageRequest pageRequest){
+    public static <T extends EsBaseEntity> EsPageResponse<T> findPageByQuery(Class<T> clazz, Query query, List<SortOptions> sortOptionsList, PageRequest pageRequest){
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -189,7 +189,7 @@ public class EsClient {
         return null;
     }
 
-    public static <T extends EEntity> long countByQuery(Class<T> clazz, Query query){
+    public static <T extends EsBaseEntity> long countByQuery(Class<T> clazz, Query query){
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
@@ -211,7 +211,7 @@ public class EsClient {
         return 0;
     }
 
-    public static <T extends EEntity> EsScrollResponse<T> listByQueryScroll(Class<T> clazz, Query query, String scrollId, int size){
+    public static <T extends EsBaseEntity> EsScrollResponse<T> listByQueryScroll(Class<T> clazz, Query query, String scrollId, int size){
         // 参数校验
         if (size < 1 || size > 200) {
             throw new RuntimeException("ES 查询一次请求的数了超出范围，请在 1-200 之间");

@@ -32,7 +32,7 @@ import static java.lang.Thread.currentThread;
 @ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller"})
 public class ExceptionHandlerAdvice {
 
-    @Autowired
+    @Autowired(required = false)
     MailEntity mailEntity;
     /**
      * 处理 参数错误异常
@@ -70,14 +70,14 @@ public class ExceptionHandlerAdvice {
             paramsStr= GsonUtil.toJSONString(parameterMap);
         }
         errorData.append("请求地址:<br>").append(uri).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
-        List<String> toMailList=new ArrayList<>();
-        toMailList.add(mailEntity.getToMail());
-        if(!EnvUtil.isDevActive()) {
-            try {
+        try {
+            if(!EnvUtil.isDevActive()) {
+                List<String> toMailList = new ArrayList<>();
+                toMailList.add(mailEntity.getToMail());
                 MailUtil.sendMails(toMailList, "错误故障", errorData.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return ResultResponse.error(SysErrorCodeEnum.ERR_SYSTEM.getCode(),SysErrorCodeEnum.ERR_SYSTEM.getMsg());
     }

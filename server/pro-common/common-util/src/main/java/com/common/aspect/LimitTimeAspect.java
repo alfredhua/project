@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class LimitTimeAspect extends BaseAspect{
 
     @Around("aroundLimitTime()")
     public Object advice(ProceedingJoinPoint joinPoint)throws Throwable {
-        long startTime = System.currentTimeMillis();
+        StopWatch stopWatch = new StopWatch();
         StringBuilder stringBuffer = new StringBuilder();
         Method method = getMethod(joinPoint);
         stringBuffer.append("请求方法名称:").append(method.getName()).append(",");
@@ -44,17 +45,16 @@ public class LimitTimeAspect extends BaseAspect{
         //处理限制策略
         if (method.getAnnotation(LimitTime.class).type()==LimitTimeTypeEnum.NULL){
             Object proceed = joinPoint.proceed(joinPoint.getArgs());
-            LogUtil.info(stringBuffer.append("请求耗时:").append(System.currentTimeMillis() - startTime).append("耗秒.").toString());
+            LogUtil.info(stringBuffer.append("请求耗时:").append(stopWatch.getTotalTimeSeconds()).append("耗秒.").toString());
             return proceed;
         }
-
         Object returnObject;
         if (method.getAnnotation(LimitTime.class).type()== LimitTimeTypeEnum.LIMIT){
             returnObject=limit(joinPoint);
         }else {
             returnObject=timeout(joinPoint);
         }
-        LogUtil.info(stringBuffer.append("请求耗时:" + (System.currentTimeMillis() - startTime) + "耗秒.").toString());
+        LogUtil.info(stringBuffer.append("请求耗时:").append(stopWatch.getTotalTimeSeconds()).append("耗秒.").toString());
         return returnObject;
     }
 
