@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 @Setter
-@ConditionalOnProperty(prefix = "zk",name = "config.enable",havingValue = "true")
 @ConfigurationProperties(prefix = "zk.config")
 public class ZkProperties {
 

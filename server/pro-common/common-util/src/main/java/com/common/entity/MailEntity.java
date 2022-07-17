@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 @Setter
-@ConditionalOnProperty(prefix = "mail",name = "config.enable",havingValue = "true")
 @ConfigurationProperties(prefix = "mail.config")
 public class MailEntity {
 
