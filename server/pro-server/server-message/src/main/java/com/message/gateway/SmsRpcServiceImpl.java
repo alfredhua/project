@@ -21,6 +21,7 @@ import java.util.Map;
 @Slf4j
 @DubboService
 public class SmsRpcServiceImpl implements SmsRpcService {
+
     @Override
     public ResultResponse<Boolean> send(String phone, Map<String, String> params, String templateType) throws Exception {
         SmsTemplateEnum type = SmsTemplateEnum.getByType(templateType);

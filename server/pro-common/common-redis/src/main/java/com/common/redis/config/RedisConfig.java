@@ -1,6 +1,7 @@
 package com.common.redis.config;
 
 import com.common.redis.client.RedisClient;
+import com.common.util.LogUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -25,6 +26,7 @@ public class RedisConfig {
 
     public void init(){
         RedisClient.initRedisTemplate(createRedisTemplate(connectionFactory));
+        LogUtil.info("redis init success");
     }
 
     private static<T> RedisTemplate<String, T> createRedisTemplate(RedisConnectionFactory connectionFactory){

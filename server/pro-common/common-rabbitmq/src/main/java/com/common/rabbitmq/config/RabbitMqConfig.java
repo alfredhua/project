@@ -33,7 +33,7 @@ public class RabbitMqConfig {
         factory.setVirtualHost(environment.getProperty("mq.config.virtualHost"));
         factory.setHost(environment.getProperty("mq.config.host"));
         factory.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("mq.config.port"))));
-
+        LogUtil.info("rabbitmq init success");
         this.start();
     }
 

@@ -28,6 +28,7 @@ public class MybatisInitConfig {
             return;
         }
         baseMapperList.forEach(this::initMapperEntityInfoUtils);
+        LogUtil.info("Mybatis init success");
     }
 
 
