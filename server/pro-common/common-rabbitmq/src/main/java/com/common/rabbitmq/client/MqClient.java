@@ -16,7 +16,7 @@ import static com.common.rabbitmq.config.MqSupport.initExchange;
 
 public class MqClient {
 
-    public static  <T extends Serializable> void send(String topic, T message) throws IOException, TimeoutException {
+    public static  <T extends Serializable> void send(String topic, T message) throws IOException {
         Connection connection = RabbitMqConfig.getConnection();
         Channel channel = connection.createChannel();
         try {

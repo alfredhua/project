@@ -16,4 +16,13 @@ public enum SmsTemplateEnum {
     ;
 
 
+    public static SmsTemplateEnum getByType(String type){
+        SmsTemplateEnum[] values = values();
+        for (SmsTemplateEnum smsTemplateEnum:values){
+            if (smsTemplateEnum.name().equals(type)){
+                return smsTemplateEnum;
+            }
+        }
+        return null;
+    }
 }

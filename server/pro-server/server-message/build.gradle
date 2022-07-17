@@ -20,4 +20,7 @@ dependencies {
     implementation('com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0')
     implementation('com.aliyun:aliyun-java-sdk-core:3.2.8')
 
+    implementation('org.apache.dubbo:dubbo:3.0.7')
+    implementation('org.apache.dubbo:dubbo-dependencies-zookeeper:3.0.7')
+
 }

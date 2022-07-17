@@ -29,6 +29,6 @@ public interface SmsRpcService {
      * @return
      * @throws Exception
      */
-    ResultResponse<Boolean> send(List<String> phoneList, Map<String,String> params, String templateType) throws Exception;
+    ResultResponse<Boolean> send(List<String> phoneList, Map<String,String> params, String templateType);
 
 }

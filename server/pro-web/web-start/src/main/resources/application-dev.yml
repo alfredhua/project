@@ -7,6 +7,7 @@ spring:
       - classpath:/config/dev/db.properties
       - classpath:/config/dev/mail.properties
       - classpath:/config/dev/es.properties
+      - classpath:/config/dev/dubbo.properties
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
