@@ -1,7 +1,7 @@
 package com.common.util;
 
 import org.apache.commons.codec.binary.Hex;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

@@ -1,7 +1,7 @@
 package com.message.dao;
 
 import com.common.mybatis.BaseMapper;
-import com.message.entity.SmsRecord;
+import com.message.dao.entity.SmsRecord;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

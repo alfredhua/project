@@ -1,4 +1,4 @@
-package com.message.service.channel;
+package com.message.service.sms.channel;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -7,20 +7,18 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.common.domain.response.JSONResult;
+import com.common.api.entity.response.ResultResponse;
 import com.message.config.SmsAliConfig;
-import com.pro.message.constants.SmsChannelEnum;
-import com.pro.message.constants.SmsTemplateEnum;
-import com.pro.message.dto.SmsInfo;
-import com.message.service.template.RegisterTemplate;
-import com.message.service.template.Template;
+import com.message.constant.SmsChannelEnum;
+import com.message.service.sms.domain.SmsInfo;
+import com.message.service.sms.template.RegisterTemplate;
+import com.message.service.sms.template.Template;
+import com.pro.api.entity.message.constants.SmsTemplateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-
 import java.util.HashMap;
-
-import static com.pro.message.constants.SmsTemplateEnum.REGISTER;
+import static com.pro.api.entity.message.constants.SmsTemplateEnum.REGISTER;
 
 /**
  * @auth guozhenhua
@@ -51,7 +49,7 @@ public class AliChannel extends BaseChannel {
     }
 
     @Override
-    public JSONResult<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception {
+    public ResultResponse<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception {
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsAliConfig.getAccess_key_id(), smsAliConfig.getAccess_key_secret());
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", smsAliConfig.getProduct(), smsAliConfig.getUrl());
         IAcsClient acsClient = new DefaultAcsClient(profile);
@@ -63,9 +61,9 @@ public class AliChannel extends BaseChannel {
         request.setTemplateParam(params);
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if (!ObjectUtils.isEmpty(sendSmsResponse) && "OK".equals(sendSmsResponse.getCode())) {
-            return JSONResult.success();
+            return ResultResponse.success();
         }
-        return JSONResult.error(sendSmsResponse.getCode(),sendSmsResponse.getMessage());
+        return ResultResponse.error(sendSmsResponse.getCode(),sendSmsResponse.getMessage());
     }
 
 

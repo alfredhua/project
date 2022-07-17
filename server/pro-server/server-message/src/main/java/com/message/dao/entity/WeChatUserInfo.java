@@ -1,4 +1,4 @@
-package com.message.entity;
+package com.message.dao.entity;
 
 import com.common.mybatis.annotation.Table;
 

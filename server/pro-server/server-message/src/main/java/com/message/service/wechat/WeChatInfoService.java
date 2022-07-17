@@ -1,4 +1,4 @@
-package com.message.service;
+package com.message.service.wechat;
 
 import org.springframework.stereotype.Component;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class WeChatInfoService {
 
-//    /**
-//     * 微信授权链接
-//     */
+    /**
+     * 微信授权链接
+     */
 //    public String generateOAuth2Url(String scope,String redirectUrl,String state) {
 //        return WeChatPublicUtil.generateOAuth2Url(scope,redirectUrl,state);
 //    }

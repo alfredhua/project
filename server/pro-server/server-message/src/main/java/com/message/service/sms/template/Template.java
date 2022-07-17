@@ -1,6 +1,6 @@
-package com.message.service.template;
+package com.message.service.sms.template;
 
-import com.pro.message.dto.SmsInfo;
+import com.message.service.sms.domain.SmsInfo;
 
 import java.util.Map;
 

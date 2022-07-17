@@ -1,10 +1,9 @@
-package com.message.service.template;
+package com.message.service.sms.template;
 
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
-import com.pro.message.dto.SmsInfo;
-
+import com.message.service.sms.domain.SmsInfo;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Map;

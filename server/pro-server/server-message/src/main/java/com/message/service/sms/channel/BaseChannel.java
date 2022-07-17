@@ -1,15 +1,14 @@
-package com.message.service.channel;
+package com.message.service.sms.channel;
 
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.common.domain.response.JSONResult;
+import com.common.api.entity.response.ResultResponse;
 import com.common.util.*;
-import com.pro.message.constants.SmsChannelEnum;
-import com.pro.message.constants.SmsRecordStatusEnum;
-import com.pro.message.constants.SmsTemplateEnum;
+import com.message.constant.SmsChannelEnum;
+import com.message.constant.SmsRecordStatusEnum;
 import com.message.dao.SmsRecordMapper;
-import com.pro.message.dto.SmsInfo;
-import com.pro.message.dto.entity.SmsRecord;
-import com.message.service.template.Template;
+import com.message.dao.entity.SmsRecord;
+import com.message.service.sms.domain.SmsInfo;
+import com.message.service.sms.template.Template;
+import com.pro.api.entity.message.constants.SmsTemplateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -40,7 +39,7 @@ public abstract class BaseChannel {
   /**
    * 发送接口
    */
-  protected abstract JSONResult<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception;
+  protected abstract ResultResponse<Void> post(String phone, String params, SmsInfo smsInfo)throws Exception;
 
 
   public boolean send(String phone, Map<String,String> params, SmsTemplateEnum templateType) throws Exception {
@@ -73,22 +72,23 @@ public abstract class BaseChannel {
   }
 
   private boolean smsRecord(String phone,String params, SmsInfo smsInfo)throws Exception {
-    long id = saveSmsRecord(phone, smsInfo.getCode(), smsInfo.getContent(),getChannelType());
+    SmsRecord smsRecord = saveSmsRecord(phone, smsInfo.getCode(), smsInfo.getContent(),getChannelType());
     LogUtil.info("短信开始发送："+smsInfo.getContent());
     if(!EnvUtil.isDevActive()) {
-      JSONResult<Void> result = post(phone, params, smsInfo);
-      if (JSONResult.SUCCESS.equals(result.getCode())){
-        return smsRecordMapper.updateSmsRecordById(id, SmsRecordStatusEnum.SUCCESS.getStatus(), getChannelType().getMsg()+"成功",null );
+      ResultResponse<Void> result = post(phone, params, smsInfo);
+      if (!ResultResponse.SUCCESS.equals(result.getCode())){
+        smsRecord.setStatus(SmsRecordStatusEnum.FAIL.getStatus());
+        smsRecord.setResult(getChannelType().getMsg()+"失败,"+result.getMsg());
+        return smsRecordMapper.updateById(smsRecord);
       }
-      return smsRecordMapper.updateSmsRecordById(id, SmsRecordStatusEnum.FAIL.getStatus(), getChannelType().getMsg()+"失败",result.getCode()+result.getMsg());
     }
     //开发环境下默认发送成功
-    SendSmsResponse sendSmsResponse = new SendSmsResponse();
-    sendSmsResponse.setCode("OK");
-    return smsRecordMapper.updateSmsRecordById(id, SmsRecordStatusEnum.SUCCESS.getStatus(), getChannelType().getMsg()+"成功",null );
+    smsRecord.setStatus(SmsRecordStatusEnum.SUCCESS.getStatus());
+    smsRecord.setResult(getChannelType().getMsg()+"成功");
+    return smsRecordMapper.updateById(smsRecord);
   }
 
-  private long saveSmsRecord(String phone, String templateCode, String content, SmsChannelEnum channelType){
+  private SmsRecord saveSmsRecord(String phone, String templateCode, String content, SmsChannelEnum channelType){
     SmsRecord record = new SmsRecord();
     record.setId(IDGenerateUtil.generateId());
     record.setNumbers(phone);
@@ -97,7 +97,7 @@ public abstract class BaseChannel {
     record.setStatus(SmsRecordStatusEnum.INIT.getStatus());
     record.setChannel_type(channelType.getType());
     smsRecordMapper.insert(record);
-    return record.getId();
+    return record;
   }
 
 

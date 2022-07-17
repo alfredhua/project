@@ -1,7 +1,7 @@
 package com.message.dao;
 
 import com.common.mybatis.BaseMapper;
-import com.message.entity.WeChatUserInfo;
+import com.message.dao.entity.WeChatUserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

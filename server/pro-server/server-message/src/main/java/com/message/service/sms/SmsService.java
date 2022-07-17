@@ -1,6 +1,7 @@
-package com.message.service;
+package com.message.service.sms;
 
-import com.message.service.channel.AliChannel;
+import com.message.service.sms.channel.AliChannel;
+import com.pro.api.entity.message.constants.SmsTemplateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @auth guozhenhua
+ * @author guozhenhua
  * @date 2018/11/17
  */
 @Component
