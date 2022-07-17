@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @author hua
+ */
 @Setter
 @Getter
 public class ArticleListReqDto extends PageRequest {
