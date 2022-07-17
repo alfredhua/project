@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author hua
- *
+ * ID 生成策略
  */
 public class IDGenerateUtil {
     private static final Logger logger = LoggerFactory.getLogger(IDGenerateUtil.class);

@@ -28,11 +28,14 @@ import static java.lang.Thread.currentThread;
 @ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller"})
 public class ExceptionHandlerAdvice {
 
+    /**
+     * 处理 参数错误异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-        // 从异常对象中拿到ObjectError对象
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
-        // 然后提取错误提示信息进行返回
         return objectError.getDefaultMessage();
     }
 
@@ -43,6 +46,12 @@ public class ExceptionHandlerAdvice {
         return ResultResponse.error(resultException.getCode(),resultException.getMsg());
     }
 
+    /**
+     * 全局异常处理
+     * @param httpServletRequest
+     * @param ex
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public ResultResponse exceptionHandler(HttpServletRequest httpServletRequest, Exception ex) {
@@ -59,7 +68,7 @@ public class ExceptionHandlerAdvice {
 //        toMailList.add(mailProperties.getTo_mail());
         if(!EnvUtil.isDevActive()) {
             try {
-//                MailCle.sendMails(toMailList, "错误故障", errorData.toString());
+//                MailSe.sendMails(toMailList, "错误故障", errorData.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }

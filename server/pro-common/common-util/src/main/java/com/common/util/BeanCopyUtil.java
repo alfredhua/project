@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Bean 转换器 VO-->DTO DTO-->VO
  * @author hua
- * VO-->DTO DTO-->VO
  */
 public class BeanCopyUtil {
 

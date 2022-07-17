@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Gson 工具集
+ * @author hua
+ */
 public class GsonUtil {
 
     public static final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();

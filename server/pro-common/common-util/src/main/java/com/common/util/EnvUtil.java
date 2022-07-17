@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 
 /**
  * 当前环境获取
+ * @author hua
  */
 @Getter
 public class EnvUtil {

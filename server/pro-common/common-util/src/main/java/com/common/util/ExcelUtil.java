@@ -14,6 +14,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Excel 导出类
+ * @author hua
+ */
 public class ExcelUtil {
 
     @Retention(RetentionPolicy.RUNTIME)

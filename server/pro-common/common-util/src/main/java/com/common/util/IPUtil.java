@@ -5,6 +5,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author hua
+ */
 public class IPUtil {
 
 

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+/**
+ * @author hua
+ */
 @RestController
 public class ApiCommonController {
 
