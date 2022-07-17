@@ -26,6 +26,7 @@ import static java.lang.Thread.currentThread;
 
 /**
  * RuntimeException 全局异常处理
+ * @author hua
  */
 @Slf4j
 @ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller"})
