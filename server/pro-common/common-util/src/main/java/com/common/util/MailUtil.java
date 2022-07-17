@@ -1,5 +1,6 @@
 package com.common.util;
 
+import com.common.entity.MailEntity;
 import com.common.util.LoadPropertiesUtil;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -13,27 +14,27 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * 邮件发送
+ * @author hua
+ */
 public class MailUtil {
 
     private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
     private static final String CONFIG_FILE="mail.config.file";
 
-    private static final Properties properties;
+    private static MailEntity mailEntity;
 
-    static {
-        properties = LoadPropertiesUtil.loadConfig(CONFIG_FILE);
-        if (!ObjectUtils.isEmpty(properties)){
-            properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
-            properties.setProperty("mail.smtp.socketFactory.fallback", "false");
-            properties.setProperty("mail.transport.protocol", "smtp");
-            properties.setProperty("mail.smtp.socketFactory.port",properties.getProperty("mail.smtp.port"));
-            properties.put("mail.smtp.auth", "true");// 发送服务器需要身份验证
-        }
-    }
+    private static Properties properties = new Properties();
 
-    public static String getMailProperty(String property){
-        return properties.getProperty(property);
+    public static void initMail(MailEntity entity){
+        mailEntity = entity;
+        properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+        properties.setProperty("mail.transport.protocol", "smtp");
+        properties.setProperty("mail.smtp.socketFactory.port",entity.getPort());
+        properties.put("mail.smtp.auth", "true");
     }
 
     public static void sendMail(String toMail,String title, String context)throws Exception {
@@ -43,22 +44,19 @@ public class MailUtil {
     }
 
     public static void sendMails(List<String> toMailList, String title, String context)throws Exception {
-        String emailName=properties.getProperty("mail.config.emailName");
-        String password=properties.getProperty("mail.config.password");
         Session session = Session.getDefaultInstance(properties, new Authenticator(){
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(emailName, password);
+                return new PasswordAuthentication(mailEntity.getEmailName(), mailEntity.getPassword());
             }});
-        Message msg = new MimeMessage(session);// 创建默认的 MimeMessage 对象
-        msg.setFrom(new InternetAddress(emailName));//设置发件
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(mailEntity.getEmailName()));
         final int num =toMailList.size();
         InternetAddress[] addresses = new InternetAddress[num];
         for (int i = 0; i < num; i++) {
             addresses[i] = new InternetAddress( toMailList.get(i));
         }
-        msg.setRecipients(Message.RecipientType.TO,addresses);//设置收件
+        msg.setRecipients(Message.RecipientType.TO,addresses);
 
-        //设置html格式
         BodyPart html = new MimeBodyPart();
         Multipart mainPart = new MimeMultipart();
         html.setContent(context, "text/html; charset=utf-8");

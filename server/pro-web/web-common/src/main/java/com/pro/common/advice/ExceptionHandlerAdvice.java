@@ -3,9 +3,12 @@ package com.pro.common.advice;
 import com.common.api.constants.SysErrorCodeEnum;
 import com.common.api.entity.response.ResultResponse;
 import com.common.api.exception.ResultException;
+import com.common.entity.MailEntity;
 import com.common.util.EnvUtil;
 import com.common.util.GsonUtil;
+import com.common.util.MailUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +31,8 @@ import static java.lang.Thread.currentThread;
 @ControllerAdvice(basePackages = {"com.pro.admin.controller","com.pro.site.controller"})
 public class ExceptionHandlerAdvice {
 
+    @Autowired
+    MailEntity mailEntity;
     /**
      * 处理 参数错误异常
      * @param e
@@ -57,18 +62,18 @@ public class ExceptionHandlerAdvice {
     public ResultResponse exceptionHandler(HttpServletRequest httpServletRequest, Exception ex) {
         StringBuilder errorData = getErrorData(ex);
         log.error(errorData.toString());
-        String requestURI = httpServletRequest.getRequestURI();
+        String uri = httpServletRequest.getRequestURI();
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         String paramsStr="";
         if (parameterMap!=null){
             paramsStr= GsonUtil.toJSONString(parameterMap);
         }
-        errorData.append("请求地址:<br>").append(requestURI).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
+        errorData.append("请求地址:<br>").append(uri).append("<br> 请求参数:<br>" ).append(paramsStr).append("<br>");
         List<String> toMailList=new ArrayList<>();
-//        toMailList.add(mailProperties.getTo_mail());
+        toMailList.add(mailEntity.getToMail());
         if(!EnvUtil.isDevActive()) {
             try {
-//                MailSe.sendMails(toMailList, "错误故障", errorData.toString());
+                MailUtil.sendMails(toMailList, "错误故障", errorData.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
