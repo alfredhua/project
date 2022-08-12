@@ -1,16 +1,14 @@
 spring:
   config:
     import:
-      - classpath:/config/dev/redis.properties
-      - classpath:/config/dev/zk.properties
-      - classpath:/config/dev/rabbitmq.properties
-      - classpath:/config/dev/db.properties
-      - classpath:/config/dev/mail.properties
-      - classpath:/config/dev/es.properties
-      - classpath:/config/dev/dubbo.properties
+      - classpath:/config/dev/important.properties
+      - classpath:/config/dev/common.properties
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 mybatis:
   configuration:
     mapUnderscoreToCamelCase: true
+
+logging:
+  config: classpath:config/dev/logback.xml
