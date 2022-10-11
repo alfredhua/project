@@ -14,6 +14,7 @@ dependencies {
     implementation project(':pro-common:common-rabbitmq')
     implementation project(':pro-common:common-mybatis')
     implementation project(':pro-common:common-es')
+    implementation 'junit:junit:4.13.1'
 }
 
 jar {

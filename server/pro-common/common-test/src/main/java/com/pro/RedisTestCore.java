@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
  * @author hua
  */
 @SpringBootApplication
-@Import(RedisCore.class)
+@Import({RedisCore.class})
 public class RedisTestCore {
 
 }

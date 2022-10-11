@@ -1,6 +1,6 @@
 spring:
   application:
-    name: web-start
+    name: common-test
   profiles:
     active: dev
 

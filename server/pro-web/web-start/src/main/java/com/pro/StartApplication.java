@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
  * @author hua
  */
 @SpringBootApplication
-@Import({WebCommonCore.class,WebAdminCore.class, WebSiteInfoCore.class,WebMqCore.class,WebCommonCore.class,WebJobCore.class, WebSiteInfoCore.class})
+@Import({WebAdminCore.class, WebSiteInfoCore.class,WebMqCore.class,WebCommonCore.class,WebJobCore.class, WebSiteInfoCore.class})
 public class StartApplication {
 
     public static void main(String[] args){
