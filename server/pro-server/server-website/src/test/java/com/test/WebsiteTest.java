@@ -2,16 +2,12 @@ package com.test;
 
 import com.WebsiteCore;
 import com.blog.constant.NavigateOneTypeEnum;
-import com.pro.website.dto.entity.Navigate;
+import com.website.entity.Navigate;
 import com.website.service.NavigateService;
-import lombok.val;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -24,7 +20,6 @@ import java.util.Map;
  * @date 2020/08/23
  */
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = WebsiteCore.class)
 public class WebsiteTest {
 

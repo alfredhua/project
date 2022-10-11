@@ -44,3 +44,5 @@ include ':pro-web:web-common'
 project(':pro-web:web-common').projectDir = file('pro-web/web-common')
 include ':pro-web:web-start'
 project(':pro-web:web-start').projectDir = file('pro-web/web-start')
+include ':pro-common:common-test'
+project(':pro-common:common-test').projectDir = file('pro-common/common-test')

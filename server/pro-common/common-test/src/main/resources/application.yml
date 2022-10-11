@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: web-start
+  profiles:
+    active: dev
+
+server:
+  port: 4001

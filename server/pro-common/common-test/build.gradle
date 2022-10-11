@@ -1,0 +1,27 @@
+plugins {
+    id "java"
+    id 'org.springframework.boot' version '2.6.5'
+}
+
+group(project.name)
+version("$projectVersion")
+
+dependencies {
+
+    implementation project(":pro-api")
+    implementation project(':pro-common:common-redis')
+    implementation project(':pro-common:common-zk')
+    implementation project(':pro-common:common-rabbitmq')
+    implementation project(':pro-common:common-mybatis')
+    implementation project(':pro-common:common-es')
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'com.pro.StartApplication')
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
