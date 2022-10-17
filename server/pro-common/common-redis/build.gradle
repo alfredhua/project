@@ -9,11 +9,14 @@ sourceCompatibility = 1.8
 
 ext{
     redissonVersion= '2.6.5'
+    jedisVersion='4.3.0'
 }
 
 dependencies {
     //redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis:$redissonVersion")
+    implementation("redis.clients:jedis:$jedisVersion")
+
     api project(':pro-common:common-util')
 }
 
