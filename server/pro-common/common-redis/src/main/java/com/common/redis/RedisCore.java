@@ -1,9 +1,9 @@
 package com.common.redis;
 
 
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-@ComponentScan
+@EnableAutoConfiguration
 public class RedisCore {
 
 }

@@ -1,7 +1,5 @@
 package com.common.redis.config;
 
-import com.common.redis.client.RedisClient;
-import com.common.util.LogUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -18,20 +16,10 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import javax.annotation.Resource;
-
 @Configuration
 public class RedisConfig {
 
-    @Resource
-    RedisConnectionFactory connectionFactory;
-
     @Bean
-    public void init(){
-        RedisClient.initRedisTemplate(createRedisTemplate(connectionFactory));
-        LogUtil.info("redis init success");
-    }
-
     private static<T> RedisTemplate<String, T> createRedisTemplate(RedisConnectionFactory connectionFactory){
     RedisTemplate<String, T> redisTemplate = new RedisTemplate<>();
     StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
