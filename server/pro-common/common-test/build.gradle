@@ -10,11 +10,12 @@ dependencies {
 
     implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly("org.projectlombok:lombok:$lombokVersion")
+
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     implementation project(':pro-common:common-redis')
     implementation project(':pro-common:common-rabbitmq')
-//    implementation project(':pro-common:common-zk')
+    implementation project(':pro-common:common-zk')
 //    implementation project(':pro-common:common-mybatis')
 //    implementation project(':pro-common:common-es')
 }

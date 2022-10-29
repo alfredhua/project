@@ -13,6 +13,7 @@ public class MqDemoConsumer extends AbstractMqConsumer {
 
     @Override
     public String consume(Object o) {
+        System.out.println(o);
         return null;
     }
 }

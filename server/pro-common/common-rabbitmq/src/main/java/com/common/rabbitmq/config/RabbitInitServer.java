@@ -15,24 +15,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class RabbitMqConfig {
+public class RabbitInitServer {
 
     private static ConnectionFactory factory=null;
 
     List<AbstractMqConsumer> list;
 
-    public RabbitMqConfig(List<AbstractMqConsumer> list) {
-       this.list = list;
+
+    RabbitMqProperties rabbitMqProperties;
+
+    public RabbitInitServer(List<AbstractMqConsumer> list,RabbitMqProperties rabbitMqProperties) {
+        this.list = list;
+        this.rabbitMqProperties=rabbitMqProperties;
     }
 
     public void init(){
-        Environment environment = EnvUtil.getEnvironment();
         factory=new ConnectionFactory();
-        factory.setUsername(environment.getProperty("mq.config.userName"));
-        factory.setPassword(environment.getProperty("mq.config.password"));
-        factory.setVirtualHost(environment.getProperty("mq.config.virtualHost"));
-        factory.setHost(environment.getProperty("mq.config.host"));
-        factory.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("mq.config.port"))));
+        factory.setUsername(rabbitMqProperties.getUserName());
+        factory.setPassword(rabbitMqProperties.getPassword());
+        factory.setVirtualHost(rabbitMqProperties.getVirtualHost());
+        factory.setHost(rabbitMqProperties.getHost());
+        factory.setPort(Integer.parseInt(Objects.requireNonNull(rabbitMqProperties.getPort())));
         LogUtil.info("rabbitmq init success");
         this.start();
     }
@@ -45,13 +48,12 @@ public class RabbitMqConfig {
             Connection connection = getConnection();
             Channel channel = connection.createChannel();
             for (AbstractMqConsumer abstractMqConsumer:list){
-                Environment environment = EnvUtil.getEnvironment();
-                String modelStr = environment.getProperty("mq.config.model");
-                if (ObjectUtils.isEmpty(modelStr)){
+                String model = rabbitMqProperties.getModel();
+                if (ObjectUtils.isEmpty(model)){
                     throw new RuntimeException("mq.config.model is empty");
                 }
-                ModelEnum model = ModelEnum.getModel(modelStr);
-                if (!Optional.ofNullable(model).isPresent()){
+                ModelEnum modelEnum = ModelEnum.getModel(model);
+                if (!Optional.ofNullable(modelEnum).isPresent()){
                     throw new RuntimeException("model config is error");
                 }
                 String queueName = MqSupport.getModel(ModelEnum.FANOUT).setModelAndReturnQueue(channel, abstractMqConsumer);
