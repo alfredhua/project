@@ -23,7 +23,7 @@ public class RedisTest {
     }
 
     @Test
-    public void update(){
+    public void objectGet(){
         Object aaa = RedisClient.objectGet("aaa");
         System.out.println(aaa);
     }
