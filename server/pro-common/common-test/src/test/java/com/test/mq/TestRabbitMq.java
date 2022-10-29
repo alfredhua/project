@@ -1,4 +1,4 @@
-package com.test;
+package com.test.mq;
 
 import com.common.rabbitmq.RabbitMqCore;
 import com.common.rabbitmq.client.MqClient;

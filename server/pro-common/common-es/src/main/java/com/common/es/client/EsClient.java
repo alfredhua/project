@@ -46,7 +46,7 @@ public class EsClient {
 
     private static ElasticsearchClient getClient(){
         if (ObjectUtils.isEmpty(elasticsearchClient)){
-
+            throw new RuntimeException("elasticsearchClient is null");
         }
         return elasticsearchClient;
     }

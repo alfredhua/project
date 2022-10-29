@@ -1,16 +1,15 @@
 package com.common.es;
 
-import com.common.CommonCore;
 import com.common.es.config.EsConfig;
 import com.common.es.config.EsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ComponentScan;
 
-@Import(CommonCore.class)
-@DependsOn(value = {"commonCore"})
+@EnableAutoConfiguration
+@ComponentScan
 @ConditionalOnProperty(prefix = "es",name = "config.enable",havingValue = "true")
 public class EsCore {
 

@@ -5,7 +5,8 @@ spring:
     import:
 #      - classpath:/config/redis.properties
 #      - classpath:/config/rabbitmq.properties
-      - classpath:/config/zk.properties
+#      - classpath:/config/zk.properties
+      - classpath:/config/es.properties
 
 server:
   port: 4001

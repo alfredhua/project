@@ -1,4 +1,4 @@
-package com.test;
+package com.test.redis;
 
 import com.common.redis.RedisCore;
 import com.common.redis.client.RedisClient;

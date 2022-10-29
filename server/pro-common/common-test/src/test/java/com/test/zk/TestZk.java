@@ -1,4 +1,4 @@
-package com.test;
+package com.test.zk;
 
 import com.common.zk.ZkCore;
 import com.common.zk.client.ZkClient;
