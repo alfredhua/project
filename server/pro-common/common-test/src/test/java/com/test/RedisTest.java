@@ -24,6 +24,8 @@ public class RedisTest {
 
     @Test
     public void update(){
+        Object aaa = RedisClient.objectGet("aaa");
+        System.out.println(aaa);
     }
 
 
