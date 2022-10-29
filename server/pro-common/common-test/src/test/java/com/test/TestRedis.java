@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RedisCore.class})
-public class RedisTest {
+public class TestRedis {
 
     @Test
     public void objectSet(){

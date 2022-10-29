@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: common-test
+  config:
+    import:
+#      - classpath:/config/redis.properties
+      - classpath:/config/rabbitmq.properties
+
+server:
+  port: 4001
