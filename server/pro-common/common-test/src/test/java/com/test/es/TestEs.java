@@ -22,7 +22,7 @@ public class TestEs {
     }
 
     @Test
-    public void es(){
+    public void findById(){
         EsClient.findById(EsDemoEntity.class,"1");
     }
 
