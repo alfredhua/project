@@ -15,9 +15,9 @@ public class EsCore {
 
     @Autowired
     EsProperties esProperties;
+
     @Bean(initMethod = "init")
     public EsConfig esConfig(){
         return new EsConfig(esProperties);
     }
-
 }
