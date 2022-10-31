@@ -10,23 +10,23 @@ public interface BaseMapper<T> {
 
     /**
      * 插入
-     * @param t
+     * @param t 插入实体
      */
     @Insert("")
     void insert(T t);
 
     /**
      * 更新
-     * @param t
-     * @return
+     * @param t 更新实体
+     * @return 返回结果
      */
     @Update("")
     boolean updateById(T t);
 
     /**
      * 查询
-     * @param id
-     * @return
+     * @param id id
+     * @return 返回结果
      */
     @Select("")
     T queryById(Long id);

@@ -17,7 +17,7 @@ dependencies {
     implementation project(':pro-common:common-rabbitmq')
     implementation project(':pro-common:common-zk')
     implementation project(':pro-common:common-es')
-//    implementation project(':pro-common:common-mybatis')
+    implementation project(':pro-common:common-mybatis')
 }
 
 jar {
