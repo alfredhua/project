@@ -34,7 +34,11 @@ public abstract class GeneratorService {
         tablesList.forEach(map -> {
             try {
                 List<ColumnEntity> listColumnEntity = QueryUtil.getColumns(jdbcEntity, DATABASE, map.get("table_name").toString());
-                String outFilePath=OUT_PATH+PACKAGE_NAME.replace(".","/")+getOutFilePath(map.get("entity_name").toString());;
+                String path= OUT_PATH;
+                if (OUT_PATH.lastIndexOf("/")!=OUT_PATH.length()-1){
+                    path=path+"/";
+                }
+                String outFilePath=path+PACKAGE_NAME.replace(".","/")+getOutFilePath(map.get("entity_name").toString());
                 File file=new File(outFilePath);
                 if (!file.exists()){
                     String outPath=outFilePath.substring(0,outFilePath.lastIndexOf("/"));

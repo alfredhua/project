@@ -20,7 +20,7 @@ public class PropertiesConstants {
 
     // 根据命名规范，只修改此常量值即可
     public static String OUT_PATH= PropertiesFileUtil.getInstance("generator").get("outPath");   //输出路径
-    public static String MODULE = PropertiesFileUtil.getInstance("generator").get("module");						   //模块名称
+    public static String MODEL= PropertiesFileUtil.getInstance("generator").get("model");   //输出路径
     public static String PACKAGE_NAME = PropertiesFileUtil.getInstance("generator").get("package");						   //模块名称
     public static boolean replace=new Boolean(PropertiesFileUtil.getInstance("generator").get("replace"));          //存在文件时是否替换：true：替换，false:不替换
 

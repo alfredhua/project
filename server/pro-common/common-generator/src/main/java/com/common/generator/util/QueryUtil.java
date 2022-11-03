@@ -3,6 +3,7 @@ package com.common.generator.util;
 import com.common.generator.entity.ColumnEntity;
 import com.common.generator.entity.JDBCEntity;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ public class QueryUtil {
             String tableName=ObjectUtils.toString(map.get("TABLE_NAME"));
             table = new HashMap<>(2);
             table.put("table_name",tableName);
-            String preEntityName = tableName.replace(TABLE_PREFIX, "");
+            String preEntityName = tableName;
+            if (!StringUtils.isBlank(TABLE_PREFIX)){
+                preEntityName = tableName.replace(TABLE_PREFIX, "");
+            }
             table.put("entity_name", lineToHump(preEntityName));
             tables.add(table);
         }
