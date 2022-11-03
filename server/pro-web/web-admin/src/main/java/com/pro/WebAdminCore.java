@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  * @author hua
  */
 @ServletComponentScan(basePackages = "com.pro.admin.filter")
-@Import({ZkCore.class, MybatisCore.class, RedisCore.class,ZkCore.class, RabbitMqCore.class, EsCore.class,
+@Import({ZkCore.class, MybatisCore.class, RedisCore.class,RabbitMqCore.class, EsCore.class,
         AuthCore.class, MessageCore.class, DevelopCore.class, WebsiteCore.class})
 public class WebAdminCore {
 

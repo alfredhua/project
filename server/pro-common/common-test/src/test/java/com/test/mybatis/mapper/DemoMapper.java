@@ -1,8 +1,10 @@
 package com.test.mybatis.mapper;
 
 import com.common.mybatis.BaseMapper;
-import com.test.mq.entity.Demo;
+import com.test.entity.CommonTest;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface DemoMapper extends BaseMapper<Demo> {
+@Mapper
+public interface DemoMapper extends BaseMapper<CommonTest> {
 
 }

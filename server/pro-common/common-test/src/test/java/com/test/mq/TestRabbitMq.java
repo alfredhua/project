@@ -2,7 +2,7 @@ package com.test.mq;
 
 import com.common.rabbitmq.RabbitMqCore;
 import com.common.rabbitmq.client.MqClient;
-import com.test.mq.entity.Demo;
+import com.test.entity.CommonTest;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * @author guozhenhua
@@ -24,10 +25,10 @@ public class TestRabbitMq {
     @Test
     public void sendMessage(){
         try {
-            Demo demo = new Demo();
-            demo.setId("1111");
+            CommonTest demo = new CommonTest();
+            demo.setId(1L);
             demo.setName("张三");
-            demo.setTime(System.currentTimeMillis());
+            demo.setTime(LocalDateTime.now());
             MqClient.send("DEMO",demo);
         } catch (IOException e) {
             throw new RuntimeException(e);

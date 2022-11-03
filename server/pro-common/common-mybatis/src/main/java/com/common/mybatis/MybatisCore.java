@@ -1,16 +1,14 @@
 package com.common.mybatis;
 
-import com.common.CommonCore;
 import com.common.mybatis.config.MybatisInitConfig;
 import com.common.mybatis.intercept.SqlInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ComponentScan;
 
-@Import(CommonCore.class)
-@DependsOn(value = {"commonCore"})
+@EnableAutoConfiguration
+@ComponentScan(value = "com.common.mybatis.*,com.test.mybatis.*")
 public class MybatisCore {
 
     @Bean(initMethod = "init")
