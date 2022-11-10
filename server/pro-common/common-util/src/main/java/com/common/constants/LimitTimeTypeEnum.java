@@ -8,9 +8,16 @@ public enum LimitTimeTypeEnum {
     NULL,
 
     /**
-     * 限制
+     * 令牌桶限制，执行完一个释放一个令牌
      */
-    LIMIT;
+    COUNT_LIMIT,
+
+    /**
+     * 超时，默认释放
+     */
+    TIME_LIMIT
+
+    ;
 
 
 }

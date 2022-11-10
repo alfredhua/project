@@ -3,6 +3,7 @@ package com.common.aspect;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.constants.LimitTimeTypeEnum;
+import com.google.common.util.concurrent.RateLimiter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -13,21 +14,20 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author hua
  * @date 2018/11/05
  */
 
+@SuppressWarnings("UnstableApiUsage")
 @Aspect
 @Component
 public class LimitTimeAspect extends BaseAspect{
 
 
-    private final Map<Method, Semaphore> semaphoreCache = new ConcurrentHashMap<>();
-
-    private final ExecutorService executorService = Executors.newFixedThreadPool(9);
+    private final Map<Method, RateLimiter> limitCache = new ConcurrentHashMap<>();
 
     @Pointcut("@annotation(com.common.aspect.annotation.LimitTime)")
     public void aroundLimitTime() {
@@ -37,60 +37,14 @@ public class LimitTimeAspect extends BaseAspect{
     public Object advice(ProceedingJoinPoint joinPoint)throws Throwable {
         Method method = getMethod(joinPoint);
         //处理限制策略
-        if (method.getAnnotation(LimitTime.class).type()==LimitTimeTypeEnum.NULL){
-            return joinPoint.proceed(joinPoint.getArgs());
-        }
-        if (method.getAnnotation(LimitTime.class).type()== LimitTimeTypeEnum.LIMIT){
+        if (method.getAnnotation(LimitTime.class).type()== LimitTimeTypeEnum.COUNT_LIMIT){
             return limit(joinPoint);
         }
-        return timeout(joinPoint);
+        return joinPoint.proceed(joinPoint.getArgs());
     }
 
     /**
-     * 超时限制
-     * @param joinPoint
-     * @return
-     * @throws Exception
-     */
-    private Object timeout(ProceedingJoinPoint joinPoint)throws Exception{
-        Object returnValue = null;
-        Signature signature = joinPoint.getSignature();
-        if (signature instanceof MethodSignature) {
-            MethodSignature methodSignature = (MethodSignature) signature;
-            Method method = methodSignature.getMethod();
-            LimitTime timeout = method.getAnnotation(LimitTime.class);
-            if (timeout != null) {
-                long value = timeout.timeValues();
-                TimeUnit timeUnit = timeout.timeUnit();
-                String fallbackMethodName = timeout.fallback();
-                Object[] arguments = joinPoint.getArgs();
-                Future<Object> future = executorService.submit(() -> {
-                    try {
-                        return joinPoint.proceed(arguments);
-                    } catch (Throwable throwable) {
-                        throw new Exception(throwable);
-                    }
-                });
-                try {
-                    returnValue = future.get(value, timeUnit);
-                } catch (TimeoutException e) {
-                    returnValue = invokeFallbackMethod(method, joinPoint.getTarget(), fallbackMethodName, arguments);      // 补偿处理
-                }
-
-            }
-        }
-        return returnValue;
-    }
-
-    private Object invokeFallbackMethod(Method method, Object bean, String fallback, Object[] arguments) throws Exception {
-        Class beanClass = bean.getClass();
-        Method fallbackMethod = beanClass.getMethod(fallback, method.getParameterTypes());
-        return fallbackMethod.invoke(bean, arguments);
-    }
-
-
-    /**
-     * 处理信号量限制
+     * 令牌桶限制
      * @param joinPoint
      * @return
      * @throws Throwable
@@ -101,13 +55,9 @@ public class LimitTimeAspect extends BaseAspect{
         if (signature instanceof MethodSignature) {
             MethodSignature methodSignature = (MethodSignature) signature;
             Method method = methodSignature.getMethod();
-            Semaphore semaphore = getSemaphore(method);
-            try {
-                semaphore.acquire();
-                returnValue = joinPoint.proceed();
-            } finally {
-                semaphore.release();
-            }
+            RateLimiter limiter = getRateLimiter(method);
+            limiter.acquire();
+            returnValue = joinPoint.proceed();
         }
         return returnValue;
     }
@@ -117,11 +67,10 @@ public class LimitTimeAspect extends BaseAspect{
      * @param method
      * @return
      */
-    public Semaphore getSemaphore(Method method) {
-        return semaphoreCache.computeIfAbsent(method, k -> {
+    public RateLimiter getRateLimiter(Method method) {
+        return limitCache.computeIfAbsent(method, k -> {
             LimitTime limited = method.getAnnotation(LimitTime.class);
-            int permits = limited.limitValue();
-            return new Semaphore(permits);
+            return RateLimiter.create(limited.limitValue());
         });
     }
 
