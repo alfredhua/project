@@ -3,7 +3,6 @@ package com.common.aspect;
 
 import com.common.aspect.annotation.LimitTime;
 import com.common.constants.LimitTimeTypeEnum;
-import com.common.util.LogUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -11,7 +10,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -27,9 +25,9 @@ import java.util.concurrent.*;
 public class LimitTimeAspect extends BaseAspect{
 
 
-    private Map<Method, Semaphore> semaphoreCache = new ConcurrentHashMap<>();
+    private final Map<Method, Semaphore> semaphoreCache = new ConcurrentHashMap<>();
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(9);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(9);
 
     @Pointcut("@annotation(com.common.aspect.annotation.LimitTime)")
     public void aroundLimitTime() {
@@ -37,25 +35,15 @@ public class LimitTimeAspect extends BaseAspect{
 
     @Around("aroundLimitTime()")
     public Object advice(ProceedingJoinPoint joinPoint)throws Throwable {
-        StopWatch stopWatch = new StopWatch();
-        StringBuilder stringBuffer = new StringBuilder();
         Method method = getMethod(joinPoint);
-        stringBuffer.append("请求方法名称:").append(method.getName()).append(",");
-        stringBuffer.append(getParamsStr(joinPoint, method));
         //处理限制策略
         if (method.getAnnotation(LimitTime.class).type()==LimitTimeTypeEnum.NULL){
-            Object proceed = joinPoint.proceed(joinPoint.getArgs());
-            LogUtil.info(stringBuffer.append("请求耗时:").append(stopWatch.getTotalTimeSeconds()).append("耗秒.").toString());
-            return proceed;
+            return joinPoint.proceed(joinPoint.getArgs());
         }
-        Object returnObject;
         if (method.getAnnotation(LimitTime.class).type()== LimitTimeTypeEnum.LIMIT){
-            returnObject=limit(joinPoint);
-        }else {
-            returnObject=timeout(joinPoint);
+            return limit(joinPoint);
         }
-        LogUtil.info(stringBuffer.append("请求耗时:").append(stopWatch.getTotalTimeSeconds()).append("耗秒.").toString());
-        return returnObject;
+        return timeout(joinPoint);
     }
 
     /**

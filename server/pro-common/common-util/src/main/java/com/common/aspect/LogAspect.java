@@ -15,6 +15,7 @@ public class LogAspect extends BaseAspect{
 
     @Pointcut("@annotation(com.common.aspect.annotation.Log)")
     public void aroundLog() {
+
     }
 
     @Around("aroundLog()")

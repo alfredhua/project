@@ -20,7 +20,7 @@ public abstract class BaseAspect {
 
 
 
-     Method getMethod(ProceedingJoinPoint joinPoint){
+     public Method getMethod(ProceedingJoinPoint joinPoint){
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         return methodSignature.getMethod();
@@ -32,12 +32,12 @@ public abstract class BaseAspect {
      * @param method
      * @return
      */
-     String getParamsStr(ProceedingJoinPoint joinPoint,Method method){
-        StringBuffer stringBuffer=new StringBuffer();
-        List args = filter(joinPoint.getArgs(), method);
-        if (args!=null&&args.size() > 0) {
+     public String getParamsStr(ProceedingJoinPoint joinPoint,Method method){
+        StringBuilder stringBuffer=new StringBuilder();
+        List<Object> args = filter(joinPoint.getArgs(), method);
+        if (args.size() > 0) {
             for (Object arg : args) {
-                stringBuffer.append("请求参数:" + GsonUtil.toJSON(arg)+ ",");
+                stringBuffer.append("请求参数:").append(GsonUtil.toJSON(arg)).append(",");
             }
         }
         return stringBuffer.toString();
@@ -49,9 +49,9 @@ public abstract class BaseAspect {
      * @param targetMethod
      * @return
      */
-    private List filter(Object[] args, Method targetMethod) {
+     private List<Object> filter(Object[] args, Method targetMethod) {
         Annotation[][] annotationList = targetMethod.getParameterAnnotations();
-        List list=new ArrayList();
+        List<Object> list=new ArrayList<>();
         for (int i = 0; i < annotationList.length; i++) {
             for (int j = 0; j < annotationList[i].length; j++) {
                 if (annotationList[i][j].annotationType() == RequestBody.class||
