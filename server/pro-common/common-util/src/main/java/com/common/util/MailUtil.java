@@ -1,8 +1,6 @@
 package com.common.util;
 
 import com.common.entity.MailEntity;
-import com.common.util.LoadPropertiesUtil;
-import org.apache.commons.lang3.ObjectUtils;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -22,11 +20,9 @@ public class MailUtil {
 
     private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-    private static final String CONFIG_FILE="mail.config.file";
-
     private static MailEntity mailEntity;
 
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
 
     public static void initMail(MailEntity entity){
         mailEntity = entity;
