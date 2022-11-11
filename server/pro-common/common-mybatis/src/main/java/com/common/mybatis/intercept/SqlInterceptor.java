@@ -22,7 +22,7 @@ import java.util.Properties;
 })
 public class SqlInterceptor implements Interceptor {
 
-  private static Map<String, AbstractBoundSql> map = new HashMap<>();
+  private static final Map<String, AbstractBoundSql> map = new HashMap<>();
 
     static {
         map.put("insert",new InsertAbstractBoundSql());
@@ -35,7 +35,6 @@ public class SqlInterceptor implements Interceptor {
         map.put("listAll",new ListAllAbstractBoundSql());
         map.put("listCount",new ListCountAbstractBoundSql());
     }
-    private static Map<String, Class> entityClassMap = new HashMap<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
