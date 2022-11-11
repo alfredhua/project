@@ -6,6 +6,8 @@ import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.Time;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.*;
+import co.elastic.clients.elasticsearch.core.search.Hit;
+import co.elastic.clients.elasticsearch.core.search.TotalHits;
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest;
 import co.elastic.clients.elasticsearch.indices.ExistsRequest;
 import co.elastic.clients.elasticsearch.indices.IndexSettings;
@@ -52,19 +54,31 @@ public class EsClient {
     }
 
 
-    public static <T extends EsBaseEntity> T save(T t) {
-        Document document = t.getClass().getAnnotation(Document.class);
+    private static  <T extends EsBaseEntity>  Document getDocument(Class<T> clazz){
+        Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
             throw new RuntimeException("这个对象没有 Document 注解");
         }
-        String indexName = document.indexName();
-        if (StringUtils.isEmpty(indexName)) {
+        if (StringUtils.isEmpty(document.indexName())) {
             throw new RuntimeException("没有声明 indexName 索引名");
         }
+        if (StringUtils.isEmpty(document.type())) {
+            throw new RuntimeException("没有声明 typeName 索引名");
+        }
+        return document;
+    }
+
+    /**
+     * 保存文档
+     * @param t id
+     */
+    public static <T extends EsBaseEntity> void save(T t) {
+        Document document = getDocument(t.getClass());
         if (StringUtils.isEmpty(t.unique())) {
             throw new RuntimeException("唯一主键不能为空");
         }
         try {
+            String indexName = document.indexName();
             ExistsRequest existsRequest= ExistsRequest.of(b-> b.index(document.indexName()));
             BooleanResponse exists = getClient().indices().exists(existsRequest);
             if (!exists.value()){
@@ -74,25 +88,17 @@ public class EsClient {
                 getClient().indices().create(createIndexRequest);
             }
             getClient().index(IndexRequest.of(b->b.index(indexName).id(t.unique()).document(t)));
-            return t;
         } catch (IOException e) {
             throw new RuntimeException("es save error",e);
         }
     }
 
+    /**
+     * 删除文档
+     */
     public static  <T extends EsBaseEntity> void delete(Class<T> clazz, String id) {
-        Document document = clazz.getAnnotation(Document.class);
-        if (document == null) {
-            throw new RuntimeException("这个对象没有 Document 注解");
-        }
+        Document document = getDocument(clazz);
         String indexName = document.indexName();
-        if (indexName == null || indexName.equals("")) {
-            throw new RuntimeException("没有声明 indexName 索引名");
-        }
-        String typeName = document.type();
-        if (typeName == null || typeName.equals("")) {
-            throw new RuntimeException("没有声明 typeName 索引名");
-        }
         if (id == null) {
             throw new RuntimeException("唯一主键不能为空");
         }
@@ -104,19 +110,14 @@ public class EsClient {
         }
     }
 
+    /**
+     * 按照id查询
+     */
     public static  <T extends EsBaseEntity, ID extends Serializable> T findById(Class<T> clazz, ID id) {
-        Document document = clazz.getAnnotation(Document.class);
-        if (document == null) {
-            throw new RuntimeException("这个对象没有 Document 注解");
-        }
-        String indexName = document.indexName();
-        if (indexName == null || indexName.equals("")) {
-            throw new RuntimeException("没有声明 indexName 索引名");
-        }
+        Document document = getDocument(clazz);
         if (id == null) {
             throw new RuntimeException("id 不可以为空");
         }
-
         try {
             GetRequest getRequest = GetRequest.of(b -> b.id(document.indexName()).id(String.valueOf(id)));
             GetResponse<T> getResponse = getClient().get(getRequest, clazz);
@@ -126,23 +127,19 @@ public class EsClient {
         }
     }
 
+    /**
+     * 按照条件查询
+     */
     public static <T extends EsBaseEntity> List<T> findByQuery(Class<T> clazz, Query query, List<SortOptions> sortList) {
-        Document document = clazz.getAnnotation(Document.class);
-        if (document == null) {
-            throw new RuntimeException("这个对象没有 Document 注解");
-        }
-        String indexName = document.indexName();
-        if (indexName == null || indexName.equals("")) {
-            throw new RuntimeException("没有声明 indexName 索引名");
-        }
+        Document document = getDocument(clazz);
         if (query == null) {
             throw new RuntimeException("查询条件不可以为空");
         }
         try {
             SearchRequest searchRequest = SearchRequest.of(b -> b.index(document.indexName()).query(query).sort(sortList));
-            SearchResponse search = getClient().search(searchRequest,clazz);
-            List<T> result = new ArrayList();
-            List hits = search.hits().hits();
+            SearchResponse<T> search = getClient().search(searchRequest,clazz);
+            List<T> result = new ArrayList<>();
+            List<Hit<T>> hits = search.hits().hits();
             for (Object hit:hits){
                 result.add(GsonUtil.gson.fromJson(GsonUtil.toJSON(hit),clazz));
             }
@@ -153,15 +150,11 @@ public class EsClient {
         return new ArrayList<>();
     }
 
+    /**
+     * 按照条件分页查询
+     */
     public static <T extends EsBaseEntity> EsPageResponse<T> findPageByQuery(Class<T> clazz, Query query, List<SortOptions> sortOptionsList, PageRequest pageRequest){
-        Document document = clazz.getAnnotation(Document.class);
-        if (document == null) {
-            throw new RuntimeException("这个对象没有 Document 注解");
-        }
-        String indexName = document.indexName();
-        if (indexName == null || indexName.equals("")) {
-            throw new RuntimeException("没有声明 indexName 索引名");
-        }
+        Document document = getDocument(clazz);
         if (query == null) {
             throw new RuntimeException("查询条件不可以为空");
         }
@@ -171,17 +164,18 @@ public class EsClient {
         try {
             SearchRequest searchRequest = SearchRequest.of(b -> b.index(document.indexName()).query(query)
                     .sort(sortOptionsList).from(pageRequest.getOffset()).size(pageRequest.getPage_size()));
-            SearchResponse searchResponse = getClient().search(searchRequest,clazz);
-            List<T> result = new ArrayList();
-            List hits = searchResponse.hits().hits();
+            SearchResponse<T> searchResponse = getClient().search(searchRequest,clazz);
+            List<T> result = new ArrayList<>();
+            List<Hit<T>> hits = searchResponse.hits().hits();
             for (Object hit:hits){
                 result.add(GsonUtil.gson.fromJson(GsonUtil.toJSON(hit),clazz));
             }
-            EsPageResponse pageData = new EsPageResponse();
+            EsPageResponse<T> pageData = new EsPageResponse<>();
             pageData.setPageSize(pageRequest.getPage_size());
             pageData.setPageNum(pageRequest.getPage_num());
             pageData.setDatas(result);
-            pageData.setTotalCount(searchResponse.hits().total().value());
+            TotalHits total = searchResponse.hits().total();
+            pageData.setTotalCount(ObjectUtils.isEmpty(total)?0L:total.value());
             return pageData;
         }catch (Exception e){
             log.error("es search error",e);
@@ -189,6 +183,13 @@ public class EsClient {
         return null;
     }
 
+    /**
+     * 查询总数
+     * @param clazz
+     * @param query
+     * @return
+     * @param <T>
+     */
     public static <T extends EsBaseEntity> long countByQuery(Class<T> clazz, Query query){
         Document document = clazz.getAnnotation(Document.class);
         if (document == null) {
@@ -203,7 +204,10 @@ public class EsClient {
         }
         try {
             SearchRequest searchRequest = SearchRequest.of(b -> b.index(document.indexName()).query(query));
-            SearchResponse searchResponse = getClient().search(searchRequest,clazz);
+            SearchResponse<T> searchResponse = getClient().search(searchRequest,clazz);
+            if (ObjectUtils.isEmpty(searchResponse.hits().total())){
+                return 0L;
+            }
             return searchResponse.hits().total().value();
         }catch (Exception e){
             log.error("es countByQuery error",e);

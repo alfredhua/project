@@ -13,7 +13,6 @@ public @interface Log {
 
     /**
      * 日志模块名称
-     * @return
      */
     String name();
 
