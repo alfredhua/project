@@ -6,6 +6,10 @@ import {auth_routers} from 'auth/app';
 import {website_routers} from 'website/app';
 import {blog_routers} from 'blog/app';
 import {develop_routers} from 'develop/app';
+import 'amis/lib/themes/antd.css';
+import 'amis/lib/themes/cxd.css';
+import 'amis/lib/helper.css';
+import 'amis/sdk/iconfont.css';
 
 import { BrowserRouter,Route,Switch,Redirect } from "react-router-dom";
 import AuthRoute from "common/components/router/AuthRoute";

@@ -8,13 +8,16 @@ var path=require('path');
 var uuid = require('uuid/v4');
 var svgCaptcha = require('svg-captcha');
 
-let client = new OSS({
-  region: config('region'),
-  accessKeyId: config('accessKeyId'),
-  accessKeySecret: config('accessKeySecret'),
-  bucket: config('bucketName')
-})
+let client = null;
 
+if(config('accessKeyId') && config('accessKeySecret')){
+  let client = new OSS({
+    region: config('region'),
+    accessKeyId: config('accessKeyId'),
+    accessKeySecret: config('accessKeySecret'),
+    bucket: config('bucketName')
+  })
+}
 
 /**
  * 文件上传

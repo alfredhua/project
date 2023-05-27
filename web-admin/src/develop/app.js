@@ -17,6 +17,11 @@ export const develop_routers=[
     auth_path:"/develop/deploy/list",
     component:withRouter(lazy(() => import("./Deploy"))),
     comment:"配置中心"
+  },{
+    path:"/develop/test",
+    auth_path:"/develop/deploy/list",
+    component:withRouter(lazy(() => import("./AimsTest"))),
+    comment:"aim测试"
   }
 ]
 

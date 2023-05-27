@@ -22,6 +22,7 @@
     "@babel/register": "^7.5.5",
     "add": "^2.0.6",
     "ali-oss": "^6.1.1",
+    "amis": "^3.0.0",
     "antd": "^3.21.2",
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.12.0",
