@@ -13,6 +13,7 @@ public class FanoutModel extends AbstractModel {
         String exchangeName = MqSupport.initExchange(topic);
         channel.exchangeDeclare(exchangeName, ModelEnum.FANOUT.getModel());
         String queueName = MqSupport.initQueue(topic);
+        channel.queueDeclare(queueName,true,true,true,null);
         channel.queueBind(queueName, exchangeName, "");
         return queueName;
     }
